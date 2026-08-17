@@ -1,0 +1,5 @@
+services:
+  - type: web
+    name: fiche-collecte-edt
+    env: static
+    staticPublishPath: .
