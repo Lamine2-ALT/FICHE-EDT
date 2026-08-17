@@ -12,9 +12,20 @@
   header h1{font-size:1.35rem;margin-bottom:4px}
   header p{font-size:.9rem;opacity:.95}
   .flag{height:6px;background:linear-gradient(90deg,#00853f 33.3%,#fdef42 33.3% 66.6%,#e31b23 66.6%)}
-  .topbar{max-width:1150px;margin:14px auto 0;padding:0 12px;display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap}
+  
+  .login-screen{max-width:500px;margin:40px auto;background:#fff;padding:30px;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.1)}
+  .login-screen h2{color:#00853f;margin-bottom:20px;text-align:center}
+  .login-screen input{width:100%;padding:12px;font-size:1rem;border:2px solid #ccc;border-radius:6px;margin-bottom:15px}
+  .login-screen button{width:100%;padding:12px;background:#00853f;color:#fff;border:none;border-radius:6px;font-size:1rem;font-weight:700;cursor:pointer}
+  .login-screen button:hover{background:#006b32}
+  
+  .topbar{max-width:1150px;margin:14px auto 0;padding:0 12px;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+  .topbar-left{display:flex;gap:8px;flex-wrap:wrap}
+  .topbar-right{display:flex;gap:8px;flex-wrap:wrap}
+  .code-badge{background:#00853f;color:#fff;padding:8px 14px;border-radius:6px;font-weight:700;font-size:.9rem}
+  
   .tabs{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;padding:12px 10px;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.08);position:sticky;top:0;z-index:999}
-  .tab-btn{border:2px solid #00853f;background:#fff;color:#00853f;padding:7px 12px;border-radius:20px;font-size:.82rem;font-weight:600}
+  .tab-btn{border:2px solid #00853f;background:#fff;color:#00853f;padding:7px 12px;border-radius:20px;font-size:.82rem;font-weight:600;cursor:pointer}
   .tab-btn:hover{background:#e6f4ec}
   .tab-btn.active{background:#00853f;color:#fff}
   .tab-content{display:none;background:#fff;border-radius:10px;padding:22px;margin:18px auto;max-width:1100px;box-shadow:0 1px 4px rgba(0,0,0,.1)}
@@ -33,12 +44,12 @@
   th{background:#00853f;color:#fff;padding:8px 6px;text-align:left;font-size:.76rem;white-space:nowrap}
   td{border:1px solid #ddd;padding:4px}
   td input,td select{border:1px solid #e3e3e3;background:#fafafa;border-radius:4px}
-  .del{background:#e31b23;color:#fff;border:none;border-radius:4px;padding:4px 9px;font-weight:700}
+  .del{background:#e31b23;color:#fff;border:none;border-radius:4px;padding:4px 9px;font-weight:700;cursor:pointer}
   .del:hover{background:#b0101a}
-  .add-row{margin-top:10px;background:#fff;border:2px dashed #00853f;color:#00853f;padding:8px 16px;border-radius:6px;font-weight:600;font-size:.85rem}
+  .add-row{margin-top:10px;background:#fff;border:2px dashed #00853f;color:#00853f;padding:8px 16px;border-radius:6px;font-weight:600;font-size:.85rem;cursor:pointer}
   .add-row:hover{background:#e6f4ec}
   button{cursor:pointer}
-  .btn{border:none;border-radius:6px;padding:10px 14px;font-weight:700;font-size:.88rem}
+  .btn{border:none;border-radius:6px;padding:10px 14px;font-weight:700;font-size:.88rem;cursor:pointer}
   .check{display:flex;gap:10px;align-items:center;margin:7px 0;font-size:.9rem}
   .check input{width:auto}
   .sign-box{border:2px dashed #999;border-radius:8px;min-height:110px;margin-top:6px;padding:8px;font-size:.8rem;color:#777}
@@ -48,11 +59,15 @@
   .prof-total-badge{display:none;color:#fff;border-radius:10px;padding:2px 7px;font-size:.75rem;font-weight:800;white-space:nowrap}
   .prof-summary-badge{display:inline-block;color:#fff;border-radius:12px;padding:4px 9px;margin:3px 5px 0 0;font-size:.8rem;font-weight:800}
   #prof-summary-list{margin-top:8px}
+  .save-status{padding:8px 14px;border-radius:6px;font-size:.85rem;font-weight:600;margin-top:10px}
+  .save-status.success{background:#d4edda;color:#155724}
+  .save-status.error{background:#f8d7da;color:#721c24}
+  .save-status.info{background:#d1ecf1;color:#0c5460}
 
   @page{size:A4;margin:6mm}
 
   @media print{
-    .tabs,.topbar,.no-print,footer,.info-box{display:none !important}
+    .tabs,.topbar,.no-print,footer,.info-box,.login-screen{display:none !important}
     body{background:#fff;margin:0;padding:0}
     .tab-content{display:block !important;box-shadow:none;margin:0 0 10px;max-width:100%;padding:6px 0}
     input,select,textarea{border:none;background:transparent;font-size:9px;padding:2px;min-width:0}
@@ -71,6 +86,18 @@
 
 <body>
 
+<!-- ÉCRAN DE CONNEXION -->
+<div id="loginScreen" class="login-screen">
+  <h2>🔐 Accès à la fiche</h2>
+  <p style="text-align:center;margin-bottom:20px;color:#666">Entrez votre code établissement pour continuer</p>
+  <input type="text" id="loginCode" placeholder="Ex: EDT-8F4KQ2" autocomplete="off">
+  <button onclick="loginWithCode()">Continuer</button>
+  <div id="loginStatus" style="margin-top:15px"></div>
+</div>
+
+<!-- FORMULAIRE PRINCIPAL -->
+<div id="mainApp" style="display:none">
+
 <header>
   <h1>📋 FICHE DE COLLECTE DES INFORMATIONS</h1>
   <p>Confection des emplois du temps — CEM &amp; Lycées (Sénégal)</p>
@@ -79,16 +106,19 @@
 
 <noscript>
   <div style="background:#e31b23;color:#fff;padding:12px;text-align:center;font-weight:bold">
-    JavaScript doit être activé pour utiliser cette fiche. Ouvrez le fichier dans Chrome, Edge ou Firefox.
+    JavaScript doit être activé pour utiliser cette fiche.
   </div>
 </noscript>
 
 <div class="topbar no-print">
-  <button type="button" class="btn" style="background:#ff9800;color:#fff" onclick="saveWork(false)">💾 Sauvegarder</button>
-  <button type="button" class="btn" style="background:#607d8b;color:#fff" onclick="loadSavedDataManual()">📂 Charger</button>
-  <button type="button" class="btn" style="background:#00853f;color:#fff" onclick="printFiche()">🖨️ Imprimer / PDF navigateur</button>
-  <button type="button" class="btn" style="background:#1565c0;color:#fff" onclick="generatePDF()">📄 Générer PDF</button>
-  <button type="button" class="btn" style="background:#0f9d58;color:#fff" onclick="sendToGoogleSheet(this)">☁️ Google Sheets</button>
+  <div class="topbar-left">
+    <div class="code-badge">Code: <span id="displayCode">—</span></div>
+  </div>
+  <div class="topbar-right">
+    <button type="button" class="btn" style="background:#ff9800;color:#fff" onclick="saveDraft()">💾 Sauvegarder</button>
+    <button type="button" class="btn" style="background:#1565c0;color:#fff" onclick="generatePDF()">📄 PDF</button>
+    <button type="button" class="btn" style="background:#0f9d58;color:#fff" onclick="submitFinal()">✅ Soumettre</button>
+  </div>
 </div>
 
 <nav class="tabs no-print">
@@ -101,21 +131,18 @@
 </nav>
 
 <main>
-
   <form id="ficheForm" onsubmit="return false;">
 
     <section id="tab-etablissement" class="tab-content active">
       <h2>1. Identification de l'établissement</h2>
-
       <div class="info-box">
         <strong>Mode d'emploi :</strong>
         <ul>
-          <li>Vous pouvez sauvegarder votre travail avec 💾 et revenir plus tard sur le même navigateur.</li>
-          <li>Le bouton ☁️ envoie les données vers Google Sheets.</li>
-          <li>Le bouton 📄 génère un PDF A4.</li>
+          <li>Cliquez sur <strong>💾 Sauvegarder</strong> pour enregistrer votre travail dans le cloud.</li>
+          <li>Vous pourrez reprendre sur n'importe quel appareil avec votre code.</li>
+          <li>Quand tout est terminé, cliquez sur <strong>✅ Soumettre</strong>.</li>
         </ul>
       </div>
-
       <div class="grid">
         <div class="field"><label>Type d'établissement</label>
           <select id="et-type">
@@ -127,7 +154,6 @@
             <option>Autre</option>
           </select>
         </div>
-
         <div class="field"><label>Année scolaire</label><input id="et-annee" type="text" placeholder="Ex : 2026-2027"></div>
         <div class="field"><label>Nom de l'établissement</label><input id="et-nom" type="text"></div>
         <div class="field"><label>Adresse</label><input id="et-adresse" type="text"></div>
@@ -142,11 +168,9 @@
 
     <section id="tab-classes" class="tab-content">
       <h2>2. Liste des classes</h2>
-
       <div class="info-box">
         Si <strong>Classe fixe = Oui</strong>, la salle est obligatoire. Si <strong>Classe fixe = Non</strong>, la salle se verrouille.
       </div>
-
       <div class="table-wrap">
         <table>
           <thead>
@@ -164,13 +188,11 @@
           <tbody id="tb-classes"></tbody>
         </table>
       </div>
-
       <button type="button" class="add-row no-print" onclick="addRow('tb-classes','tpl-classes')">+ Ajouter une ligne</button>
     </section>
 
     <section id="tab-professeurs" class="tab-content">
       <h2>3. Liste des professeurs</h2>
-
       <div class="table-wrap">
         <table>
           <thead>
@@ -187,18 +209,15 @@
           <tbody id="tb-professeurs"></tbody>
         </table>
       </div>
-
       <button type="button" class="add-row no-print" onclick="addRow('tb-professeurs','tpl-professeurs')">+ Ajouter une ligne</button>
     </section>
 
     <section id="tab-affectations" class="tab-content">
       <h2>4. Affectation des professeurs dans les classes</h2>
-
       <div id="prof-summary" class="info-box no-print" style="display:none;">
         <strong>Charge cumulée des professeurs :</strong>
         <div id="prof-summary-list"></div>
       </div>
-
       <div class="table-wrap">
         <table>
           <thead>
@@ -215,15 +234,12 @@
           <tbody id="tb-affectations"></tbody>
         </table>
       </div>
-
       <button type="button" class="add-row no-print" onclick="addRow('tb-affectations','tpl-affectations')">+ Ajouter une ligne</button>
     </section>
 
     <section id="tab-contraintes" class="tab-content">
       <h2>5. Contraintes particulières</h2>
-
       <p style="font-size:.85rem;margin-bottom:10px">Cochez tout ce qui s'applique, puis détaillez dans la zone de texte.</p>
-
       <div class="check"><input type="checkbox"> Professeurs à temps partiel</div>
       <div class="check"><input type="checkbox"> Professeurs partagés avec un autre établissement</div>
       <div class="check"><input type="checkbox"> Professeurs régulièrement indisponibles</div>
@@ -231,7 +247,6 @@
       <div class="check"><input type="checkbox"> EPS : horaires ou créneaux imposés</div>
       <div class="check"><input type="checkbox"> Réunions régulières fixes</div>
       <div class="check"><input type="checkbox"> Autres contraintes</div>
-
       <div class="field" style="margin-top:14px">
         <label>Détail des contraintes</label>
         <textarea id="contrainte-details"></textarea>
@@ -240,37 +255,32 @@
 
     <section id="tab-validation" class="tab-content">
       <h2>6. Validation du Chef d'établissement</h2>
-
       <p style="font-size:.85rem;margin-bottom:8px"><strong>Documents fournis avec cette fiche (cochez) :</strong></p>
-
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:4px;margin-bottom:18px">
         <div class="check"><input type="checkbox"> Liste des classes</div>
         <div class="check"><input type="checkbox"> Liste des professeurs</div>
         <div class="check"><input type="checkbox"> Affectations des professeurs</div>
         <div class="check"><input type="checkbox"> Contraintes particulières</div>
       </div>
-
       <div class="grid">
         <div class="field"><label>Nom et prénom du Chef d'établissement</label><input id="val-nom" type="text"></div>
         <div class="field"><label>Fonction</label><input id="val-fonction" type="text"></div>
         <div class="field"><label>Fait à</label><input id="val-lieu" type="text"></div>
         <div class="field"><label>Le (date)</label><input id="val-date" type="date"></div>
       </div>
-
       <div class="field">
         <label>Signature et cachet</label>
         <div class="sign-box">Espace réservé pour la signature et le cachet</div>
       </div>
-
       <p style="font-size:.85rem;margin-top:14px">
         Je soussigné(e), Chef d'établissement, certifie que les informations transmises sont exactes et à jour.
       </p>
-
       <div class="actions no-print">
-        <button type="button" class="btn" style="background:#0f9d58;color:#fff" onclick="sendToGoogleSheet(this)">☁️ Envoyer vers Google Sheets</button>
+        <button type="button" class="btn" style="background:#0f9d58;color:#fff" onclick="submitFinal()">✅ Soumettre la fiche finale</button>
+        <button type="button" class="btn" style="background:#ff9800;color:#fff" onclick="saveDraft()">💾 Sauvegarder brouillon</button>
         <button type="button" class="btn" style="background:#1565c0;color:#fff" onclick="generatePDF()">📄 Générer PDF</button>
-        <button type="button" class="btn" style="background:#e31b23;color:#fff" onclick="resetFiche()">Réinitialiser</button>
       </div>
+      <div id="saveStatus"></div>
     </section>
 
   </form>
@@ -279,6 +289,8 @@
 <footer class="no-print">
   Fiche de collecte — Confection d'emplois du temps — CEM / Lycées Sénégal
 </footer>
+
+</div>
 
 <template id="tpl-classes">
   <tr>
@@ -369,25 +381,214 @@
 </datalist>
 
 <script>
-  /* ================= CONFIGURATION ================= */
-
   var GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyTSacme_pxl8G85xzxta4UiQL5h-BBU5431SFIw5HYDTg0S-3l6QDFPbAtlcsNvomwVA/exec";
-  var SAVE_KEY = 'fiche_collecte_edt_save_v1';
+  var currentCode = '';
   var FIELD_IDS = [
     'et-type','et-annee','et-nom','et-adresse','et-ville','et-tel','et-email',
     'et-chef','et-contact','et-delai','contrainte-details',
     'val-nom','val-fonction','val-lieu','val-date'
   ];
 
-  var autoSaveTimer = null;
-  var dirty = false;
+  /* ================= CONNEXION ================= */
+
+  function getCodeFromUrl() {
+    var params = new URLSearchParams(window.location.search);
+    return params.get('code') || '';
+  }
+
+  function loginWithCode() {
+    var code = document.getElementById('loginCode').value.trim();
+    if (!code) {
+      showLoginStatus('Veuillez entrer un code.', 'error');
+      return;
+    }
+    loadFromCloud(code);
+  }
+
+  function showLoginStatus(msg, type) {
+    var div = document.getElementById('loginStatus');
+    div.innerHTML = '<div class="save-status ' + type + '">' + msg + '</div>';
+  }
+
+  function loadFromCloud(code) {
+    showLoginStatus('Chargement...', 'info');
+    
+    fetch(GOOGLE_SCRIPT_URL + '?action=load&code=' + encodeURIComponent(code))
+      .then(function(res) { return res.json(); })
+      .then(function(data) {
+        if (data.ok) {
+          currentCode = code;
+          document.getElementById('displayCode').textContent = code;
+          document.getElementById('loginScreen').style.display = 'none';
+          document.getElementById('mainApp').style.display = 'block';
+          
+          if (data.data) {
+            loadFormData(data.data);
+            showLoginStatus('Fiche chargée avec succès.', 'success');
+          } else {
+            initForm();
+            showLoginStatus('Nouvelle fiche créée.', 'success');
+          }
+        } else {
+          showLoginStatus('Code non trouvé ou erreur: ' + (data.error || 'Inconnu'), 'error');
+        }
+      })
+      .catch(function(err) {
+        showLoginStatus('Erreur réseau: ' + err.message, 'error');
+      });
+  }
+
+  function loadFormData(data) {
+    var form = document.getElementById('ficheForm');
+    if (form) form.reset();
+
+    for (var f = 0; f < FIELD_IDS.length; f++) {
+      var fieldValue = data.fields && data.fields[FIELD_IDS[f]] ? data.fields[FIELD_IDS[f]] : '';
+      if (fieldValue === '— Choisir —') fieldValue = '';
+      setField(FIELD_IDS[f], fieldValue);
+    }
+
+    var constraintInputs = document.querySelectorAll('#tab-contraintes .check input');
+    for (var c = 0; c < constraintInputs.length; c++) {
+      if (data.constraints && c < data.constraints.length) {
+        constraintInputs[c].checked = !!data.constraints[c];
+      }
+    }
+
+    var documentInputs = document.querySelectorAll('#tab-validation .check input');
+    for (var d = 0; d < documentInputs.length; d++) {
+      if (data.documents && d < data.documents.length) {
+        documentInputs[d].checked = !!data.documents[d];
+      }
+    }
+
+    document.getElementById('tb-classes').innerHTML = '';
+    document.getElementById('tb-professeurs').innerHTML = '';
+    document.getElementById('tb-affectations').innerHTML = '';
+
+    if (Array.isArray(data.classes)) {
+      for (var ci = 0; ci < data.classes.length; ci++) {
+        var cRow = appendBlankRow('tb-classes', 'tpl-classes');
+        if (!cRow) continue;
+        setVal(cRow, 'classe-name', data.classes[ci].name);
+        setSelectValue(cRow.querySelector('.classe-niveau'), data.classes[ci].niveau);
+        setSelectValue(cRow.querySelector('.classe-profil'), data.classes[ci].profil);
+        setSelectValue(cRow.querySelector('.classe-type'), data.classes[ci].type);
+        setVal(cRow, 'classe-salle', data.classes[ci].salle);
+        setVal(cRow, 'classe-obs', data.classes[ci].obs);
+      }
+      renumber('tb-classes');
+    }
+
+    if (Array.isArray(data.profs)) {
+      for (var pi = 0; pi < data.profs.length; pi++) {
+        var pRow = appendBlankRow('tb-professeurs', 'tpl-professeurs');
+        if (!pRow) continue;
+        setVal(pRow, 'prof-nom', data.profs[pi].nom);
+        setVal(pRow, 'prof-mat', data.profs[pi].mat);
+        setVal(pRow, 'prof-autres', data.profs[pi].autres);
+        setVal(pRow, 'prof-dispo', data.profs[pi].dispo);
+        setVal(pRow, 'prof-obs', data.profs[pi].obs);
+      }
+      renumber('tb-professeurs');
+    }
+
+    updateAllSalleStates();
+    refreshClassSelects();
+    refreshProfSelects();
+
+    if (Array.isArray(data.affects)) {
+      for (var ai = 0; ai < data.affects.length; ai++) {
+        var aRow = appendBlankRow('tb-affectations', 'tpl-affectations');
+        if (!aRow) continue;
+        setSelectValue(aRow.querySelector('.affect-classe'), data.affects[ai].classe);
+        setVal(aRow, 'affect-matiere', data.affects[ai].matiere);
+        setSelectValue(aRow.querySelector('.affect-prof'), data.affects[ai].prof);
+        var heuresEl = aRow.querySelector('.affect-heures');
+        if (heuresEl) {
+          heuresEl.value = data.affects[ai].heures || '';
+          if (data.affects[ai].manual || (data.affects[ai].heures && String(data.affects[ai].heures).trim() !== '')) {
+            heuresEl.dataset.manual = '1';
+          }
+        }
+        setVal(aRow, 'affect-obs', data.affects[ai].obs);
+        if (!data.affects[ai].manual && (!data.affects[ai].heures || String(data.affects[ai].heures).trim() === '')) {
+          updateAffectRowHeures(aRow);
+        }
+      }
+    }
+
+    updateProfTotals();
+  }
+
+  /* ================= SAUVEGARDE CLOUD ================= */
+
+  function saveDraft() {
+    if (!currentCode) {
+      alert('Aucun code établissement. Veuillez vous connecter.');
+      return;
+    }
+    saveToCloud('draft');
+  }
+
+  function submitFinal() {
+    if (!currentCode) {
+      alert('Aucun code établissement. Veuillez vous connecter.');
+      return;
+    }
+    if (!validateForm()) return;
+    if (!confirm('Soumettre la fiche finale ? Cette action est irréversible.')) return;
+    saveToCloud('final');
+  }
+
+  function saveToCloud(status) {
+    var btn = event ? event.target : null;
+    var originalText = btn ? btn.textContent : '';
+    if (btn) {
+      btn.disabled = true;
+      btn.textContent = 'Enregistrement...';
+    }
+
+    var data = collectAllData();
+    var payload = {
+      action: 'save',
+      code: currentCode,
+      status: status,
+      data: data
+    };
+
+    fetch(GOOGLE_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(payload)
+    })
+    .then(function() {
+      showSaveStatus('Sauvegarde réussie (' + status + ')', 'success');
+    })
+    .catch(function(err) {
+      showSaveStatus('Erreur: ' + err.message, 'error');
+    })
+    .then(function() {
+      if (btn) {
+        btn.disabled = false;
+        btn.textContent = originalText;
+      }
+    });
+  }
+
+  function showSaveStatus(msg, type) {
+    var div = document.getElementById('saveStatus');
+    if (!div) return;
+    div.innerHTML = '<div class="save-status ' + type + '">' + msg + '</div>';
+    setTimeout(function() { div.innerHTML = ''; }, 5000);
+  }
 
   /* ================= NORMALISATION ET REFERENTIEL ================= */
 
   function normalizeText(s){
     if(s === null || s === undefined) return '';
     s = String(s);
-
     var accentMap = {
       'é':'e','è':'e','ê':'e','ë':'e',
       'à':'a','â':'a',
@@ -396,31 +597,22 @@
       'ù':'u','û':'u','ü':'u',
       'ç':'c'
     };
-
     s = s.toLowerCase();
     s = s.replace(/[éèêëàâîïôöùûüç]/g, function(c){
       return accentMap[c] || '';
     });
-
-    try{
-      s = s.normalize('NFD');
-    }catch(e){}
-
+    try{ s = s.normalize('NFD'); }catch(e){}
     s = s.replace(/[\u0300-\u036f]/g, '');
     s = s.replace(/[^a-z0-9]/gi, '');
     return s;
   }
 
   var DISCIPLINE_ALIASES = {
-    'mathematiques':'math',
-    'mathematique':'math',
-    'maths':'math',
-    'histoiregeographie':'hg',
-    'histoiregeo':'hg',
+    'mathematiques':'math','mathematique':'math','maths':'math',
+    'histoiregeographie':'hg','histoiregeo':'hg',
     'physiquechimie':'pc',
     'educationphysiqueetsportive':'eps',
-    'educationreligieuse':'edrelig',
-    'edrelig':'edrelig'
+    'educationreligieuse':'edrelig','edrelig':'edrelig'
   };
 
   function normalizeDiscipline(s){
@@ -473,19 +665,16 @@
   addRefs('5e','Moderne',MOD_6_5);
   addRefs('4e','Moderne',MOD_4_3);
   addRefs('3e','Moderne',MOD_4_3);
-
   addRefs('4e','LV2 Espagnol',[['Espagnol',3]]);
   addRefs('3e','LV2 Espagnol',[['Espagnol',3]]);
   addRefs('4e','LV2 Arabe',[['Arabe',3]]);
   addRefs('3e','LV2 Arabe',[['Arabe',3]]);
   addRefs('4e','LV2 Portugais',[['Portugais',3]]);
   addRefs('3e','LV2 Portugais',[['Portugais',3]]);
-
   addRefs('6e','Franco-Arabe',FA_6_5);
   addRefs('5e','Franco-Arabe',FA_6_5);
   addRefs('4e','Franco-Arabe',FA_4_3);
   addRefs('3e','Franco-Arabe',FA_4_3);
-
   addRefs('6e','Mixte Mod/FA',MIXTE_6_5);
   addRefs('5e','Mixte Mod/FA',MIXTE_6_5);
   addRefs('4e','Mixte Mod/FA',MIXTE_4_3);
@@ -520,14 +709,9 @@
   }
 
   function getRow(el){
-    if(el.closest){
-      return el.closest('tr');
-    }
-
+    if(el.closest) return el.closest('tr');
     var parent = el.parentElement;
-    while(parent && parent.tagName !== 'TR'){
-      parent = parent.parentElement;
-    }
+    while(parent && parent.tagName !== 'TR') parent = parent.parentElement;
     return parent;
   }
 
@@ -535,23 +719,16 @@
     if(!sel) return;
     if(value === '— Choisir —') value = '';
     value = value || '';
-
     var found = false;
-
     for(var i=0;i<sel.options.length;i++){
-      if(sel.options[i].value === value){
-        found = true;
-        break;
-      }
+      if(sel.options[i].value === value){ found = true; break; }
     }
-
     if(!found && value !== ''){
       var opt = document.createElement('option');
       opt.value = value;
       opt.textContent = value;
       sel.appendChild(opt);
     }
-
     sel.value = value;
   }
 
@@ -571,7 +748,6 @@
 
   function colorForHours(h){
     h = Number(h) || 0;
-
     if(h <= 0) return '#9e9e9e';
     if(h <= 15) return '#1565c0';
     if(h <= 24) return '#00853f';
@@ -581,17 +757,11 @@
 
   function hexToRgb(hex){
     hex = String(hex || '').replace('#', '');
-
     if(hex.length === 3){
       hex = hex.charAt(0) + hex.charAt(0) + hex.charAt(1) + hex.charAt(1) + hex.charAt(2) + hex.charAt(2);
     }
-
     var num = parseInt(hex, 16);
-
-    if(isNaN(num)){
-      return [0,0,0];
-    }
-
+    if(isNaN(num)) return [0,0,0];
     return [(num >> 16) & 255, (num >> 8) & 255, num & 255];
   }
 
@@ -603,25 +773,21 @@
       sections[i].classList.remove('active');
       sections[i].style.display = 'none';
     }
-
     var buttons = document.getElementsByClassName('tab-btn');
     for(var j=0;j<buttons.length;j++){
       buttons[j].classList.remove('active');
     }
-
     var sec = document.getElementById(id);
     if(sec){
       sec.classList.add('active');
       sec.style.display = 'block';
     }
-
     if(btn){
       btn.classList.add('active');
     }else{
       var b = document.querySelector('.tab-btn[data-tab="' + id + '"]');
-      if(b){ b.classList.add('active'); }
+      if(b) b.classList.add('active');
     }
-
     window.scrollTo(0,0);
   }
 
@@ -630,10 +796,9 @@
   function renumber(bodyId){
     var body = document.getElementById(bodyId);
     if(!body) return;
-
     for(var i=0;i<body.rows.length;i++){
       var num = body.rows[i].querySelector('.num');
-      if(num){ num.value = i + 1; }
+      if(num) num.value = i + 1;
     }
   }
 
@@ -641,7 +806,6 @@
     var rows = document.querySelectorAll('#tb-classes tr');
     var classes = [];
     var names = [];
-
     for(var i=0;i<rows.length;i++){
       var name = val(rows[i], 'classe-name');
       if(name && names.indexOf(name) === -1){
@@ -653,19 +817,14 @@
         });
       }
     }
-
     return classes;
   }
 
   function findClassRowByName(name){
     var rows = document.querySelectorAll('#tb-classes tr');
-
     for(var i=0;i<rows.length;i++){
-      if(val(rows[i], 'classe-name') === name){
-        return rows[i];
-      }
+      if(val(rows[i], 'classe-name') === name) return rows[i];
     }
-
     return null;
   }
 
@@ -684,7 +843,6 @@
     var type = row.querySelector('.classe-type');
     var salle = row.querySelector('.classe-salle');
     if(!type || !salle) return;
-
     if(type.value === 'Oui'){
       salle.disabled = false;
       salle.required = true;
@@ -703,10 +861,7 @@
 
   function updateAllSalleStates(){
     var rows = document.querySelectorAll('#tb-classes tr');
-
-    for(var i=0;i<rows.length;i++){
-      updateSalleState(rows[i]);
-    }
+    for(var i=0;i<rows.length;i++) updateSalleState(rows[i]);
   }
 
   /* ================= PROFESSEURS ================= */
@@ -714,46 +869,32 @@
   function getProfs(){
     var rows = document.querySelectorAll('#tb-professeurs tr');
     var profs = [];
-
     for(var i=0;i<rows.length;i++){
       var nom = val(rows[i], 'prof-nom');
       var mat = val(rows[i], 'prof-mat');
-
-      if(nom){
-        profs.push({nom: nom, mat: mat});
-      }
+      if(nom) profs.push({nom: nom, mat: mat});
     }
-
     return profs;
   }
 
   function refreshProfSelects(){
     var profs = getProfs();
     var selects = document.querySelectorAll('#tb-affectations .affect-prof');
-
     for(var i=0;i<selects.length;i++){
       var sel = selects[i];
       var current = sel.value;
-
       sel.innerHTML = '<option value="">— Choisir professeur —</option>';
-
       for(var j=0;j<profs.length;j++){
         var opt = document.createElement('option');
         opt.value = profs[j].nom;
         opt.textContent = profs[j].mat ? profs[j].nom + ' (' + profs[j].mat + ')' : profs[j].nom;
         sel.appendChild(opt);
       }
-
       if(current){
         var exists = false;
-
         for(var k=0;k<profs.length;k++){
-          if(profs[k].nom === current){
-            exists = true;
-            break;
-          }
+          if(profs[k].nom === current){ exists = true; break; }
         }
-
         if(exists){
           sel.value = current;
         }else{
@@ -772,36 +913,25 @@
   function refreshClassSelects(){
     var classes = getClasses();
     var selects = document.querySelectorAll('#tb-affectations .affect-classe');
-
     for(var i=0;i<selects.length;i++){
       var sel = selects[i];
       var current = sel.value;
-
       sel.innerHTML = '<option value="">— Choisir classe —</option>';
-
       for(var j=0;j<classes.length;j++){
         var opt = document.createElement('option');
         opt.value = classes[j].name;
-
         var suffix = '';
         if(classes[j].niveau || classes[j].profil){
           suffix = ' (' + [classes[j].niveau, classes[j].profil].filter(Boolean).join(' / ') + ')';
         }
-
         opt.textContent = classes[j].name + suffix;
         sel.appendChild(opt);
       }
-
       if(current){
         var exists = false;
-
         for(var k=0;k<classes.length;k++){
-          if(classes[k].name === current){
-            exists = true;
-            break;
-          }
+          if(classes[k].name === current){ exists = true; break; }
         }
-
         if(exists){
           sel.value = current;
         }else{
@@ -818,10 +948,8 @@
   function getOfficialHoursForClassAndMatiere(className, matiere){
     var row = findClassRowByName(className);
     if(!row) return null;
-
     var niveau = val(row, 'classe-niveau');
     var profil = val(row, 'classe-profil');
-
     return getOfficialHours(niveau, profil, matiere);
   }
 
@@ -829,13 +957,9 @@
     var classeSel = row.querySelector('.affect-classe');
     var matiere = row.querySelector('.affect-matiere');
     var heuresInput = row.querySelector('.affect-heures');
-
     if(!classeSel || !matiere || !heuresInput) return;
-
     if(heuresInput.dataset.manual === '1') return;
-
     var h = getOfficialHoursForClassAndMatiere(classeSel.value, matiere.value);
-
     if(h === null){
       heuresInput.value = '';
     }else{
@@ -846,12 +970,8 @@
   function onAffectClassMatiereChanged(el){
     var row = getRow(el);
     if(!row) return;
-
     var heuresInput = row.querySelector('.affect-heures');
-    if(heuresInput){
-      heuresInput.dataset.manual = '';
-    }
-
+    if(heuresInput) heuresInput.dataset.manual = '';
     updateAffectRowHeures(row);
     updateProfTotals();
   }
@@ -863,39 +983,26 @@
 
   function updateAllAffectHeures(){
     var rows = document.querySelectorAll('#tb-affectations tr');
-
-    for(var i=0;i<rows.length;i++){
-      updateAffectRowHeures(rows[i]);
-    }
-
+    for(var i=0;i<rows.length;i++) updateAffectRowHeures(rows[i]);
     updateProfTotals();
   }
 
   function updateProfTotals(){
     var rows = document.querySelectorAll('#tb-affectations tr');
     var totals = {};
-
     for(var i=0;i<rows.length;i++){
       var profSel = rows[i].querySelector('.affect-prof');
       var heuresInput = rows[i].querySelector('.affect-heures');
-
       var prof = profSel ? profSel.value : '';
       var h = heuresInput ? parseFloat(heuresInput.value) : 0;
       if(isNaN(h)) h = 0;
-
-      if(prof){
-        totals[prof] = (totals[prof] || 0) + h;
-      }
+      if(prof) totals[prof] = (totals[prof] || 0) + h;
     }
-
     for(var j=0;j<rows.length;j++){
       var badge = rows[j].querySelector('.prof-total-badge');
       var profSel2 = rows[j].querySelector('.affect-prof');
-
       if(!badge || !profSel2) continue;
-
       var prof2 = profSel2.value;
-
       if(prof2 && totals[prof2] !== undefined){
         badge.textContent = formatHours(totals[prof2]);
         badge.style.display = 'inline-block';
@@ -906,38 +1013,28 @@
         badge.style.backgroundColor = '#9e9e9e';
       }
     }
-
     updateProfSummary(totals);
   }
 
   function updateProfSummary(totals){
     var box = document.getElementById('prof-summary');
     var list = document.getElementById('prof-summary-list');
-
     if(!box || !list) return;
-
     var keys = Object.keys(totals);
-
     if(keys.length === 0){
       box.style.display = 'none';
       list.innerHTML = '';
       return;
     }
-
     keys.sort();
-
     var html = '';
-
     for(var i=0;i<keys.length;i++){
       var prof = keys[i];
       var h = totals[prof];
       var bg = colorForHours(h);
-
       html += '<span class="prof-summary-badge" style="background:' + bg + '">' +
-              escapeHtml(prof) + ' : ' + formatHours(h) +
-              '</span>';
+              escapeHtml(prof) + ' : ' + formatHours(h) + '</span>';
     }
-
     box.style.display = 'block';
     list.innerHTML = html;
   }
@@ -948,10 +1045,8 @@
     var body = document.getElementById(bodyId);
     var tpl = document.getElementById(tplId);
     if(!body || !tpl) return null;
-
     var clone = tpl.content.cloneNode(true);
     body.appendChild(clone);
-
     return body.lastElementChild;
   }
 
@@ -959,18 +1054,12 @@
     var body = document.getElementById(bodyId);
     var tpl = document.getElementById(tplId);
     if(!body || !tpl) return;
-
     var clone = tpl.content.cloneNode(true);
     body.appendChild(clone);
-
     var newRow = body.lastElementChild;
     var n = newRow.querySelector('.num');
-    if(n){ n.value = num || body.rows.length; }
-
-    if(bodyId === 'tb-classes'){
-      updateSalleState(newRow);
-    }
-
+    if(n) n.value = num || body.rows.length;
+    if(bodyId === 'tb-classes') updateSalleState(newRow);
     if(bodyId === 'tb-affectations'){
       refreshClassSelects();
       refreshProfSelects();
@@ -980,90 +1069,42 @@
   }
 
   function initTable(bodyId, tplId, nb){
-    for(var i=1;i<=nb;i++){
-      addRow(bodyId, tplId, i);
-    }
+    for(var i=1;i<=nb;i++) addRow(bodyId, tplId, i);
   }
 
   function removeRow(btn){
     var tr = getRow(btn);
     if(!tr) return;
-
     var body = tr.parentElement;
     tr.remove();
-
-    if(body && body.id){
-      renumber(body.id);
-    }
-
+    if(body && body.id) renumber(body.id);
     refreshClassSelects();
     refreshProfSelects();
     updateAllAffectHeures();
     updateProfTotals();
   }
 
-  function resetFiche(){
-    if(confirm('Voulez-vous vraiment effacer toutes les informations saisies et supprimer la sauvegarde ?')){
-      try{
-        localStorage.removeItem(SAVE_KEY);
-      }catch(e){}
-
-      dirty = false;
-
-      var form = document.getElementById('ficheForm');
-      if(form) form.reset();
-
-      document.getElementById('tb-classes').innerHTML = '';
-      document.getElementById('tb-professeurs').innerHTML = '';
-      document.getElementById('tb-affectations').innerHTML = '';
-
-      initTable('tb-classes','tpl-classes',5);
-      initTable('tb-professeurs','tpl-professeurs',5);
-      initTable('tb-affectations','tpl-affectations',5);
-
-      updateAllSalleStates();
-      refreshClassSelects();
-      refreshProfSelects();
-      updateAllAffectHeures();
-      updateProfTotals();
-    }
-  }
-
   /* ================= VALIDATION ================= */
 
   function validateForm(){
     var rows = document.querySelectorAll('#tb-classes tr');
-
     for(var i=0;i<rows.length;i++){
       var row = rows[i];
       var type = row.querySelector('.classe-type');
       var salle = row.querySelector('.classe-salle');
       var name = row.querySelector('.classe-name');
-
       if(!type || !salle) continue;
-
       salle.classList.remove('invalid');
-
       if(type.value === 'Oui' && salle.value.trim() === ''){
         salle.classList.add('invalid');
-
         var className = name && name.value.trim() ? name.value.trim() : 'N°' + (i + 1);
         alert('La salle attribuée est obligatoire pour la classe "' + className + '" car elle est fixe.');
-
         showTab('tab-classes');
         salle.focus();
         return false;
       }
     }
-
     return true;
-  }
-
-  /* ================= IMPRESSION ================= */
-
-  function printFiche(){
-    if(!validateForm()) return;
-    window.print();
   }
 
   /* ================= COLLECTE DES DONNÉES ================= */
@@ -1081,30 +1122,22 @@
       affects: [],
       totals: {}
     };
-
     for(var f=0; f<FIELD_IDS.length; f++){
       data.fields[FIELD_IDS[f]] = getField(FIELD_IDS[f]);
     }
-
     var constraintInputs = document.querySelectorAll('#tab-contraintes .check input');
-
     for(var c=0; c<constraintInputs.length; c++){
       data.constraints.push(constraintInputs[c].checked);
-
       if(constraintInputs[c].checked){
         var label = constraintInputs[c].parentElement ? constraintInputs[c].parentElement.textContent.trim() : '';
         if(label) data.constraintsLabels.push(label);
       }
     }
-
     var documentInputs = document.querySelectorAll('#tab-validation .check input');
-
     for(var d=0; d<documentInputs.length; d++){
       data.documents.push(documentInputs[d].checked);
     }
-
     var classRows = document.querySelectorAll('#tb-classes tr');
-
     for(var i=0;i<classRows.length;i++){
       data.classes.push({
         name: val(classRows[i], 'classe-name'),
@@ -1115,9 +1148,7 @@
         obs: val(classRows[i], 'classe-obs')
       });
     }
-
     var profRows = document.querySelectorAll('#tb-professeurs tr');
-
     for(var p=0;p<profRows.length;p++){
       data.profs.push({
         nom: val(profRows[p], 'prof-nom'),
@@ -1127,21 +1158,14 @@
         obs: val(profRows[p], 'prof-obs')
       });
     }
-
     var affectRows = document.querySelectorAll('#tb-affectations tr');
-
     for(var a=0;a<affectRows.length;a++){
       var heuresEl = affectRows[a].querySelector('.affect-heures');
       var heuresValue = heuresEl ? heuresEl.value : '';
       var prof = val(affectRows[a], 'affect-prof');
-
       var h = parseFloat(heuresValue);
       if(isNaN(h)) h = 0;
-
-      if(prof){
-        data.totals[prof] = (data.totals[prof] || 0) + h;
-      }
-
+      if(prof) data.totals[prof] = (data.totals[prof] || 0) + h;
       data.affects.push({
         classe: val(affectRows[a], 'affect-classe'),
         matiere: val(affectRows[a], 'affect-matiere'),
@@ -1151,242 +1175,13 @@
         manual: heuresEl ? (heuresEl.dataset.manual === '1') : false
       });
     }
-
     return data;
-  }
-
-  /* ================= SAUVEGARDE LOCALE ================= */
-
-  function saveWork(silent){
-    try{
-      localStorage.setItem(SAVE_KEY, JSON.stringify(collectAllData()));
-      dirty = false;
-
-      if(!silent){
-        alert('Travail sauvegardé sur ce navigateur.\n\nVous pourrez continuer plus tard sur le même navigateur / appareil.');
-      }
-    }catch(e){
-      if(!silent){
-        alert('Impossible de sauvegarder sur ce navigateur.');
-      }
-    }
-  }
-
-  function loadSavedData(){
-    var raw = null;
-
-    try{
-      raw = localStorage.getItem(SAVE_KEY);
-    }catch(e){
-      return false;
-    }
-
-    if(!raw) return false;
-
-    var data = null;
-
-    try{
-      data = JSON.parse(raw);
-    }catch(e){
-      return false;
-    }
-
-    var form = document.getElementById('ficheForm');
-    if(form) form.reset();
-
-    for(var f=0; f<FIELD_IDS.length; f++){
-      var fieldValue = data.fields && data.fields[FIELD_IDS[f]] ? data.fields[FIELD_IDS[f]] : '';
-      if(fieldValue === '— Choisir —') fieldValue = '';
-      setField(FIELD_IDS[f], fieldValue);
-    }
-
-    var constraintInputs = document.querySelectorAll('#tab-contraintes .check input');
-
-    for(var c=0; c<constraintInputs.length; c++){
-      if(data.constraints && c < data.constraints.length){
-        constraintInputs[c].checked = !!data.constraints[c];
-      }
-    }
-
-    var documentInputs = document.querySelectorAll('#tab-validation .check input');
-
-    for(var d=0; d<documentInputs.length; d++){
-      if(data.documents && d < data.documents.length){
-        documentInputs[d].checked = !!data.documents[d];
-      }
-    }
-
-    document.getElementById('tb-classes').innerHTML = '';
-    document.getElementById('tb-professeurs').innerHTML = '';
-    document.getElementById('tb-affectations').innerHTML = '';
-
-    if(Array.isArray(data.classes)){
-      for(var ci=0; ci<data.classes.length; ci++){
-        var cRow = appendBlankRow('tb-classes','tpl-classes');
-        if(!cRow) continue;
-
-        setVal(cRow, 'classe-name', data.classes[ci].name);
-        setSelectValue(cRow.querySelector('.classe-niveau'), data.classes[ci].niveau);
-        setSelectValue(cRow.querySelector('.classe-profil'), data.classes[ci].profil);
-        setSelectValue(cRow.querySelector('.classe-type'), data.classes[ci].type);
-        setVal(cRow, 'classe-salle', data.classes[ci].salle);
-        setVal(cRow, 'classe-obs', data.classes[ci].obs);
-      }
-
-      renumber('tb-classes');
-    }
-
-    if(Array.isArray(data.profs)){
-      for(var pi=0; pi<data.profs.length; pi++){
-        var pRow = appendBlankRow('tb-professeurs','tpl-professeurs');
-        if(!pRow) continue;
-
-        setVal(pRow, 'prof-nom', data.profs[pi].nom);
-        setVal(pRow, 'prof-mat', data.profs[pi].mat);
-        setVal(pRow, 'prof-autres', data.profs[pi].autres);
-        setVal(pRow, 'prof-dispo', data.profs[pi].dispo);
-        setVal(pRow, 'prof-obs', data.profs[pi].obs);
-      }
-
-      renumber('tb-professeurs');
-    }
-
-    updateAllSalleStates();
-    refreshClassSelects();
-    refreshProfSelects();
-
-    if(Array.isArray(data.affects)){
-      for(var ai=0; ai<data.affects.length; ai++){
-        var aRow = appendBlankRow('tb-affectations','tpl-affectations');
-        if(!aRow) continue;
-
-        setSelectValue(aRow.querySelector('.affect-classe'), data.affects[ai].classe);
-        setVal(aRow, 'affect-matiere', data.affects[ai].matiere);
-        setSelectValue(aRow.querySelector('.affect-prof'), data.affects[ai].prof);
-
-        var heuresEl = aRow.querySelector('.affect-heures');
-
-        if(heuresEl){
-          heuresEl.value = data.affects[ai].heures || '';
-
-          if(data.affects[ai].manual || (data.affects[ai].heures && String(data.affects[ai].heures).trim() !== '')){
-            heuresEl.dataset.manual = '1';
-          }
-        }
-
-        setVal(aRow, 'affect-obs', data.affects[ai].obs);
-
-        if(!data.affects[ai].manual && (!data.affects[ai].heures || String(data.affects[ai].heures).trim() === '')){
-          updateAffectRowHeures(aRow);
-        }
-      }
-    }
-
-    updateProfTotals();
-    dirty = false;
-
-    return true;
-  }
-
-  function loadSavedDataManual(){
-    try{
-      if(!localStorage.getItem(SAVE_KEY)){
-        alert('Aucune sauvegarde trouvée sur ce navigateur.');
-        return;
-      }
-    }catch(e){
-      alert('Aucune sauvegarde trouvée sur ce navigateur.');
-      return;
-    }
-
-    if(confirm('Charger la dernière sauvegarde ?')){
-      if(loadSavedData()){
-        alert('Travail chargé.');
-      }else{
-        alert('Impossible de charger la sauvegarde.');
-      }
-    }
-  }
-
-  function scheduleAutoSave(){
-    if(!dirty) return;
-
-    clearTimeout(autoSaveTimer);
-
-    autoSaveTimer = setTimeout(function(){
-      saveWork(true);
-    }, 1500);
-  }
-
-  function maybePromptLoad(){
-    try{
-      if(localStorage.getItem(SAVE_KEY)){
-        setTimeout(function(){
-          if(confirm('Une sauvegarde précédente existe sur ce navigateur.\n\nVoulez-vous la charger ?')){
-            loadSavedData();
-          }
-        }, 250);
-      }
-    }catch(e){}
-  }
-
-  /* ================= GOOGLE SHEETS ================= */
-
-  function sendToGoogleSheet(btn){
-    if(!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL.indexOf('COLLER_ICI') !== -1){
-      alert("Erreur : vous devez d'abord coller votre URL Google Apps Script dans le fichier index.html.");
-      return;
-    }
-
-    if(!validateForm()) return;
-
-    if(!confirm('Envoyer les données vers Google Sheets ?')) return;
-
-    var originalText = btn ? btn.textContent : '';
-
-    if(btn){
-      btn.disabled = true;
-      btn.textContent = 'Envoi en cours…';
-    }
-
-    var data = collectAllData();
-
-    var payload = {
-      source: 'fiche-edt-html',
-      date: data.date,
-      fields: data.fields,
-      contraintesLabels: data.constraintsLabels,
-      classes: data.classes,
-      profs: data.profs,
-      affects: data.affects
-    };
-
-    fetch(GOOGLE_SCRIPT_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: {
-        'Content-Type': 'text/plain;charset=utf-8'
-      },
-      body: JSON.stringify(payload)
-    })
-    .then(function(){
-      alert('Envoi terminé.\n\nVérifiez votre Google Sheet : les onglets Fiches, Classes, Professeurs et Affectations seront remplis.');
-    })
-    .catch(function(){
-      alert('Erreur réseau pendant l\'envoi vers Google Sheets.');
-    })
-    .then(function(){
-      if(btn){
-        btn.disabled = false;
-        btn.textContent = originalText || '☁️ Google Sheets';
-      }
-    });
   }
 
   /* ================= PDF ================= */
 
   function pdfFallback(){
-    alert('La génération PDF automatique nécessite une connexion internet.\n\nUtilisez le bouton "Imprimer / PDF navigateur", puis choisissez "Enregistrer au format PDF".');
+    alert('La génération PDF nécessite une connexion internet.\n\nUtilisez "Imprimer / PDF navigateur".');
     window.print();
   }
 
@@ -1402,21 +1197,15 @@
     if(window.jspdf && window.jspdf.jsPDF){
       try{
         var testDoc = new window.jspdf.jsPDF();
-        if(typeof testDoc.autoTable === 'function'){
-          onSuccess();
-          return;
-        }
+        if(typeof testDoc.autoTable === 'function'){ onSuccess(); return; }
       }catch(e){}
     }
-
     loadScript(
       'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js',
       function(){
         loadScript(
           'https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js',
-          function(){
-            setTimeout(onSuccess, 50);
-          },
+          function(){ setTimeout(onSuccess, 50); },
           pdfFallback
         );
       },
@@ -1426,291 +1215,117 @@
 
   function generatePDF(){
     if(!validateForm()) return;
-
     refreshClassSelects();
     refreshProfSelects();
     updateAllAffectHeures();
     updateProfTotals();
-
     ensureJsPdf(function(){
       try{
         var JsPDF = window.jspdf.jsPDF;
-        var doc = new JsPDF({
-          orientation: 'portrait',
-          unit: 'mm',
-          format: 'a4'
-        });
-
-        if(typeof doc.autoTable !== 'function'){
-          pdfFallback();
-          return;
-        }
-
+        var doc = new JsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+        if(typeof doc.autoTable !== 'function'){ pdfFallback(); return; }
         var data = collectAllData();
         var pageWidth = doc.internal.pageSize.getWidth();
         var pageHeight = doc.internal.pageSize.getHeight();
         var margin = 8;
         var y = 12;
-
-        function ensureSpace(height){
-          if(y + height > pageHeight - 10){
-            doc.addPage();
-            y = 12;
-          }
-        }
-
-        function normalFont(){
-          doc.setFont('helvetica', 'normal');
-          doc.setFontSize(8);
-          doc.setTextColor(0,0,0);
-        }
-
+        function ensureSpace(height){ if(y + height > pageHeight - 10){ doc.addPage(); y = 12; } }
+        function normalFont(){ doc.setFont('helvetica', 'normal'); doc.setFontSize(8); doc.setTextColor(0,0,0); }
         function sectionTitle(title){
           ensureSpace(12);
-          doc.setFont('helvetica', 'bold');
-          doc.setFontSize(11);
-          doc.setTextColor(0,133,63);
-          doc.text(title, margin, y);
-          y += 1.8;
-          doc.setDrawColor(0,133,63);
-          doc.setLineWidth(0.3);
-          doc.line(margin, y, pageWidth - margin, y);
-          y += 5;
+          doc.setFont('helvetica', 'bold'); doc.setFontSize(11); doc.setTextColor(0,133,63);
+          doc.text(title, margin, y); y += 1.8;
+          doc.setDrawColor(0,133,63); doc.setLineWidth(0.3);
+          doc.line(margin, y, pageWidth - margin, y); y += 5;
         }
-
         function addEmpty(text){
-          ensureSpace(6);
-          doc.setFont('helvetica', 'normal');
-          doc.setFontSize(8);
-          doc.setTextColor(120,120,120);
-          doc.text(text, margin, y);
-          y += 5;
+          ensureSpace(6); doc.setFont('helvetica', 'normal'); doc.setFontSize(8); doc.setTextColor(120,120,120);
+          doc.text(text, margin, y); y += 5;
         }
-
         function addTable(head, body, columnStyles){
           if(!body || body.length === 0) return;
-
           ensureSpace(10);
-
           doc.autoTable({
-            head: head ? [head] : [],
-            body: body,
-            startY: y,
-            margin: {
-              left: margin,
-              right: margin,
-              top: 12,
-              bottom: 10
-            },
-            styles: {
-              font: 'helvetica',
-              fontSize: 7,
-              cellPadding: 1.5,
-              overflow: 'linebreak',
-              valign: 'top'
-            },
-            headStyles: {
-              fillColor: [0,133,63],
-              textColor: [255,255,255],
-              fontStyle: 'bold',
-              fontSize: 7
-            },
-            columnStyles: columnStyles || {},
-            theme: 'grid'
+            head: head ? [head] : [], body: body, startY: y,
+            margin: { left: margin, right: margin, top: 12, bottom: 10 },
+            styles: { font: 'helvetica', fontSize: 7, cellPadding: 1.5, overflow: 'linebreak', valign: 'top' },
+            headStyles: { fillColor: [0,133,63], textColor: [255,255,255], fontStyle: 'bold', fontSize: 7 },
+            columnStyles: columnStyles || {}, theme: 'grid'
           });
-
           y = doc.lastAutoTable.finalY + 4;
-
-          if(y > pageHeight - 12){
-            doc.addPage();
-            y = 12;
-          }
+          if(y > pageHeight - 12){ doc.addPage(); y = 12; }
         }
-
         function addWrappedLine(text, indent){
           indent = indent || 0;
           var width = pageWidth - margin * 2 - indent;
           var lines = doc.splitTextToSize(text, width);
           ensureSpace(lines.length * 3.2 + 1);
-          doc.text(lines, margin + indent, y);
-          y += lines.length * 3.2 + 1;
+          doc.text(lines, margin + indent, y); y += lines.length * 3.2 + 1;
         }
-
         function addObs(items){
           if(!items || items.length === 0) return;
-
-          ensureSpace(6);
-          doc.setFont('helvetica', 'bold');
-          doc.setFontSize(8);
-          doc.setTextColor(0,0,0);
-          doc.text('Observations :', margin, y);
-          y += 3.5;
-
-          doc.setFont('helvetica', 'normal');
-
-          for(var i=0;i<items.length;i++){
-            addWrappedLine('- ' + items[i], 3);
-          }
-
+          ensureSpace(6); doc.setFont('helvetica', 'bold'); doc.setFontSize(8); doc.setTextColor(0,0,0);
+          doc.text('Observations :', margin, y); y += 3.5; doc.setFont('helvetica', 'normal');
+          for(var i=0;i<items.length;i++) addWrappedLine('- ' + items[i], 3);
           y += 2;
         }
-
-        /* Titre */
-        doc.setFont('helvetica', 'bold');
-        doc.setFontSize(14);
-        doc.setTextColor(0,133,63);
-        doc.text('FICHE DE COLLECTE DES INFORMATIONS', pageWidth / 2, y, {
-          align: 'center'
-        });
-        y += 5;
-
-        doc.setFont('helvetica', 'normal');
-        doc.setFontSize(9);
-        doc.setTextColor(70,70,70);
-        doc.text('Confection des emplois du temps — CEM & Lycées (Sénégal)', pageWidth / 2, y, {
-          align: 'center'
-        });
-        y += 8;
-
-        /* 1. Établissement */
+        doc.setFont('helvetica', 'bold'); doc.setFontSize(14); doc.setTextColor(0,133,63);
+        doc.text('FICHE DE COLLECTE DES INFORMATIONS', pageWidth / 2, y, { align: 'center' }); y += 5;
+        doc.setFont('helvetica', 'normal'); doc.setFontSize(9); doc.setTextColor(70,70,70);
+        doc.text('Confection des emplois du temps — CEM & Lycées (Sénégal)', pageWidth / 2, y, { align: 'center' }); y += 8;
         sectionTitle("1. Identification de l'établissement");
-
         var et = data.fields;
-
         var etFields = [
-          ["Type d'établissement", et['et-type']],
-          ["Année scolaire", et['et-annee']],
-          ["Nom de l'établissement", et['et-nom']],
-          ["Adresse", et['et-adresse']],
-          ["Ville / Commune", et['et-ville']],
-          ["Téléphone", et['et-tel']],
-          ["Email", et['et-email']],
-          ["Chef d'établissement", et['et-chef']],
-          ["Contact EDT", et['et-contact']],
-          ["Date limite de retour", et['et-delai']]
+          ["Type d'établissement", et['et-type']], ["Année scolaire", et['et-annee']],
+          ["Nom de l'établissement", et['et-nom']], ["Adresse", et['et-adresse']],
+          ["Ville / Commune", et['et-ville']], ["Téléphone", et['et-tel']],
+          ["Email", et['et-email']], ["Chef d'établissement", et['et-chef']],
+          ["Contact EDT", et['et-contact']], ["Date limite de retour", et['et-delai']]
         ];
-
         var etBody = [];
-
         for(var ei=0; ei<etFields.length; ei+=2){
           var row = [];
-
-          row.push(etFields[ei][0]);
-          row.push(etFields[ei][1] || '');
-
-          if(ei + 1 < etFields.length){
-            row.push(etFields[ei + 1][0]);
-            row.push(etFields[ei + 1][1] || '');
-          }else{
-            row.push('');
-            row.push('');
-          }
-
+          row.push(etFields[ei][0]); row.push(etFields[ei][1] || '');
+          if(ei + 1 < etFields.length){ row.push(etFields[ei + 1][0]); row.push(etFields[ei + 1][1] || ''); }
+          else{ row.push(''); row.push(''); }
           etBody.push(row);
         }
-
-        addTable(null, etBody, {
-          0: {cellWidth: 32, fontStyle: 'bold', fillColor: [245,245,245]},
-          2: {cellWidth: 32, fontStyle: 'bold', fillColor: [245,245,245]}
-        });
-
-        /* 2. Classes */
+        addTable(null, etBody, { 0: {cellWidth: 32, fontStyle: 'bold', fillColor: [245,245,245]}, 2: {cellWidth: 32, fontStyle: 'bold', fillColor: [245,245,245]} });
         sectionTitle('2. Classes');
-
-        var classes = data.classes.filter(function(c){
-          return c.name || c.niveau || c.profil || c.type || c.salle || c.obs;
-        });
-
-        if(classes.length === 0){
-          addEmpty('Aucune classe renseignée.');
-        }else{
+        var classes = data.classes.filter(function(c){ return c.name || c.niveau || c.profil || c.type || c.salle || c.obs; });
+        if(classes.length === 0){ addEmpty('Aucune classe renseignée.'); }
+        else{
           var classBody = [];
-
           for(var ci2=0; ci2<classes.length; ci2++){
-            classBody.push([
-              ci2 + 1,
-              classes[ci2].name,
-              classes[ci2].niveau,
-              classes[ci2].profil,
-              classes[ci2].type,
-              classes[ci2].salle
-            ]);
+            classBody.push([ ci2 + 1, classes[ci2].name, classes[ci2].niveau, classes[ci2].profil, classes[ci2].type, classes[ci2].salle ]);
           }
-
-          addTable(
-            ['N°', 'Classe', 'Niveau', 'Profil', 'Classe fixe ?', 'Salle attribuée'],
-            classBody,
-            {
-              0: {cellWidth: 8},
-              2: {cellWidth: 18},
-              4: {cellWidth: 22, halign: 'center'}
-            }
-          );
-
+          addTable(['N°', 'Classe', 'Niveau', 'Profil', 'Classe fixe ?', 'Salle attribuée'], classBody, { 0: {cellWidth: 8}, 2: {cellWidth: 18}, 4: {cellWidth: 22, halign: 'center'} });
           var classObs = [];
-
           for(var co=0; co<classes.length; co++){
-            if(classes[co].obs){
-              classObs.push((classes[co].name || ('Classe ' + (co + 1))) + ' : ' + classes[co].obs);
-            }
+            if(classes[co].obs) classObs.push((classes[co].name || ('Classe ' + (co + 1))) + ' : ' + classes[co].obs);
           }
-
           addObs(classObs);
         }
-
-        /* 3. Professeurs */
         sectionTitle('3. Professeurs');
-
-        var profs = data.profs.filter(function(p){
-          return p.nom || p.mat || p.autres || p.dispo || p.obs;
-        });
-
-        if(profs.length === 0){
-          addEmpty('Aucun professeur renseigné.');
-        }else{
+        var profs = data.profs.filter(function(p){ return p.nom || p.mat || p.autres || p.dispo || p.obs; });
+        if(profs.length === 0){ addEmpty('Aucun professeur renseigné.'); }
+        else{
           var profBody = [];
-
           for(var pi2=0; pi2<profs.length; pi2++){
-            profBody.push([
-              pi2 + 1,
-              profs[pi2].nom,
-              profs[pi2].mat,
-              profs[pi2].autres,
-              profs[pi2].dispo
-            ]);
+            profBody.push([ pi2 + 1, profs[pi2].nom, profs[pi2].mat, profs[pi2].autres, profs[pi2].dispo ]);
           }
-
-          addTable(
-            ['N°', 'Nom & prénom', 'Matière principale', 'Autres matières', 'Disponibilité / contraintes'],
-            profBody,
-            {
-              0: {cellWidth: 8}
-            }
-          );
-
+          addTable(['N°', 'Nom & prénom', 'Matière principale', 'Autres matières', 'Disponibilité / contraintes'], profBody, { 0: {cellWidth: 8} });
           var profObs = [];
-
           for(var po=0; po<profs.length; po++){
-            if(profs[po].obs){
-              profObs.push((profs[po].nom || ('Professeur ' + (po + 1))) + ' : ' + profs[po].obs);
-            }
+            if(profs[po].obs) profObs.push((profs[po].nom || ('Professeur ' + (po + 1))) + ' : ' + profs[po].obs);
           }
-
           addObs(profObs);
         }
-
-        /* 4. Affectations */
         sectionTitle('4. Affectations');
-
-        var affects = data.affects.filter(function(a){
-          return a.classe || a.matiere || a.prof || a.heures || a.obs;
-        });
-
-        if(affects.length === 0){
-          addEmpty('Aucune affectation renseignée.');
-        }else{
+        var affects = data.affects.filter(function(a){ return a.classe || a.matiere || a.prof || a.heures || a.obs; });
+        if(affects.length === 0){ addEmpty('Aucune affectation renseignée.'); }
+        else{
           var pdfTotals = {};
-
           for(var t=0; t<affects.length; t++){
             if(affects[t].prof){
               var hh = parseFloat(affects[t].heures);
@@ -1718,192 +1333,86 @@
               pdfTotals[affects[t].prof] = (pdfTotals[affects[t].prof] || 0) + hh;
             }
           }
-
           var affectBody = [];
-
           for(var ai=0; ai<affects.length; ai++){
-            var cumul = 0;
-            var cumulText = '';
-
-            if(affects[ai].prof){
-              cumul = pdfTotals[affects[ai].prof] || 0;
-              cumulText = formatHours(cumul);
-            }
-
+            var cumul = 0; var cumulText = '';
+            if(affects[ai].prof){ cumul = pdfTotals[affects[ai].prof] || 0; cumulText = formatHours(cumul); }
             affectBody.push([
-              affects[ai].classe,
-              affects[ai].matiere,
-              affects[ai].prof,
-              affects[ai].heures,
-              {
-                content: cumulText,
-                styles: {
-                  textColor: hexToRgb(colorForHours(cumul)),
-                  fontStyle: 'bold'
-                }
-              }
+              affects[ai].classe, affects[ai].matiere, affects[ai].prof, affects[ai].heures,
+              { content: cumulText, styles: { textColor: hexToRgb(colorForHours(cumul)), fontStyle: 'bold' } }
             ]);
           }
-
-          addTable(
-            ['Classe', 'Matière', 'Professeur', 'Heures', 'Cumul prof'],
-            affectBody,
-            {
-              3: {cellWidth: 18, halign: 'center'},
-              4: {cellWidth: 25, halign: 'center'}
-            }
-          );
-
+          addTable(['Classe', 'Matière', 'Professeur', 'Heures', 'Cumul prof'], affectBody, { 3: {cellWidth: 18, halign: 'center'}, 4: {cellWidth: 25, halign: 'center'} });
           var affObs = [];
-
           for(var ao=0; ao<affects.length; ao++){
-            if(affects[ao].obs){
-              affObs.push((affects[ao].classe || ('Affectation ' + (ao + 1))) + ' : ' + affects[ao].obs);
-            }
+            if(affects[ao].obs) affObs.push((affects[ao].classe || ('Affectation ' + (ao + 1))) + ' : ' + affects[ao].obs);
           }
-
           addObs(affObs);
-
           var totalKeys = Object.keys(pdfTotals).sort();
-
           if(totalKeys.length > 0){
-            ensureSpace(8);
-            doc.setFont('helvetica', 'bold');
-            doc.setFontSize(8);
-            doc.setTextColor(0,0,0);
-            doc.text('Charge cumulée :', margin, y);
-            y += 4;
-
+            ensureSpace(8); doc.setFont('helvetica', 'bold'); doc.setFontSize(8); doc.setTextColor(0,0,0);
+            doc.text('Charge cumulée :', margin, y); y += 4;
             var totalBody = [];
-
             for(var tk=0; tk<totalKeys.length; tk++){
-              var profName = totalKeys[tk];
-              var totalH = pdfTotals[profName];
-
+              var profName = totalKeys[tk]; var totalH = pdfTotals[profName];
               totalBody.push([
                 profName,
-                {
-                  content: formatHours(totalH),
-                  styles: {
-                    textColor: hexToRgb(colorForHours(totalH)),
-                    fontStyle: 'bold'
-                  }
-                }
+                { content: formatHours(totalH), styles: { textColor: hexToRgb(colorForHours(totalH)), fontStyle: 'bold' } }
               ]);
             }
-
-            addTable(
-              ['Professeur', 'Total'],
-              totalBody,
-              {
-                1: {cellWidth: 30, halign: 'center'}
-              }
-            );
+            addTable(['Professeur', 'Total'], totalBody, { 1: {cellWidth: 30, halign: 'center'} });
           }
         }
-
-        /* 5. Contraintes */
         sectionTitle('5. Contraintes particulières');
-
-        if(data.constraintsLabels.length === 0 && !data.fields['contrainte-details']){
-          addEmpty('Aucune contrainte renseignée.');
-        }else{
-          for(var cc=0; cc<data.constraintsLabels.length; cc++){
-            addWrappedLine('- ' + data.constraintsLabels[cc], 3);
-          }
-
+        if(data.constraintsLabels.length === 0 && !data.fields['contrainte-details']){ addEmpty('Aucune contrainte renseignée.'); }
+        else{
+          for(var cc=0; cc<data.constraintsLabels.length; cc++) addWrappedLine('- ' + data.constraintsLabels[cc], 3);
           if(data.fields['contrainte-details']){
-            y += 2;
-            doc.setFont('helvetica', 'bold');
-            doc.setFontSize(8);
-            doc.setTextColor(0,0,0);
-            doc.text('Détails :', margin, y);
-            y += 3.5;
-
-            doc.setFont('helvetica', 'normal');
-
+            y += 2; doc.setFont('helvetica', 'bold'); doc.setFontSize(8); doc.setTextColor(0,0,0);
+            doc.text('Détails :', margin, y); y += 3.5; doc.setFont('helvetica', 'normal');
             var detailLines = data.fields['contrainte-details'].split(/\r?\n/);
-
             for(var dl=0; dl<detailLines.length; dl++){
-              if(detailLines[dl].trim() !== ''){
-                addWrappedLine(detailLines[dl], 3);
-              }
+              if(detailLines[dl].trim() !== '') addWrappedLine(detailLines[dl], 3);
             }
           }
         }
-
-        /* 6. Validation */
         sectionTitle("6. Validation du Chef d'établissement");
-
         addTable(null, [
           ['Nom et prénom', data.fields['val-nom'], 'Fonction', data.fields['val-fonction']],
           ['Fait à', data.fields['val-lieu'], 'Le', data.fields['val-date']]
-        ], {
-          0: {cellWidth: 32, fontStyle: 'bold', fillColor: [245,245,245]},
-          2: {cellWidth: 32, fontStyle: 'bold', fillColor: [245,245,245]}
-        });
-
-        ensureSpace(30);
-
-        doc.setFont('helvetica', 'bold');
-        doc.setFontSize(8);
-        doc.setTextColor(0,0,0);
-        doc.text('Signature et cachet :', margin, y);
-        y += 5;
-
-        doc.setDrawColor(150,150,150);
-        doc.setLineWidth(0.3);
-        doc.rect(margin, y, pageWidth - margin * 2, 22);
-        y += 26;
-
+        ], { 0: {cellWidth: 32, fontStyle: 'bold', fillColor: [245,245,245]}, 2: {cellWidth: 32, fontStyle: 'bold', fillColor: [245,245,245]} });
+        ensureSpace(30); doc.setFont('helvetica', 'bold'); doc.setFontSize(8); doc.setTextColor(0,0,0);
+        doc.text('Signature et cachet :', margin, y); y += 5;
+        doc.setDrawColor(150,150,150); doc.setLineWidth(0.3);
+        doc.rect(margin, y, pageWidth - margin * 2, 22); y += 26;
         normalFont();
         addWrappedLine("Je soussigné(e), Chef d'établissement, certifie que les informations transmises sont exactes et à jour.");
-
         var nom = data.fields['et-nom'] ? data.fields['et-nom'].replace(/[^a-zA-Z0-9_\-]/g, '_') : '';
         var filename = 'fiche_collecte_EDT' + (nom ? '_' + nom : '') + '.pdf';
-
         doc.save(filename);
-
-      }catch(e){
-        pdfFallback();
-      }
+      }catch(e){ pdfFallback(); }
     });
   }
 
   /* ================= INITIALISATION ================= */
 
-  function init(){
+  function initForm(){
     initTable('tb-classes','tpl-classes',5);
     initTable('tb-professeurs','tpl-professeurs',5);
     initTable('tb-affectations','tpl-affectations',5);
-
     updateAllSalleStates();
     refreshClassSelects();
     refreshProfSelects();
     updateAllAffectHeures();
     updateProfTotals();
+  }
 
-    document.addEventListener('input', function(e){
-      if(e.target && e.target.form && e.target.form.id === 'ficheForm'){
-        dirty = true;
-        scheduleAutoSave();
-      }
-    });
-
-    document.addEventListener('change', function(e){
-      if(e.target && e.target.form && e.target.form.id === 'ficheForm'){
-        dirty = true;
-        scheduleAutoSave();
-      }
-    });
-
-    window.addEventListener('beforeunload', function(){
-      if(dirty){
-        saveWork(true);
-      }
-    });
-
-    maybePromptLoad();
+  function init(){
+    var code = getCodeFromUrl();
+    if (code) {
+      document.getElementById('loginCode').value = code;
+      loadFromCloud(code);
+    }
   }
 
   if(document.readyState === 'loading'){
