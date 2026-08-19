@@ -445,3 +445,8 @@ function refreshMatrix(){
   wrap("updateProfTotals");
   if(window.console) console.log("Matrice affectations chargée.");
 })();
+/* Ouvre automatiquement le détail lors d'une impression / PDF navigateur */
+window.addEventListener("beforeprint", function(){
+  var ds = document.querySelectorAll("details.mx-details");
+  for(var i=0;i<ds.length;i++){ ds[i].setAttribute("open", "open"); }
+});
