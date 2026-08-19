@@ -63,7 +63,48 @@
   .save-status.success{background:#d4edda;color:#155724}
   .save-status.error{background:#f8d7da;color:#721c24}
   .save-status.info{background:#d1ecf1;color:#0c5460}
-
+/* ===== Matrice affectations ===== */
+.mx-toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:12px}
+.mx-btn{border:2px solid #00853f;background:#fff;color:#00853f;padding:7px 14px;border-radius:20px;font-size:.84rem;font-weight:700;cursor:pointer}
+.mx-btn:hover{background:#e6f4ec}
+.mx-btn.active{background:#00853f;color:#fff}
+.mx-switch{display:flex;gap:6px;align-items:center;font-size:.84rem;font-weight:600;cursor:pointer;margin-left:auto}
+.mx-switch input{width:auto}
+.mx-chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.mx-chip{border:2px solid #00853f;background:#fff;color:#00853f;padding:5px 11px;border-radius:16px;font-size:.8rem;font-weight:700;cursor:pointer}
+.mx-chip:hover{background:#e6f4ec}
+.mx-chip.active{background:#00853f;color:#fff}
+.mx-chip em{font-style:normal;background:rgba(0,0,0,.08);border-radius:10px;padding:1px 6px;margin-left:5px;font-size:.72rem}
+.mx-chip.full::before{content:"✓ ";font-weight:800}
+.mx-table-wrap{overflow:auto;max-height:540px;border:1px solid #ccc;border-radius:8px;margin-bottom:10px;background:#fff}
+table.mx{min-width:600px;background:#fff}
+.mx th.mx-corner{position:sticky;left:0;top:0;z-index:5;background:#00853f;color:#fff;min-width:205px;text-align:left;font-size:.72rem}
+.mx thead th{position:sticky;top:0;z-index:3}
+.mx th.mx-rowh{position:sticky;left:0;z-index:2;background:#fff;color:#222;text-align:left;min-width:205px;font-size:.82rem;white-space:normal}
+.mx tbody tr:hover td{background:#e6f4ec}
+.mx tbody tr:hover th.mx-rowh{background:#e6f4ec}
+.mx td{text-align:center}
+.mx-cell{width:26px;height:26px;border-radius:5px;border:2px dashed #bbb;background:#fff;cursor:pointer;position:relative;vertical-align:middle;padding:0}
+.mx-cell:hover{border-color:#1565c0;border-style:solid}
+.mx-cell.on{background:#00853f;border-color:#00853f;border-style:solid}
+.mx-cell.on::after{content:"✓";color:#fff;font-weight:800;position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.mx-cell.rec{border-color:#00853f}
+.mx-cell.off{opacity:.35}
+.mx-cell.off:hover{opacity:.9;border-color:#e65100}
+.mx-name{font-weight:700;display:block}
+.mx-sub{display:block;font-size:.7rem;color:#777}
+.mx-total{display:inline-block;color:#fff;border-radius:9px;padding:1px 7px;font-size:.72rem;font-weight:800;margin-top:2px}
+.mx-dot{display:inline-block;width:9px;height:9px;border-radius:50%;border:2px solid #bbb;margin-left:6px;vertical-align:middle}
+.mx-dot.on{background:#00853f;border-color:#00853f}
+.mx-dot.ko{background:#e31b23;border-color:#e31b23}
+.mx-badge{display:inline-block;padding:3px 10px;border-radius:12px;font-size:.75rem;font-weight:800;white-space:nowrap}
+.mx-badge.ok{background:#e6f4ec;color:#006b32;border:1px solid #00853f}
+.mx-badge.ko{background:#fdecea;color:#e31b23;border:1px solid #e31b23}
+.mx-badge.na{background:#eee;color:#666;border:1px solid #bbb}
+.mx-miss-tag{display:inline-block;border:1.5px dashed #e31b23;color:#e31b23;padding:2px 8px;border-radius:6px;font-size:.75rem;font-weight:700;margin:2px 3px 2px 0}
+.mx-foot{font-size:.85rem;margin-top:4px}
+.mx-small-note{color:#777;font-size:.78rem}
+ 
   @page{size:A4;margin:6mm}
 
   @media print{
@@ -213,29 +254,47 @@
     </section>
 
     <section id="tab-affectations" class="tab-content">
-      <h2>4. Affectation des professeurs dans les classes</h2>
-      <div id="prof-summary" class="info-box no-print" style="display:none;">
-        <strong>Charge cumulée des professeurs :</strong>
-        <div id="prof-summary-list"></div>
-      </div>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Classe</th>
-              <th>Matière</th>
-              <th>Professeur</th>
-              <th>Heures</th>
-              <th>Cumul prof</th>
-              <th>Observations</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody id="tb-affectations"></tbody>
-        </table>
-      </div>
-      <button type="button" class="add-row no-print" onclick="addRow('tb-affectations','tpl-affectations')">+ Ajouter une ligne</button>
-    </section>
+<h2>4. Affectation des professeurs dans les classes</h2>
+<div class="info-box no-print">
+<strong>Saisie rapide :</strong> choisissez une matière (ou une classe), puis <strong>cochez les cases</strong> pour affecter les professeurs. Les heures officielles se remplissent automatiquement ; recochez une case pour retirer. Le tableau Détail ci-dessous reste entièrement modifiable (heures, observations, plusieurs professeurs pour une même matière).
+</div>
+<div class="no-print">
+<div class="mx-toolbar">
+<button type="button" class="mx-btn active" id="mx-mode-mat" onclick="mxSetMode('mat')">Par matière</button>
+<button type="button" class="mx-btn" id="mx-mode-cl" onclick="mxSetMode('cl')">Par classe</button>
+<button type="button" class="mx-btn" id="mx-mode-verif" onclick="mxSetMode('verif')">✔ Vérification</button>
+<label class="mx-switch"><input type="checkbox" id="mx-spec" checked onchange="mxSetSpec(this.checked)"> Spécialistes uniquement</label>
+</div>
+<div id="mx-zone">
+<div id="mx-hint" class="info-box" style="display:none"></div>
+<div class="mx-chips" id="mx-chips"></div>
+<div class="mx-table-wrap" id="mx-wrap" style="display:none"><table class="mx" id="mx-table"></table></div>
+<div class="mx-foot" id="mx-foot"></div>
+</div>
+</div>
+<div id="prof-summary" class="info-box no-print" style="display:none;">
+<strong>Charge cumulée des professeurs :</strong>
+<div id="prof-summary-list"></div>
+</div>
+<h3 style="color:#00853f;font-size:.95rem;margin:16px 0 8px">Détail des affectations (heures et observations)</h3>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Classe</th>
+<th>Matière</th>
+<th>Professeur</th>
+<th>Heures</th>
+<th>Cumul prof</th>
+<th>Observations</th>
+<th></th>
+</tr>
+</thead>
+<tbody id="tb-affectations"></tbody>
+</table>
+</div>
+<button type="button" class="add-row no-print" onclick="addRow('tb-affectations','tpl-affectations')">+ Ajouter une ligne</button>
+</section>
 
     <section id="tab-contraintes" class="tab-content">
       <h2>5. Contraintes particulières</h2>
@@ -1421,6 +1480,6 @@
     init();
   }
 </script>
-
+<script src="matrice-affectations.js"></script>
 </body>
 </html>
