@@ -4,1795 +4,1423 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Fiche Collecte Emploi du Temps - CEM/Lycées Sénégal</title>
+
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Segoe UI',Arial,sans-serif;background:#f4f6f8;color:#222;line-height:1.5}
-header{background:#00853f;color:#fff;padding:22px 16px;text-align:center}
-header h1{font-size:1.35rem;margin-bottom:4px}
-header p{font-size:.9rem;opacity:.95}
-.flag{height:6px;background:linear-gradient(90deg,#00853f 33.3%,#fdef42 33.3% 66.6%,#e31b23 66.6%)}
-.login-screen{max-width:500px;margin:40px auto;background:#fff;padding:30px;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.1)}
-.login-screen h2{color:#00853f;margin-bottom:20px;text-align:center}
-.login-screen input{width:100%;padding:12px;font-size:1rem;border:2px solid #ccc;border-radius:6px;margin-bottom:15px}
-.login-screen button{width:100%;padding:12px;background:#00853f;color:#fff;border:none;border-radius:6px;font-size:1rem;font-weight:700;cursor:pointer}
-.login-screen button:hover{background:#006b32}
-.topbar{max-width:1150px;margin:14px auto 0;padding:0 12px;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
-.topbar-left{display:flex;gap:8px;flex-wrap:wrap}
-.topbar-right{display:flex;gap:8px;flex-wrap:wrap}
-.code-badge{background:#00853f;color:#fff;padding:8px 14px;border-radius:6px;font-weight:700;font-size:.9rem}
-.tabs{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;padding:12px 10px;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.08);position:sticky;top:0;z-index:999}
-.tab-btn{border:2px solid #00853f;background:#fff;color:#00853f;padding:7px 12px;border-radius:20px;font-size:.82rem;font-weight:600;cursor:pointer}
-.tab-btn:hover{background:#e6f4ec}
-.tab-btn.active{background:#00853f;color:#fff}
-.tab-content{display:none;background:#fff;border-radius:10px;padding:22px;margin:18px auto;max-width:1100px;box-shadow:0 1px 4px rgba(0,0,0,.1)}
-.tab-content.active{display:block}
-h2{color:#00853f;border-left:5px solid #00853f;padding-left:10px;margin-bottom:16px;font-size:1.1rem}
-.info-box{background:#e6f4ec;border:1px solid #00853f;border-radius:8px;padding:12px 16px;margin-bottom:18px;font-size:.88rem}
-.info-box li{margin-left:18px;margin-bottom:4px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-bottom:12px}
-.field{min-width:0}
-.field label{display:block;font-size:.78rem;font-weight:600;margin-bottom:4px;color:#444}
-input,select,textarea{width:100%;padding:8px;border:1px solid #ccc;border-radius:6px;font-size:.9rem;background:#fdfdfd;min-width:0}
-input:focus,select:focus,textarea:focus{outline:2px solid #00853f;border-color:#00853f}
-textarea{min-height:80px;resize:vertical}
-.table-wrap{overflow-x:auto;margin-bottom:8px}
-table{width:100%;border-collapse:collapse;font-size:.85rem;min-width:750px}
-th{background:#00853f;color:#fff;padding:8px 6px;text-align:left;font-size:.76rem;white-space:nowrap}
-td{border:1px solid #ddd;padding:4px}
-td input,td select{border:1px solid #e3e3e3;background:#fafafa;border-radius:4px}
-.del{background:#e31b23;color:#fff;border:none;border-radius:4px;padding:4px 9px;font-weight:700;cursor:pointer}
-.del:hover{background:#b0101a}
-.add-row{margin-top:10px;background:#fff;border:2px dashed #00853f;color:#00853f;padding:8px 16px;border-radius:6px;font-weight:600;font-size:.85rem;cursor:pointer}
-.add-row:hover{background:#e6f4ec}
-button{cursor:pointer}
-.btn{border:none;border-radius:6px;padding:10px 14px;font-weight:700;font-size:.88rem;cursor:pointer}
-.check{display:flex;gap:10px;align-items:center;margin:7px 0;font-size:.9rem}
-.check input{width:auto}
-.sign-box{border:2px dashed #999;border-radius:8px;min-height:110px;margin-top:6px;padding:8px;font-size:.8rem;color:#777}
-.actions{margin-top:18px;display:flex;gap:10px;flex-wrap:wrap}
-footer{text-align:center;padding:18px;font-size:.8rem;color:#777}
-.invalid{border:2px solid #e31b23 !important;background:#fff5f5 !important}
-.prof-total-badge{display:none;color:#fff;border-radius:10px;padding:2px 7px;font-size:.75rem;font-weight:800;white-space:nowrap}
-.prof-summary-badge{display:inline-block;color:#fff;border-radius:12px;padding:4px 9px;margin:3px 5px 0 0;font-size:.8rem;font-weight:800}
-#prof-summary-list{margin-top:8px}
-.save-status{padding:8px 14px;border-radius:6px;font-size:.85rem;font-weight:600;margin-top:10px}
-.save-status.success{background:#d4edda;color:#155724}
-.save-status.error{background:#f8d7da;color:#721c24}
-.save-status.info{background:#d1ecf1;color:#0c5460}
-/* ===== Matrice d affectations ===== */
-.mx-toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:12px}
-.mx-btn{border:2px solid #00853f;background:#fff;color:#00853f;padding:7px 14px;border-radius:20px;font-size:.84rem;font-weight:700;cursor:pointer}
-.mx-btn:hover{background:#e6f4ec}
-.mx-btn.active{background:#00853f;color:#fff}
-.mx-switch{display:flex;gap:6px;align-items:center;font-size:.84rem;font-weight:600;cursor:pointer;margin-left:auto}
-.mx-switch input{width:auto}
-.mx-chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
-.mx-chip{border:2px solid #00853f;background:#fff;color:#00853f;padding:5px 11px;border-radius:16px;font-size:.8rem;font-weight:700;cursor:pointer}
-.mx-chip:hover{background:#e6f4ec}
-.mx-chip.active{background:#00853f;color:#fff}
-.mx-chip em{font-style:normal;background:rgba(0,0,0,.08);border-radius:10px;padding:1px 6px;margin-left:5px;font-size:.72rem}
-.mx-chip.full::before{content:"✓ ";font-weight:800}
-.mx-table-wrap{overflow:auto;max-height:540px;border:1px solid #ccc;border-radius:8px;margin-bottom:10px;background:#fff}
-table.mx{min-width:600px;background:#fff}
-.mx th.mx-corner{position:sticky;left:0;top:0;z-index:5;background:#00853f;color:#fff;min-width:205px;text-align:left;font-size:.72rem}
-.mx thead th{position:sticky;top:0;z-index:3}
-.mx th.mx-rowh{position:sticky;left:0;z-index:2;background:#fff;color:#222;text-align:left;min-width:205px;font-size:.82rem;white-space:normal}
-.mx tbody tr:hover td{background:#e6f4ec}
-.mx tbody tr:hover th.mx-rowh{background:#e6f4ec}
-.mx td{text-align:center}
-.mx-cell{width:26px;height:26px;border-radius:5px;border:2px dashed #bbb;background:#fff;cursor:pointer;position:relative;vertical-align:middle;padding:0}
-.mx-cell:hover{border-color:#1565c0;border-style:solid}
-.mx-cell.on{background:#00853f;border-color:#00853f;border-style:solid}
-.mx-cell.on::after{content:"✓";color:#fff;font-weight:800;position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
-.mx-cell.rec{border-color:#00853f}
-.mx-cell.off{opacity:.35}
-.mx-cell.off:hover{opacity:.9;border-color:#e65100}
-.mx-name{font-weight:700;display:block}
-.mx-sub{display:block;font-size:.7rem;color:#777}
-.mx-total{display:inline-block;color:#fff;border-radius:9px;padding:1px 7px;font-size:.72rem;font-weight:800;margin-top:2px}
-.mx-dot{display:inline-block;width:9px;height:9px;border-radius:50%;border:2px solid #bbb;margin-left:6px;vertical-align:middle}
-.mx-dot.on{background:#00853f;border-color:#00853f}
-.mx-dot.ko{background:#e31b23;border-color:#e31b23}
-.mx-vcell{display:inline-block;min-width:80px;max-width:170px;padding:3px 8px;border-radius:6px;font-size:.76rem;text-align:center}
-.mx-vcell.on{background:#e6f4ec;border:1px solid #00853f;color:#006b32;font-weight:600}
-.mx-vcell.miss{background:#fff;border:2px dashed #e31b23;color:#e31b23;font-weight:700;cursor:pointer}
-.mx-vcell.miss:hover{background:#fff5f5}
-.mx-badge{display:inline-block;padding:3px 10px;border-radius:12px;font-size:.75rem;font-weight:800;white-space:nowrap}
-.mx-badge.ok{background:#e6f4ec;color:#006b32;border:1px solid #00853f}
-.mx-badge.ko{background:#fdecea;color:#e31b23;border:1px solid #e31b23}
-.mx-badge.na{background:#eee;color:#666;border:1px solid #bbb}
-.mx-miss-tag{display:inline-block;border:1.5px dashed #e31b23;color:#e31b23;padding:2px 8px;border-radius:6px;font-size:.75rem;font-weight:700;margin:2px 3px 2px 0}
-.mx-foot{font-size:.85rem;margin-top:4px}
-.mx-small-note{color:#777;font-size:.78rem}
-@page{size:A4;margin:6mm}
-@media print{
-.tabs,.topbar,.no-print,footer,.info-box,.login-screen{display:none !important}
-body{background:#fff;margin:0;padding:0}
-.tab-content{display:block !important;box-shadow:none;margin:0 0 10px;max-width:100%;padding:6px 0}
-input,select,textarea{border:none;background:transparent;font-size:9px;padding:2px;min-width:0}
-table{table-layout:fixed;width:100%;min-width:0;font-size:9px;word-break:break-word}
-th,td{padding:2px;word-break:break-word;overflow-wrap:anywhere}
-th{background:#ddd;color:#000}
-tr,.field{page-break-inside:avoid}
-h2{page-break-after:avoid}
-table th:last-child,table td:last-child{display:none}
-.table-wrap{overflow:visible}
-.prof-total-badge{font-size:8px;padding:1px 4px}
-.grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:4px}
-}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:#f4f6f8;color:#222;line-height:1.5}
+  header{background:#00853f;color:#fff;padding:22px 16px;text-align:center}
+  header h1{font-size:1.35rem;margin-bottom:4px}
+  header p{font-size:.9rem;opacity:.95}
+  .flag{height:6px;background:linear-gradient(90deg,#00853f 33.3%,#fdef42 33.3% 66.6%,#e31b23 66.6%)}
+  
+  .login-screen{max-width:500px;margin:40px auto;background:#fff;padding:30px;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.1)}
+  .login-screen h2{color:#00853f;margin-bottom:20px;text-align:center}
+  .login-screen input{width:100%;padding:12px;font-size:1rem;border:2px solid #ccc;border-radius:6px;margin-bottom:15px}
+  .login-screen button{width:100%;padding:12px;background:#00853f;color:#fff;border:none;border-radius:6px;font-size:1rem;font-weight:700;cursor:pointer}
+  .login-screen button:hover{background:#006b32}
+  
+  .topbar{max-width:1150px;margin:14px auto 0;padding:0 12px;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+  .topbar-left{display:flex;gap:8px;flex-wrap:wrap}
+  .topbar-right{display:flex;gap:8px;flex-wrap:wrap}
+  .code-badge{background:#00853f;color:#fff;padding:8px 14px;border-radius:6px;font-weight:700;font-size:.9rem}
+  
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;padding:12px 10px;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.08);position:sticky;top:0;z-index:999}
+  .tab-btn{border:2px solid #00853f;background:#fff;color:#00853f;padding:7px 12px;border-radius:20px;font-size:.82rem;font-weight:600;cursor:pointer}
+  .tab-btn:hover{background:#e6f4ec}
+  .tab-btn.active{background:#00853f;color:#fff}
+  .tab-content{display:none;background:#fff;border-radius:10px;padding:22px;margin:18px auto;max-width:1100px;box-shadow:0 1px 4px rgba(0,0,0,.1)}
+  .tab-content.active{display:block}
+  h2{color:#00853f;border-left:5px solid #00853f;padding-left:10px;margin-bottom:16px;font-size:1.1rem}
+  .info-box{background:#e6f4ec;border:1px solid #00853f;border-radius:8px;padding:12px 16px;margin-bottom:18px;font-size:.88rem}
+  .info-box li{margin-left:18px;margin-bottom:4px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-bottom:12px}
+  .field{min-width:0}
+  .field label{display:block;font-size:.78rem;font-weight:600;margin-bottom:4px;color:#444}
+  input,select,textarea{width:100%;padding:8px;border:1px solid #ccc;border-radius:6px;font-size:.9rem;background:#fdfdfd;min-width:0}
+  input:focus,select:focus,textarea:focus{outline:2px solid #00853f;border-color:#00853f}
+  textarea{min-height:80px;resize:vertical}
+  .table-wrap{overflow-x:auto;margin-bottom:8px}
+  table{width:100%;border-collapse:collapse;font-size:.85rem;min-width:750px}
+  th{background:#00853f;color:#fff;padding:8px 6px;text-align:left;font-size:.76rem;white-space:nowrap}
+  td{border:1px solid #ddd;padding:4px}
+  td input,td select{border:1px solid #e3e3e3;background:#fafafa;border-radius:4px}
+  .del{background:#e31b23;color:#fff;border:none;border-radius:4px;padding:4px 9px;font-weight:700;cursor:pointer}
+  .del:hover{background:#b0101a}
+  .add-row{margin-top:10px;background:#fff;border:2px dashed #00853f;color:#00853f;padding:8px 16px;border-radius:6px;font-weight:600;font-size:.85rem;cursor:pointer}
+  .add-row:hover{background:#e6f4ec}
+  button{cursor:pointer}
+  .btn{border:none;border-radius:6px;padding:10px 14px;font-weight:700;font-size:.88rem;cursor:pointer}
+  .check{display:flex;gap:10px;align-items:center;margin:7px 0;font-size:.9rem}
+  .check input{width:auto}
+  .sign-box{border:2px dashed #999;border-radius:8px;min-height:110px;margin-top:6px;padding:8px;font-size:.8rem;color:#777}
+  .actions{margin-top:18px;display:flex;gap:10px;flex-wrap:wrap}
+  footer{text-align:center;padding:18px;font-size:.8rem;color:#777}
+  .invalid{border:2px solid #e31b23 !important;background:#fff5f5 !important}
+  .prof-total-badge{display:none;color:#fff;border-radius:10px;padding:2px 7px;font-size:.75rem;font-weight:800;white-space:nowrap}
+  .prof-summary-badge{display:inline-block;color:#fff;border-radius:12px;padding:4px 9px;margin:3px 5px 0 0;font-size:.8rem;font-weight:800}
+  #prof-summary-list{margin-top:8px}
+  .save-status{padding:8px 14px;border-radius:6px;font-size:.85rem;font-weight:600;margin-top:10px}
+  .save-status.success{background:#d4edda;color:#155724}
+  .save-status.error{background:#f8d7da;color:#721c24}
+  .save-status.info{background:#d1ecf1;color:#0c5460}
+
+  @page{size:A4;margin:6mm}
+
+  @media print{
+    .tabs,.topbar,.no-print,footer,.info-box,.login-screen{display:none !important}
+    body{background:#fff;margin:0;padding:0}
+    .tab-content{display:block !important;box-shadow:none;margin:0 0 10px;max-width:100%;padding:6px 0}
+    input,select,textarea{border:none;background:transparent;font-size:9px;padding:2px;min-width:0}
+    table{table-layout:fixed;width:100%;min-width:0;font-size:9px;word-break:break-word}
+    th,td{padding:2px;word-break:break-word;overflow-wrap:anywhere}
+    th{background:#ddd;color:#000}
+    tr,.field{page-break-inside:avoid}
+    h2{page-break-after:avoid}
+    table th:last-child,table td:last-child{display:none}
+    .table-wrap{overflow:visible}
+    .prof-total-badge{font-size:8px;padding:1px 4px}
+    .grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:4px}
+  }
 </style>
 </head>
+
 <body>
+
 <!-- ÉCRAN DE CONNEXION -->
 <div id="loginScreen" class="login-screen">
-<h2>🔐 Accès à la fiche</h2>
-<p style="text-align:center;margin-bottom:20px;color:#666">Entrez votre code établissement pour continuer</p>
-<input type="text" id="loginCode" placeholder="Ex: EDT-8F4KQ2" autocomplete="off">
-<button onclick="loginWithCode()">Continuer</button>
-<div id="loginStatus" style="margin-top:15px"></div>
+  <h2>🔐 Accès à la fiche</h2>
+  <p style="text-align:center;margin-bottom:20px;color:#666">Entrez votre code établissement pour continuer</p>
+  <input type="text" id="loginCode" placeholder="Ex: EDT-8F4KQ2" autocomplete="off">
+  <button onclick="loginWithCode()">Continuer</button>
+  <div id="loginStatus" style="margin-top:15px"></div>
 </div>
+
 <!-- FORMULAIRE PRINCIPAL -->
 <div id="mainApp" style="display:none">
+
 <header>
-<h1>📋 FICHE DE COLLECTE DES INFORMATIONS</h1>
-<p>Confection des emplois du temps — CEM &amp; Lycées (Sénégal)</p>
+  <h1>📋 FICHE DE COLLECTE DES INFORMATIONS</h1>
+  <p>Confection des emplois du temps — CEM &amp; Lycées (Sénégal)</p>
 </header>
 <div class="flag"></div>
+
 <noscript>
-<div style="background:#e31b23;color:#fff;padding:12px;text-align:center;font-weight:bold">
-JavaScript doit être activé pour utiliser cette fiche.
-</div>
+  <div style="background:#e31b23;color:#fff;padding:12px;text-align:center;font-weight:bold">
+    JavaScript doit être activé pour utiliser cette fiche.
+  </div>
 </noscript>
+
 <div class="topbar no-print">
-<div class="topbar-left">
-<div class="code-badge">Code: <span id="displayCode">—</span></div>
+  <div class="topbar-left">
+    <div class="code-badge">Code: <span id="displayCode">—</span></div>
+  </div>
+  <div class="topbar-right">
+    <button type="button" class="btn" style="background:#ff9800;color:#fff" onclick="saveDraft()">💾 Sauvegarder</button>
+    <button type="button" class="btn" style="background:#1565c0;color:#fff" onclick="generatePDF()">📄 PDF</button>
+    <button type="button" class="btn" style="background:#0f9d58;color:#fff" onclick="submitFinal()">✅ Soumettre</button>
+  </div>
 </div>
-<div class="topbar-right">
-<button type="button" class="btn" style="background:#ff9800;color:#fff" onclick="saveDraft()">💾 Sauvegarder</button>
-<button type="button" class="btn" style="background:#1565c0;color:#fff" onclick="generatePDF()">📄 PDF</button>
-<button type="button" class="btn" style="background:#0f9d58;color:#fff" onclick="submitFinal()">✅ Soumettre</button>
-</div>
-</div>
+
 <nav class="tabs no-print">
-<button type="button" class="tab-btn active" data-tab="tab-etablissement" onclick="showTab('tab-etablissement', this)">1. Établissement</button>
-<button type="button" class="tab-btn" data-tab="tab-classes" onclick="showTab('tab-classes', this)">2. Classes</button>
-<button type="button" class="tab-btn" data-tab="tab-professeurs" onclick="showTab('tab-professeurs', this)">3. Professeurs</button>
-<button type="button" class="tab-btn" data-tab="tab-affectations" onclick="showTab('tab-affectations', this)">4. Affectations</button>
-<button type="button" class="tab-btn" data-tab="tab-contraintes" onclick="showTab('tab-contraintes', this)">5. Contraintes</button>
-<button type="button" class="tab-btn" data-tab="tab-validation" onclick="showTab('tab-validation', this)">6. Validation</button>
+  <button type="button" class="tab-btn active" data-tab="tab-etablissement" onclick="showTab('tab-etablissement', this)">1. Établissement</button>
+  <button type="button" class="tab-btn" data-tab="tab-classes" onclick="showTab('tab-classes', this)">2. Classes</button>
+  <button type="button" class="tab-btn" data-tab="tab-professeurs" onclick="showTab('tab-professeurs', this)">3. Professeurs</button>
+  <button type="button" class="tab-btn" data-tab="tab-affectations" onclick="showTab('tab-affectations', this)">4. Affectations</button>
+  <button type="button" class="tab-btn" data-tab="tab-contraintes" onclick="showTab('tab-contraintes', this)">5. Contraintes</button>
+  <button type="button" class="tab-btn" data-tab="tab-validation" onclick="showTab('tab-validation', this)">6. Validation</button>
 </nav>
+
 <main>
-<form id="ficheForm" onsubmit="return false;">
-<section id="tab-etablissement" class="tab-content active">
-<h2>1. Identification de l'établissement</h2>
-<div class="info-box">
-<strong>Mode d'emploi :</strong>
-<ul>
-<li>Cliquez sur <strong>💾 Sauvegarder</strong> pour enregistrer votre travail dans le cloud.</li>
-<li>Vous pourrez reprendre sur n'importe quel appareil avec votre code.</li>
-<li>Quand tout est terminé, cliquez sur <strong>✅ Soumettre</strong>.</li>
-</ul>
-</div>
-<div class="grid">
-<div class="field"><label>Type d'établissement</label>
-<select id="et-type">
-<option value="">— Choisir —</option>
-<option>CEM</option>
-<option>Lycée</option>
-<option>Collège privé</option>
-<option>Lycée privé</option>
-<option>Autre</option>
-</select>
-</div>
-<div class="field"><label>Année scolaire</label><input id="et-annee" type="text" placeholder="Ex : 2026-2027"></div>
-<div class="field"><label>Nom de l'établissement</label><input id="et-nom" type="text"></div>
-<div class="field"><label>Adresse</label><input id="et-adresse" type="text"></div>
-<div class="field"><label>Ville / Commune</label><input id="et-ville" type="text"></div>
-<div class="field"><label>Téléphone</label><input id="et-tel" type="tel"></div>
-<div class="field"><label>Email</label><input id="et-email" type="email"></div>
-<div class="field"><label>Nom du Chef d'établissement</label><input id="et-chef" type="text"></div>
-<div class="field"><label>Personne à contacter pour les EDT</label><input id="et-contact" type="text"></div>
-<div class="field"><label>Date limite de retour de la fiche</label><input id="et-delai" type="date"></div>
-</div>
-</section>
-<section id="tab-classes" class="tab-content">
-<h2>2. Liste des classes</h2>
-<div class="info-box">
-Si <strong>Classe fixe = Oui</strong>, la salle est obligatoire. Si <strong>Classe fixe = Non</strong>, la salle se verrouille.
-</div>
-<div class="table-wrap">
-<table>
-<thead>
-<tr>
-<th>N°</th>
-<th>Classe</th>
-<th>Niveau</th>
-<th>Profil</th>
-<th>Classe fixe ?</th>
-<th>Salle attribuée</th>
-<th>Observations</th>
-<th></th>
-</tr>
-</thead>
-<tbody id="tb-classes"></tbody>
-</table>
-</div>
-<button type="button" class="add-row no-print" onclick="addRow('tb-classes','tpl-classes')">+ Ajouter une ligne</button>
-</section>
-<section id="tab-professeurs" class="tab-content">
-<h2>3. Liste des professeurs</h2>
-<div class="table-wrap">
-<table>
-<thead>
-<tr>
-<th>N°</th>
-<th>Nom &amp; prénom</th>
-<th>Matière principale</th>
-<th>Autres matières</th>
-<th>Disponibilité / contraintes</th>
-<th>Observations</th>
-<th></th>
-</tr>
-</thead>
-<tbody id="tb-professeurs"></tbody>
-</table>
-</div>
-<button type="button" class="add-row no-print" onclick="addRow('tb-professeurs','tpl-professeurs')">+ Ajouter une ligne</button>
-</section>
-<section id="tab-affectations" class="tab-content">
-<h2>4. Affectation des professeurs dans les classes</h2>
-<div class="info-box no-print">
-<strong>Saisie rapide :</strong> choisissez une matière (ou une classe), puis <strong>cochez les cases</strong> pour affecter les professeurs. Les heures officielles se remplissent automatiquement ; recochez une case pour retirer. Le tableau « Détail » ci-dessous reste entièrement modifiable (heures, observations, plusieurs professeurs pour une même matière).
-</div>
-<div class="no-print">
-<div class="mx-toolbar">
-<button type="button" class="mx-btn active" id="mx-mode-mat" onclick="mxSetMode('mat')">Par matière</button>
-<button type="button" class="mx-btn" id="mx-mode-cl" onclick="mxSetMode('cl')">Par classe</button>
-<button type="button" class="mx-btn" id="mx-mode-verif" onclick="mxSetMode('verif')">✔ Vérification</button>
-<label class="mx-switch"><input type="checkbox" id="mx-spec" checked onchange="mxSetSpec(this.checked)"> Spécialistes uniquement</label>
-</div>
-<div id="mx-zone">
-<div id="mx-hint" class="info-box" style="display:none"></div>
-<div class="mx-chips" id="mx-chips"></div>
-<div class="mx-table-wrap" id="mx-wrap" style="display:none"><table class="mx" id="mx-table"></table></div>
-<div class="mx-foot" id="mx-foot"></div>
-</div>
-</div>
-<div id="prof-summary" class="info-box no-print" style="display:none;">
-<strong>Charge cumulée des professeurs :</strong>
-<div id="prof-summary-list"></div>
-</div>
-<h3 style="color:#00853f;font-size:.95rem;margin:16px 0 8px">Détail des affectations (heures et observations)</h3>
-<div class="table-wrap">
-<table>
-<thead>
-<tr>
-<th>Classe</th>
-<th>Matière</th>
-<th>Professeur</th>
-<th>Heures</th>
-<th>Cumul prof</th>
-<th>Observations</th>
-<th></th>
-</tr>
-</thead>
-<tbody id="tb-affectations"></tbody>
-</table>
-</div>
-<button type="button" class="add-row no-print" onclick="addRow('tb-affectations','tpl-affectations')">+ Ajouter une ligne</button>
-</section>
-<section id="tab-contraintes" class="tab-content">
-<h2>5. Contraintes particulières</h2>
-<p style="font-size:.85rem;margin-bottom:10px">Cochez tout ce qui s'applique, puis détaillez dans la zone de texte.</p>
-<div class="check"><input type="checkbox"> Professeurs à temps partiel</div>
-<div class="check"><input type="checkbox"> Professeurs partagés avec un autre établissement</div>
-<div class="check"><input type="checkbox"> Professeurs régulièrement indisponibles</div>
-<div class="check"><input type="checkbox"> Matières à placer en priorité le matin</div>
-<div class="check"><input type="checkbox"> EPS : horaires ou créneaux imposés</div>
-<div class="check"><input type="checkbox"> Réunions régulières fixes</div>
-<div class="check"><input type="checkbox"> Autres contraintes</div>
-<div class="field" style="margin-top:14px">
-<label>Détail des contraintes</label>
-<textarea id="contrainte-details"></textarea>
-</div>
-</section>
-<section id="tab-validation" class="tab-content">
-<h2>6. Validation du Chef d'établissement</h2>
-<p style="font-size:.85rem;margin-bottom:8px"><strong>Documents fournis avec cette fiche (cochez) :</strong></p>
-<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:4px;margin-bottom:18px">
-<div class="check"><input type="checkbox"> Liste des classes</div>
-<div class="check"><input type="checkbox"> Liste des professeurs</div>
-<div class="check"><input type="checkbox"> Affectations des professeurs</div>
-<div class="check"><input type="checkbox"> Contraintes particulières</div>
-</div>
-<div class="grid">
-<div class="field"><label>Nom et prénom du Chef d'établissement</label><input id="val-nom" type="text"></div>
-<div class="field"><label>Fonction</label><input id="val-fonction" type="text"></div>
-<div class="field"><label>Fait à</label><input id="val-lieu" type="text"></div>
-<div class="field"><label>Le (date)</label><input id="val-date" type="date"></div>
-</div>
-<div class="field">
-<label>Signature et cachet</label>
-<div class="sign-box">Espace réservé pour la signature et le cachet</div>
-</div>
-<p style="font-size:.85rem;margin-top:14px">
-Je soussigné(e), Chef d'établissement, certifie que les informations transmises sont exactes et à jour.
-</p>
-<div class="actions no-print">
-<button type="button" class="btn" style="background:#0f9d58;color:#fff" onclick="submitFinal()">✅ Soumettre la fiche finale</button>
-<button type="button" class="btn" style="background:#ff9800;color:#fff" onclick="saveDraft()">💾 Sauvegarder brouillon</button>
-<button type="button" class="btn" style="background:#1565c0;color:#fff" onclick="generatePDF()">📄 Générer PDF</button>
-</div>
-<div id="saveStatus"></div>
-</section>
-</form>
+  <form id="ficheForm" onsubmit="return false;">
+
+    <section id="tab-etablissement" class="tab-content active">
+      <h2>1. Identification de l'établissement</h2>
+      <div class="info-box">
+        <strong>Mode d'emploi :</strong>
+        <ul>
+          <li>Cliquez sur <strong>💾 Sauvegarder</strong> pour enregistrer votre travail dans le cloud.</li>
+          <li>Vous pourrez reprendre sur n'importe quel appareil avec votre code.</li>
+          <li>Quand tout est terminé, cliquez sur <strong>✅ Soumettre</strong>.</li>
+        </ul>
+      </div>
+      <div class="grid">
+        <div class="field"><label>Type d'établissement</label>
+          <select id="et-type">
+            <option value="">— Choisir —</option>
+            <option>CEM</option>
+            <option>Lycée</option>
+            <option>Collège privé</option>
+            <option>Lycée privé</option>
+            <option>Autre</option>
+          </select>
+        </div>
+        <div class="field"><label>Année scolaire</label><input id="et-annee" type="text" placeholder="Ex : 2026-2027"></div>
+        <div class="field"><label>Nom de l'établissement</label><input id="et-nom" type="text"></div>
+        <div class="field"><label>Adresse</label><input id="et-adresse" type="text"></div>
+        <div class="field"><label>Ville / Commune</label><input id="et-ville" type="text"></div>
+        <div class="field"><label>Téléphone</label><input id="et-tel" type="tel"></div>
+        <div class="field"><label>Email</label><input id="et-email" type="email"></div>
+        <div class="field"><label>Nom du Chef d'établissement</label><input id="et-chef" type="text"></div>
+        <div class="field"><label>Personne à contacter pour les EDT</label><input id="et-contact" type="text"></div>
+        <div class="field"><label>Date limite de retour de la fiche</label><input id="et-delai" type="date"></div>
+      </div>
+    </section>
+
+    <section id="tab-classes" class="tab-content">
+      <h2>2. Liste des classes</h2>
+      <div class="info-box">
+        Si <strong>Classe fixe = Oui</strong>, la salle est obligatoire. Si <strong>Classe fixe = Non</strong>, la salle se verrouille.
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>N°</th>
+              <th>Classe</th>
+              <th>Niveau</th>
+              <th>Profil</th>
+              <th>Classe fixe ?</th>
+              <th>Salle attribuée</th>
+              <th>Observations</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="tb-classes"></tbody>
+        </table>
+      </div>
+      <button type="button" class="add-row no-print" onclick="addRow('tb-classes','tpl-classes')">+ Ajouter une ligne</button>
+    </section>
+
+    <section id="tab-professeurs" class="tab-content">
+      <h2>3. Liste des professeurs</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>N°</th>
+              <th>Nom &amp; prénom</th>
+              <th>Matière principale</th>
+              <th>Autres matières</th>
+              <th>Disponibilité / contraintes</th>
+              <th>Observations</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="tb-professeurs"></tbody>
+        </table>
+      </div>
+      <button type="button" class="add-row no-print" onclick="addRow('tb-professeurs','tpl-professeurs')">+ Ajouter une ligne</button>
+    </section>
+
+    <section id="tab-affectations" class="tab-content">
+      <h2>4. Affectation des professeurs dans les classes</h2>
+      <div id="prof-summary" class="info-box no-print" style="display:none;">
+        <strong>Charge cumulée des professeurs :</strong>
+        <div id="prof-summary-list"></div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Classe</th>
+              <th>Matière</th>
+              <th>Professeur</th>
+              <th>Heures</th>
+              <th>Cumul prof</th>
+              <th>Observations</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="tb-affectations"></tbody>
+        </table>
+      </div>
+      <button type="button" class="add-row no-print" onclick="addRow('tb-affectations','tpl-affectations')">+ Ajouter une ligne</button>
+    </section>
+
+    <section id="tab-contraintes" class="tab-content">
+      <h2>5. Contraintes particulières</h2>
+      <p style="font-size:.85rem;margin-bottom:10px">Cochez tout ce qui s'applique, puis détaillez dans la zone de texte.</p>
+      <div class="check"><input type="checkbox"> Professeurs à temps partiel</div>
+      <div class="check"><input type="checkbox"> Professeurs partagés avec un autre établissement</div>
+      <div class="check"><input type="checkbox"> Professeurs régulièrement indisponibles</div>
+      <div class="check"><input type="checkbox"> Matières à placer en priorité le matin</div>
+      <div class="check"><input type="checkbox"> EPS : horaires ou créneaux imposés</div>
+      <div class="check"><input type="checkbox"> Réunions régulières fixes</div>
+      <div class="check"><input type="checkbox"> Autres contraintes</div>
+      <div class="field" style="margin-top:14px">
+        <label>Détail des contraintes</label>
+        <textarea id="contrainte-details"></textarea>
+      </div>
+    </section>
+
+    <section id="tab-validation" class="tab-content">
+      <h2>6. Validation du Chef d'établissement</h2>
+      <p style="font-size:.85rem;margin-bottom:8px"><strong>Documents fournis avec cette fiche (cochez) :</strong></p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:4px;margin-bottom:18px">
+        <div class="check"><input type="checkbox"> Liste des classes</div>
+        <div class="check"><input type="checkbox"> Liste des professeurs</div>
+        <div class="check"><input type="checkbox"> Affectations des professeurs</div>
+        <div class="check"><input type="checkbox"> Contraintes particulières</div>
+      </div>
+      <div class="grid">
+        <div class="field"><label>Nom et prénom du Chef d'établissement</label><input id="val-nom" type="text"></div>
+        <div class="field"><label>Fonction</label><input id="val-fonction" type="text"></div>
+        <div class="field"><label>Fait à</label><input id="val-lieu" type="text"></div>
+        <div class="field"><label>Le (date)</label><input id="val-date" type="date"></div>
+      </div>
+      <div class="field">
+        <label>Signature et cachet</label>
+        <div class="sign-box">Espace réservé pour la signature et le cachet</div>
+      </div>
+      <p style="font-size:.85rem;margin-top:14px">
+        Je soussigné(e), Chef d'établissement, certifie que les informations transmises sont exactes et à jour.
+      </p>
+      <div class="actions no-print">
+        <button type="button" class="btn" style="background:#0f9d58;color:#fff" onclick="submitFinal()">✅ Soumettre la fiche finale</button>
+        <button type="button" class="btn" style="background:#ff9800;color:#fff" onclick="saveDraft()">💾 Sauvegarder brouillon</button>
+        <button type="button" class="btn" style="background:#1565c0;color:#fff" onclick="generatePDF()">📄 Générer PDF</button>
+      </div>
+      <div id="saveStatus"></div>
+    </section>
+
+  </form>
 </main>
+
 <footer class="no-print">
-Fiche de collecte — Confection des emplois du temps — CEM / Lycées Sénégal
+  Fiche de collecte — Confection d'emplois du temps — CEM / Lycées Sénégal
 </footer>
+
 </div>
+
 <template id="tpl-classes">
-<tr>
-<td><input class="num" type="text" readonly></td>
-<td><input class="classe-name" type="text" placeholder="Ex : 6e A" oninput="onClassMetaChanged(this)"></td>
-<td>
-<select class="classe-niveau" onchange="onClassMetaChanged(this)">
-<option value="">—</option>
-<option>6e</option>
-<option>5e</option>
-<option>4e</option>
-<option>3e</option>
-</select>
-</td>
-<td>
-<select class="classe-profil" onchange="onClassMetaChanged(this)">
-<option value="">—</option>
-<option>Moderne</option>
-<option>Franco-Arabe</option>
-<option>Mixte Mod/FA</option>
-<option>LV2 Espagnol</option>
-<option>LV2 Arabe</option>
-<option>LV2 Portugais</option>
-</select>
-</td>
-<td>
-<select class="classe-type" onchange="onClassTypeChange(this)">
-<option value="">— Choisir —</option>
-<option>Oui</option>
-<option>Non</option>
-</select>
-</td>
-<td><input class="classe-salle" type="text" placeholder="Salle attribuée" oninput="this.classList.remove('invalid')"></td>
-<td><input class="classe-obs" type="text"></td>
-<td><button type="button" class="del" onclick="removeRow(this)">✕</button></td>
-</tr>
+  <tr>
+    <td><input class="num" type="text" readonly></td>
+    <td><input class="classe-name" type="text" placeholder="Ex : 6e A" oninput="onClassMetaChanged(this)"></td>
+    <td>
+      <select class="classe-niveau" onchange="onClassMetaChanged(this)">
+        <option value="">—</option>
+        <option>6e</option>
+        <option>5e</option>
+        <option>4e</option>
+        <option>3e</option>
+      </select>
+    </td>
+    <td>
+      <select class="classe-profil" onchange="onClassMetaChanged(this)">
+        <option value="">—</option>
+        <option>Moderne</option>
+        <option>Franco-Arabe</option>
+        <option>Mixte Mod/FA</option>
+        <option>LV2 Espagnol</option>
+        <option>LV2 Arabe</option>
+        <option>LV2 Portugais</option>
+      </select>
+    </td>
+    <td>
+      <select class="classe-type" onchange="onClassTypeChange(this)">
+        <option value="">— Choisir —</option>
+        <option>Oui</option>
+        <option>Non</option>
+      </select>
+    </td>
+    <td><input class="classe-salle" type="text" placeholder="Salle attribuée" oninput="this.classList.remove('invalid')"></td>
+    <td><input class="classe-obs" type="text"></td>
+    <td><button type="button" class="del" onclick="removeRow(this)">✕</button></td>
+  </tr>
 </template>
+
 <template id="tpl-professeurs">
-<tr>
-<td><input class="num" type="text" readonly></td>
-<td><input class="prof-nom" type="text" placeholder="Ex : M. NDIAYE" oninput="refreshProfSelects()"></td>
-<td><input class="prof-mat" type="text" list="matieres" placeholder="Matière" oninput="refreshProfSelects()"></td>
-<td><input class="prof-autres" type="text" list="matieres" placeholder="Matière"></td>
-<td><input class="prof-dispo" type="text" placeholder="Ex : indisponible le mercredi"></td>
-<td><input class="prof-obs" type="text"></td>
-<td><button type="button" class="del" onclick="removeRow(this)">✕</button></td>
-</tr>
+  <tr>
+    <td><input class="num" type="text" readonly></td>
+    <td><input class="prof-nom" type="text" placeholder="Ex : M. NDIAYE" oninput="refreshProfSelects()"></td>
+    <td><input class="prof-mat" type="text" list="matieres" placeholder="Matière" oninput="refreshProfSelects()"></td>
+    <td><input class="prof-autres" type="text" list="matieres" placeholder="Matière"></td>
+    <td><input class="prof-dispo" type="text" placeholder="Ex : indisponible le mercredi"></td>
+    <td><input class="prof-obs" type="text"></td>
+    <td><button type="button" class="del" onclick="removeRow(this)">✕</button></td>
+  </tr>
 </template>
+
 <template id="tpl-affectations">
-<tr>
-<td>
-<select class="affect-classe" onchange="onAffectClassMatiereChanged(this)">
-<option value="">— Choisir classe —</option>
-</select>
-</td>
-<td><input class="affect-matiere" type="text" list="matieres" placeholder="Matière" oninput="onAffectClassMatiereChanged(this)"></td>
-<td>
-<select class="affect-prof" onchange="updateProfTotals()">
-<option value="">— Choisir professeur —</option>
-</select>
-</td>
-<td><input class="affect-heures" type="number" min="0" step="0.5" style="width:70px" oninput="onHeuresManual(this)"></td>
-<td style="text-align:center"><span class="prof-total-badge"></span></td>
-<td><input class="affect-obs" type="text"></td>
-<td><button type="button" class="del" onclick="removeRow(this)">✕</button></td>
-</tr>
+  <tr>
+    <td>
+      <select class="affect-classe" onchange="onAffectClassMatiereChanged(this)">
+        <option value="">— Choisir classe —</option>
+      </select>
+    </td>
+    <td><input class="affect-matiere" type="text" list="matieres" placeholder="Matière" oninput="onAffectClassMatiereChanged(this)"></td>
+    <td>
+      <select class="affect-prof" onchange="updateProfTotals()">
+        <option value="">— Choisir professeur —</option>
+      </select>
+    </td>
+    <td><input class="affect-heures" type="number" min="0" step="0.5" style="width:70px" oninput="onHeuresManual(this)"></td>
+    <td style="text-align:center"><span class="prof-total-badge"></span></td>
+    <td><input class="affect-obs" type="text"></td>
+    <td><button type="button" class="del" onclick="removeRow(this)">✕</button></td>
+  </tr>
 </template>
+
 <datalist id="matieres">
-<option value="Français"></option>
-<option value="Math"></option>
-<option value="Anglais"></option>
-<option value="SVT"></option>
-<option value="H.G."></option>
-<option value="Éducation civique"></option>
-<option value="Économie familiale et sociale"></option>
-<option value="Éducation artistique ou musicale"></option>
-<option value="E.P.S."></option>
-<option value="F.P.I."></option>
-<option value="PC"></option>
-<option value="Éducation technologique"></option>
-<option value="Espagnol"></option>
-<option value="Arabe"></option>
-<option value="Portugais"></option>
-<option value="Ed. relig."></option>
+  <option value="Français"></option>
+  <option value="Math"></option>
+  <option value="Anglais"></option>
+  <option value="SVT"></option>
+  <option value="H.G."></option>
+  <option value="Éducation civique"></option>
+  <option value="Économie familiale et sociale"></option>
+  <option value="Éducation artistique ou musicale"></option>
+  <option value="E.P.S."></option>
+  <option value="F.P.I."></option>
+  <option value="PC"></option>
+  <option value="Éducation technologique"></option>
+  <option value="Espagnol"></option>
+  <option value="Arabe"></option>
+  <option value="Portugais"></option>
+  <option value="Ed. relig."></option>
 </datalist>
+
 <script>
-var GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyTSacme_pxl8G85xzxta4UiQL5h-BBU5431SFIw5HYDTg0S-3l6QDFPbAtlcsNvomwVA/exec";
-var currentCode = '';
-var FIELD_IDS = [
-'et-type','et-annee','et-nom','et-adresse','et-ville','et-tel','et-email',
-'et-chef','et-contact','et-delai','contrainte-details',
-'val-nom','val-fonction','val-lieu','val-date'
-];
-/* ================= CONNEXION ================= */
-function getCodeFromUrl() {
-var params = new URLSearchParams(window.location.search);
-return params.get('code') || '';
-}
-function loginWithCode() {
-var code = document.getElementById('loginCode').value.trim();
-if (!code) {
-showLoginStatus('Veuillez entrer un code.', 'error');
-return;
-}
-loadFromCloud(code);
-}
-function showLoginStatus(msg, type) {
-var div = document.getElementById('loginStatus');
-div.innerHTML = '<div class="save-status ' + type + '">' + msg + '</div>';
-}
-function loadFromCloud(code) {
-showLoginStatus('Chargement...', 'info');
-fetch(GOOGLE_SCRIPT_URL + '?action=load&code=' + encodeURIComponent(code))
-.then(function(res) { return res.json(); })
-.then(function(data) {
-if (data.ok) {
-currentCode = code;
-document.getElementById('displayCode').textContent = code;
-document.getElementById('loginScreen').style.display = 'none';
-document.getElementById('mainApp').style.display = 'block';
-if (data.data) {
-loadFormData(data.data);
-showLoginStatus('Fiche chargée avec succès.', 'success');
-} else {
-initForm();
-showLoginStatus('Nouvelle fiche créée.', 'success');
-}
-} else {
-showLoginStatus('Code non trouvé ou erreur: ' + (data.error || 'Inconnu'), 'error');
-}
-})
-.catch(function(err) {
-showLoginStatus('Erreur réseau: ' + err.message, 'error');
-});
-}
-function loadFormData(data) {
-var form = document.getElementById('ficheForm');
-if (form) form.reset();
-for (var f = 0; f < FIELD_IDS.length; f++) {
-var fieldValue = data.fields && data.fields[FIELD_IDS[f]] ? data.fields[FIELD_IDS[f]] : '';
-if (fieldValue === '— Choisir —') fieldValue = '';
-setField(FIELD_IDS[f], fieldValue);
-}
-var constraintInputs = document.querySelectorAll('#tab-contraintes .check input');
-for (var c = 0; c < constraintInputs.length; c++) {
-if (data.constraints && c < data.constraints.length) {
-constraintInputs[c].checked = !!data.constraints[c];
-}
-}
-var documentInputs = document.querySelectorAll('#tab-validation .check input');
-for (var d = 0; d < documentInputs.length; d++) {
-if (data.documents && d < documentInputs.length) {
-documentInputs[d].checked = !!data.documents[d];
-}
-}
-document.getElementById('tb-classes').innerHTML = '';
-document.getElementById('tb-professeurs').innerHTML = '';
-document.getElementById('tb-affectations').innerHTML = '';
-if (Array.isArray(data.classes)) {
-for (var ci = 0; ci < data.classes.length; ci++) {
-var cRow = appendBlankRow('tb-classes', 'tpl-classes');
-if (!cRow) continue;
-setVal(cRow, 'classe-name', data.classes[ci].name);
-setSelectValue(cRow.querySelector('.classe-niveau'), data.classes[ci].niveau);
-setSelectValue(cRow.querySelector('.classe-profil'), data.classes[ci].profil);
-setSelectValue(cRow.querySelector('.classe-type'), data.classes[ci].type);
-setVal(cRow, 'classe-salle', data.classes[ci].salle);
-setVal(cRow, 'classe-obs', data.classes[ci].obs);
-}
-renumber('tb-classes');
-}
-if (Array.isArray(data.profs)) {
-for (var pi = 0; pi < data.profs.length; pi++) {
-var pRow = appendBlankRow('tb-professeurs', 'tpl-professeurs');
-if (!pRow) continue;
-setVal(pRow, 'prof-nom', data.profs[pi].nom);
-setVal(pRow, 'prof-mat', data.profs[pi].mat);
-setVal(pRow, 'prof-autres', data.profs[pi].autres);
-setVal(pRow, 'prof-dispo', data.profs[pi].dispo);
-setVal(pRow, 'prof-obs', data.profs[pi].obs);
-}
-renumber('tb-professeurs');
-}
-updateAllSalleStates();
-refreshClassSelects();
-refreshProfSelects();
-if (Array.isArray(data.affects)) {
-for (var ai = 0; ai < data.affects.length; ai++) {
-var aRow = appendBlankRow('tb-affectations', 'tpl-affectations');
-if (!aRow) continue;
-setSelectValue(aRow.querySelector('.affect-classe'), data.affects[ai].classe);
-setVal(aRow, 'affect-matiere', data.affects[ai].matiere);
-setSelectValue(aRow.querySelector('.affect-prof'), data.affects[ai].prof);
-var heuresEl = aRow.querySelector('.affect-heures');
-if (heuresEl) {
-heuresEl.value = data.affects[ai].heures || '';
-if (data.affects[ai].manual || (data.affects[ai].heures && String(data.affects[ai].heures).trim() !== '')) {
-heuresEl.dataset.manual = '1';
-}
-}
-setVal(aRow, 'affect-obs', data.affects[ai].obs);
-if (!data.affects[ai].manual && (!data.affects[ai].heures || String(data.affects[ai].heures).trim() === '')) {
-updateAffectRowHeures(aRow);
-}
-}
-}
-updateProfTotals();
-}
-/* ================= SAUVEGARDE CLOUD ================= */
-function saveDraft() {
-if (!currentCode) {
-alert('Aucun code établissement. Veuillez vous connecter.');
-return;
-}
-saveToCloud('draft');
-}
-function submitFinal() {
-if (!currentCode) {
-alert('Aucun code établissement. Veuillez vous connecter.');
-return;
-}
-if (!validateForm()) return;
-if (!confirm('Soumettre la fiche finale ? Cette action est irréversible.')) return;
-saveToCloud('final');
-}
-function saveToCloud(status) {
-var btn = event ? event.target : null;
-var originalText = btn ? btn.textContent : '';
-if (btn) {
-btn.disabled = true;
-btn.textContent = 'Enregistrement...';
-}
-var data = collectAllData();
-var payload = {
-action: 'save',
-code: currentCode,
-status: status,
-data: data
-};
-fetch(GOOGLE_SCRIPT_URL, {
-method: 'POST',
-mode: 'no-cors',
-headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-body: JSON.stringify(payload)
-})
-.then(function() {
-showSaveStatus('Sauvegarde réussie (' + status + ')', 'success');
-})
-.catch(function(err) {
-showSaveStatus('Erreur: ' + err.message, 'error');
-})
-.then(function() {
-if (btn) {
-btn.disabled = false;
-btn.textContent = originalText;
-}
-});
-}
-function showSaveStatus(msg, type) {
-var div = document.getElementById('saveStatus');
-if (!div) return;
-div.innerHTML = '<div class="save-status ' + type + '">' + msg + '</div>';
-setTimeout(function() { div.innerHTML = ''; }, 5000);
-}
-/* ================= NORMALISATION ET REFERENTIEL ================= */
-function normalizeText(s){
-if(s === null || s === undefined) return '';
-s = String(s);
-var accentMap = {
-'é:'e','è':'e','ê':'e','ë':'e',
-'à':'a','â':'a',
-'î':'i','ï':'i',
-'ô':'o','ö':'o',
-'ù':'u','û':'u','ü':'u',
-'ç':'c'
-};
-s = s.toLowerCase();
-s = s.replace(/[éèêëàâîïôöùûüç]/g, function(c){
-return accentMap[c] || '';
-});
-try{ s = s.normalize('NFD'); }catch(e){}
-s = s.replace(/[\u0300-\u036f]/g, '');
-s = s.replace(/[^a-z0-9]/gi, '');
-return s;
-}
-var DISCIPLINE_ALIASES = {
-'mathematiques':'math','mathematique':'math','maths':'math',
-'histoiregeographie':'hg','histoiregeo':'hg',
-'physiquechimie':'pc',
-'educationphysiqueetsportive':'eps',
-'educationreligieuse':'edrelig','edrelig':'edrelig'
-};
-function normalizeDiscipline(s){
-var n = normalizeText(s);
-return DISCIPLINE_ALIASES[n] || n;
-}
-var REF_MAP = {};
-function addRefs(niveau, profil, list){
-for(var i=0;i<list.length;i++){
-var key = normalizeText(niveau) + '|' + normalizeText(profil) + '|' + normalizeDiscipline(list[i][0]);
-REF_MAP[key] = list[i][1];
-}
-}
-var MOD_6_5 = [
-['Français',6],['Math',6],['Anglais',4],['SVT',3],['H.G.',4],
-['Éducation civique',1],['Économie familiale et sociale',1],
-['Éducation artistique ou musicale',1],['E.P.S.',2],['F.P.I.',2]
-];
-var MOD_4_3 = [
-['Français',6],['Math',6],['Anglais',3],['SVT',3],['PC',3],
-['Éducation technologique',2],['H.G.',4],['Éducation civique',1],
-['E.P.S.',2],['F.P.I.',2]
-];
-var FA_6_5 = [
-['Arabe',6],['Ed. relig.',4],['Français',6],['Math',6],['Anglais',3],
-['SVT',3],['H.G.',4],['Éducation civique',1],['E.P.S.',2],['F.P.I.',2]
-];
-var FA_4_3 = [
-['Arabe',6],['Ed. relig.',4],['Français',6],['Math',6],['Anglais',2],
-['SVT',3],['PC',3],['H.G.',4],['Éducation civique',1],['E.P.S.',2],['F.P.I.',2]
-];
-var MIXTE_6_5 = [
-['Français',0],['Math',0],['SVT',0],['H.G.',0],
-['Éducation civique',0],['E.P.S.',0],['F.P.I.',2]
-];
-var MIXTE_4_3 = [
-['Français',0],['Math',0],['SVT',0],['PC',0],['H.G.',0],
-['Éducation civique',0],['Éducation technologique',0],['E.P.S.',0],['F.P.I.',2]
-];
-addRefs('6e','Moderne',MOD_6_5);
-addRefs('5e','Moderne',MOD_6_5);
-addRefs('4e','Moderne',MOD_4_3);
-addRefs('3e','Moderne',MOD_4_3);
-addRefs('4e','LV2 Espagnol',[['Espagnol',3]]);
-addRefs('3e','LV2 Espagnol',[['Espagnol',3]]);
-addRefs('4e','LV2 Arabe',[['Arabe',3]]);
-addRefs('3e','LV2 Arabe',[['Arabe',3]]);
-addRefs('4e','LV2 Portugais',[['Portugais',3]]);
-addRefs('3e','LV2 Portugais',[['Portugais',3]]);
-addRefs('6e','Franco-Arabe',FA_6_5);
-addRefs('5e','Franco-Arabe',FA_6_5);
-addRefs('4e','Franco-Arabe',FA_4_3);
-addRefs('3e','Franco-Arabe',FA_4_3);
-addRefs('6e','Mixte Mod/FA',MIXTE_6_5);
-addRefs('5e','Mixte Mod/FA',MIXTE_6_5);
-addRefs('4e','Mixte Mod/FA',MIXTE_4_3);
-addRefs('3e','Mixte Mod/FA',MIXTE_4_3);
-function getOfficialHours(niveau, profil, discipline){
-if(!niveau || !profil || !discipline) return null;
-var key = normalizeText(niveau) + '|' + normalizeText(profil) + '|' + normalizeDiscipline(discipline);
-return REF_MAP.hasOwnProperty(key) ? REF_MAP[key] : null;
-}
-/* ================= UTILITAIRES ================= */
-function val(row, className){
-var el = row.querySelector('.' + className);
-return el ? el.value.trim() : '';
-}
-function getField(id){
-var el = document.getElementById(id);
-return el ? el.value.trim() : '';
-}
-function setField(id, value){
-var el = document.getElementById(id);
-if(el) el.value = value || '';
-}
-function setVal(row, className, value){
-var el = row.querySelector('.' + className);
-if(el) el.value = value || '';
-}
-function getRow(el){
-if(el.closest) return el.closest('tr');
-var parent = el.parentElement;
-while(parent && parent.tagName !== 'TR') parent = parent.parentElement;
-return parent;
-}
-function setSelectValue(sel, value){
-if(!sel) return;
-if(value === '— Choisir —') value = '';
-value = value || '';
-var found = false;
-for(var i=0;i<sel.options.length;i++){
-if(sel.options[i].value === value){ found = true; break; }
-}
-if(!found && value !== ''){
-var opt = document.createElement('option');
-opt.value = value;
-opt.textContent = value;
-sel.appendChild(opt);
-}
-sel.value = value;
-}
-function escapeHtml(s){
-return String(s || '')
-.replace(/&/g, '&amp;')
-.replace(/</g, '&lt;')
-.replace(/>/g, '&gt;')
-.replace(/"/g, '&quot;');
-}
-function formatHours(h){
-h = Number(h) || 0;
-if(h % 1 === 0) return h + ' h';
-return h.toFixed(1) + ' h';
-}
-function colorForHours(h){
-h = Number(h) || 0;
-if(h <= 0) return '#9e9e9e';
-if(h <= 15) return '#1565c0';
-if(h <= 24) return '#00853f';
-if(h <= 30) return '#e65100';
-return '#e31b23';
-}
-function hexToRgb(hex){
-hex = String(hex || '').replace('#', '');
-if(hex.length === 3){
-hex = hex.charAt(0) + hex.charAt(0) + hex.charAt(1) + hex.charAt(1) + hex.charAt(2) + hex.charAt(2);
-}
-var num = parseInt(hex, 16);
-if(isNaN(num)) return [0,0,0];
-return [(num >> 16) & 255, (num >> 8) & 255, num & 255];
-}
-/* ================= ONGLETS ================= */
-function showTab(id, btn){
-var sections = document.getElementsByClassName('tab-content');
-for(var i=0;i<sections.length;i++){
-sections[i].classList.remove('active');
-sections[i].style.display = 'none';
-}
-var buttons = document.getElementsByClassName('tab-btn');
-for(var j=0;j<buttons.length;j++){
-buttons[j].classList.remove('active');
-}
-var sec = document.getElementById(id);
-if(sec){
-sec.classList.add('active');
-sec.style.display = 'block';
-}
-if(btn){
-btn.classList.add('active');
-}else{
-var b = document.querySelector('.tab-btn[data-tab="' + id + '"]');
-if(b) b.classList.add('active');
-}
-window.scrollTo(0,0);
-}
-/* ================= CLASSES ================= */
-function renumber(bodyId){
-var body = document.getElementById(bodyId);
-if(!body) return;
-for(var i=0;i<body.rows.length;i++){
-var num = body.rows[i].querySelector('.num');
-if(num) num.value = i + 1;
-}
-}
-function getClasses(){
-var rows = document.querySelectorAll('#tb-classes tr');
-var classes = [];
-var names = [];
-for(var i=0;i<rows.length;i++){
-var name = val(rows[i], 'classe-name');
-if(name && names.indexOf(name) === -1){
-names.push(name);
-classes.push({
-name: name,
-niveau: val(rows[i], 'classe-niveau'),
-profil: val(rows[i], 'classe-profil')
-});
-}
-}
-return classes;
-}
-function findClassRowByName(name){
-var rows = document.querySelectorAll('#tb-classes tr');
-for(var i=0;i<rows.length;i++){
-if(val(rows[i], 'classe-name') === name) return rows[i];
-}
-return null;
-}
-function onClassMetaChanged(){
-refreshClassSelects();
-updateAllAffectHeures();
-updateProfTotals();
-}
-function onClassTypeChange(el){
-var row = getRow(el);
-updateSalleState(row);
-}
-function updateSalleState(row){
-var type = row.querySelector('.classe-type');
-var salle = row.querySelector('.classe-salle');
-if(!type || !salle) return;
-if(type.value === 'Oui'){
-salle.disabled = false;
-salle.required = true;
-salle.style.backgroundColor = '';
-}else if(type.value === 'Non'){
-salle.disabled = true;
-salle.required = false;
-salle.value = '';
-salle.style.backgroundColor = '#eee';
-}else{
-salle.disabled = false;
-salle.required = false;
-salle.style.backgroundColor = '';
-}
-}
-function updateAllSalleStates(){
-var rows = document.querySelectorAll('#tb-classes tr');
-for(var i=0;i<rows.length;i++) updateSalleState(rows[i]);
-}
-/* ================= PROFESSEURS ================= */
-function getProfs(){
-var rows = document.querySelectorAll('#tb-professeurs tr');
-var profs = [];
-for(var i=0;i<rows.length;i++){
-var nom = val(rows[i], 'prof-nom');
-var mat = val(rows[i], 'prof-mat');
-if(nom) profs.push({nom: nom, mat: mat});
-}
-return profs;
-}
-function refreshProfSelects(){
-var profs = getProfs();
-var selects = document.querySelectorAll('#tb-affectations .affect-prof');
-for(var i=0;i<selects.length;i++){
-var sel = selects[i];
-var current = sel.value;
-sel.innerHTML = '<option value="">— Choisir professeur —</option>';
-for(var j=0;j<profs.length;j++){
-var opt = document.createElement('option');
-opt.value = profs[j].nom;
-opt.textContent = profs[j].mat ? profs[j].nom + ' (' + profs[j].mat + ')' : profs[j].nom;
-sel.appendChild(opt);
-}
-if(current){
-var exists = false;
-for(var k=0;k<profs.length;k++){
-if(profs[k].nom === current){ exists = true; break; }
-}
-if(exists){
-sel.value = current;
-}else{
-var oldOpt = document.createElement('option');
-oldOpt.value = current;
-oldOpt.textContent = current + ' (ancien)';
-sel.appendChild(oldOpt);
-sel.value = current;
-}
-}
-}
-refreshMatrix();
-}
-/* ================= AFFECTATIONS ================= */
-function refreshClassSelects(){
-var classes = getClasses();
-var selects = document.querySelectorAll('#tb-affectations .affect-classe');
-for(var i=0;i<selects.length;i++){
-var sel = selects[i];
-var current = sel.value;
-sel.innerHTML = '<option value="">— Choisir classe —</option>';
-for(var j=0;j<classes.length;j++){
-var opt = document.createElement('option');
-opt.value = classes[j].name;
-var suffix = '';
-if(classes[j].niveau || classes[j].profil){
-suffix = ' (' + [classes[j].niveau, classes[j].profil].filter(Boolean).join(' / ') + ')';
-}
-opt.textContent = classes[j].name + suffix;
-sel.appendChild(opt);
-}
-if(current){
-var exists = false;
-for(var k=0;k<classes.length;k++){
-if(classes[k].name === current){ exists = true; break; }
-}
-if(exists){
-sel.value = current;
-}else{
-var oldOpt = document.createElement('option');
-oldOpt.value = current;
-oldOpt.textContent = current + ' (ancien)';
-sel.appendChild(oldOpt);
-sel.value = current;
-}
-}
-}
-refreshMatrix();
-}
-function getOfficialHoursForClassAndMatiere(className, matiere){
-var row = findClassRowByName(className);
-if(!row) return null;
-var niveau = val(row, 'classe-niveau');
-var profil = val(row, 'classe-profil');
-return getOfficialHours(niveau, profil, matiere);
-}
-function updateAffectRowHeures(row){
-var classeSel = row.querySelector('.affect-classe');
-var matiere = row.querySelector('.affect-matiere');
-var heuresInput = row.querySelector('.affect-heures');
-if(!classeSel || !matiere || !heuresInput) return;
-if(heuresInput.dataset.manual === '1') return;
-var h = getOfficialHoursForClassAndMatiere(classeSel.value, matiere.value);
-if(h === null){
-heuresInput.value = '';
-}else{
-heuresInput.value = h;
-}
-}
-function onAffectClassMatiereChanged(el){
-var row = getRow(el);
-if(!row) return;
-var heuresInput = row.querySelector('.affect-heures');
-if(heuresInput) heuresInput.dataset.manual = '';
-updateAffectRowHeures(row);
-updateProfTotals();
-}
-function onHeuresManual(el){
-el.dataset.manual = '1';
-updateProfTotals();
-}
-function updateAllAffectHeures(){
-var rows = document.querySelectorAll('#tb-affectations tr');
-for(var i=0;i<rows.length;i++) updateAffectRowHeures(rows[i]);
-updateProfTotals();
-}
-function updateProfTotals(){
-var rows = document.querySelectorAll('#tb-affectations tr');
-var totals = {};
-for(var i=0;i<rows.length;i++){
-var profSel = rows[i].querySelector('.affect-prof');
-var heuresInput = rows[i].querySelector('.affect-heures');
-var prof = profSel ? profSel.value : '';
-var h = heuresInput ? parseFloat(heuresInput.value) : 0;
-if(isNaN(h)) h = 0;
-if(prof) totals[prof] = (totals[prof] || 0) + h;
-}
-for(var j=0;j<rows.length;j++){
-var badge = rows[j].querySelector('.prof-total-badge');
-var profSel2 = rows[j].querySelector('.affect-prof');
-if(!badge || !profSel2) continue;
-var prof2 = profSel2.value;
-if(prof2 && totals[prof2] !== undefined){
-badge.textContent = formatHours(totals[prof2]);
-badge.style.display = 'inline-block';
-badge.style.backgroundColor = colorForHours(totals[prof2]);
-}else{
-badge.textContent = '';
-badge.style.display = 'none';
-badge.style.backgroundColor = '#9e9e9e';
-}
-}
-updateProfSummary(totals);
-refreshMatrix();
-}
-function updateProfSummary(totals){
-var box = document.getElementById('prof-summary');
-var list = document.getElementById('prof-summary-list');
-if(!box || !list) return;
-var keys = Object.keys(totals);
-if(keys.length === 0){
-box.style.display = 'none';
-list.innerHTML = '';
-return;
-}
-keys.sort();
-var html = '';
-for(var i=0;i<keys.length;i++){
-var prof = keys[i];
-var h = totals[prof];
-var bg = colorForHours(h);
-html += '<span class="prof-summary-badge" style="background:' + bg + '">' +
-escapeHtml(prof) + ' : ' + formatHours(h) + '</span>';
-}
-box.style.display = 'block';
-list.innerHTML = html;
-}
-/* ================= MATRICE AFFECTATIONS ================= */
-var mxState = { mode: "mat", matiere: "", classe: "", spec: true, onlyInc: false };
-function mxToggleCls(el, cls, on){
-if(!el) return;
-if(on) el.classList.add(cls); else el.classList.remove(cls);
-}
-function mxSetMode(mode){
-mxState.mode = mode;
-refreshMatrix();
-}
-function mxSetSpec(v){
-mxState.spec = !!v;
-refreshMatrix();
-}
-function mxSetOnlyInc(v){
-mxState.onlyInc = !!v;
-refreshMatrix();
-}
-function mxSubjects(){
-var out = [];
-var opts = document.querySelectorAll("#matieres option");
-for(var i=0;i<opts.length;i++){ if(opts[i].value) out.push(opts[i].value); }
-return out;
-}
-function mxGetClassesFull(){
-var rows = document.querySelectorAll("#tb-classes tr");
-var out = [];
-for(var i=0;i<rows.length;i++){
-var name = val(rows[i], "classe-name");
-if(!name) continue;
-var dup = false;
-for(var d=0;d<out.length;d++){ if(out[d].name === name){ dup = true; break; } }
-if(dup) continue;
-out.push({ name: name, niveau: val(rows[i], "classe-niveau"), profil: val(rows[i], "classe-profil") });
-}
-return out;
-}
-function mxGetProfsFull(){
-var rows = document.querySelectorAll("#tb-professeurs tr");
-var out = [];
-for(var i=0;i<rows.length;i++){
-var nom = val(rows[i], "prof-nom");
-if(!nom) continue;
-out.push({ nom: nom, mat: val(rows[i], "prof-mat"), autres: val(rows[i], "prof-autres") });
-}
-return out;
-}
-function mxProfSpecialties(p){
-var list = [];
-if(p.mat) list.push(normalizeDiscipline(p.mat));
-if(p.autres){
-var parts = String(p.autres).split(/[,;/]+/);
-for(var i=0;i<parts.length;i++){
-var t = parts[i].trim();
-if(t) list.push(normalizeDiscipline(t));
-}
-}
-return list;
-}
-function mxIsSpecialist(p, matiere){
-var target = normalizeDiscipline(matiere);
-var specs = mxProfSpecialties(p);
-for(var i=0;i<specs.length;i++){ if(specs[i] === target) return true; }
-return false;
-}
-function mxOfficialSubjects(niveau, profil){
-var out = [];
-if(!niveau || !profil) return out;
-var subjects = mxSubjects();
-var seen = {};
-for(var i=0;i<subjects.length;i++){
-var key = normalizeText(niveau) + "|" + normalizeText(profil) + "|" + normalizeDiscipline(subjects[i]);
-if(REF_MAP.hasOwnProperty(key) && !seen[key]){
-seen[key] = true;
-out.push({ matiere: subjects[i], heures: REF_MAP[key] });
-}
-}
-return out;
-}
-function mxGetAffectRows(){
-return document.querySelectorAll("#tb-affectations tr");
-}
-function mxRowMatch(row, classe, matiere, prof){
-if(classe !== null && val(row, "affect-classe") !== classe) return false;
-if(matiere !== null && normalizeDiscipline(val(row, "affect-matiere")) !== normalizeDiscipline(matiere)) return false;
-if(prof !== null && val(row, "affect-prof") !== prof) return false;
-return true;
-}
-function mxIsAssigned(classe, matiere, prof){
-var rows = mxGetAffectRows();
-for(var i=0;i<rows.length;i++){
-if(mxRowMatch(rows[i], classe, matiere, prof)) return true;
-}
-return false;
-}
-function mxTotals(){
-var rows = mxGetAffectRows();
-var totals = {};
-for(var i=0;i<rows.length;i++){
-var prof = val(rows[i], "affect-prof");
-var h = parseFloat(val(rows[i], "affect-heures"));
-if(isNaN(h)) h = 0;
-if(prof) totals[prof] = (totals[prof] || 0) + h;
-}
-return totals;
-}
-function mxAssign(classe, matiere, prof){
-refreshClassSelects();
-refreshProfSelects();
-var row = appendBlankRow("tb-affectations", "tpl-affectations");
-if(!row) return;
-setSelectValue(row.querySelector(".affect-classe"), classe);
-setVal(row, "affect-matiere", matiere);
-setSelectValue(row.querySelector(".affect-prof"), prof);
-var heuresEl = row.querySelector(".affect-heures");
-if(heuresEl) heuresEl.dataset.manual = "";
-updateAffectRowHeures(row);
-renumber("tb-affectations");
-updateProfTotals();
-}
-function mxUnassign(classe, matiere, prof){
-var rows = mxGetAffectRows();
-var toRemove = [];
-for(var i=0;i<rows.length;i++){
-if(mxRowMatch(rows[i], classe, matiere, prof)) toRemove.push(rows[i]);
-}
-if(toRemove.length === 0) return;
-var hasExtra = false;
-for(var j=0;j<toRemove.length;j++){
-var hEl = toRemove[j].querySelector(".affect-heures");
-var obs = val(toRemove[j], "affect-obs");
-if(obs || (hEl && hEl.dataset.manual === "1")) hasExtra = true;
-}
-if(hasExtra && !confirm("Cette affectation contient des heures modifiées manuellement ou des observations. La retirer quand même ?")) return;
-for(var k=0;k<toRemove.length;k++) toRemove[k].remove();
-renumber("tb-affectations");
-updateProfTotals();
-}
-function mxCellClick(btn){
-var classe = btn.getAttribute("data-classe") || "";
-var matiere = btn.getAttribute("data-matiere") || "";
-var prof = btn.getAttribute("data-prof") || "";
-if(btn.classList.contains("on")){
-mxUnassign(classe, matiere, prof);
-}else{
-mxAssign(classe, matiere, prof);
-}
-}
-function mxPickMatIdx(i){
-var s = mxSubjects();
-if(s[i]) mxState.matiere = s[i];
-refreshMatrix();
-}
-function mxPickClIdx(i){
-var classes = mxGetClassesFull();
-if(classes[i]) mxState.classe = classes[i].name;
-refreshMatrix();
-}
-function mxGoClIdx(i){
-var classes = mxGetClassesFull();
-if(!classes[i]) return;
-mxState.mode = "cl";
-mxState.classe = classes[i].name;
-refreshMatrix();
-}
-function mxCellHtml(classe, matiere, prof, on, extraCls, title){
-return "<td><button type=\"button\" class=\"mx-cell" + (on ? " on" : "") + (extraCls || "") +
-"\" data-classe=\"" + escapeHtml(classe) + "\" data-matiere=\"" + escapeHtml(matiere) +
-"\" data-prof=\"" + escapeHtml(prof) + "\" title=\"" + escapeHtml(title || "") +
-"\" aria-pressed=\"" + on + "\" onclick=\"mxCellClick(this)\"></button></td>";
-}
-function mxRenderMat(chipsEl, tableEl, footEl, classes, profs){
-var subjects = mxSubjects();
-if(!mxState.matiere || subjects.indexOf(mxState.matiere) === -1) mxState.matiere = subjects[0] || "";
-var m = mxState.matiere;
-var html = "";
-for(var i=0;i<subjects.length;i++){
-var s = subjects[i];
-var required = 0, covered = 0;
-for(var c=0;c<classes.length;c++){
-var off = mxOfficialSubjects(classes[c].niveau, classes[c].profil);
-var demands = false;
-for(var o=0;o<off.length;o++){
-if(normalizeDiscipline(off[o].matiere) === normalizeDiscipline(s)){ demands = true; break; }
-}
-if(demands){
-required++;
-if(mxIsAssigned(classes[c].name, s, null)) covered++;
-}
-}
-var cls = "mx-chip" + (s === m ? " active" : "") + (required > 0 && covered === required ? " full" : "");
-html += "<button type=\"button\" class=\"" + cls + "\" onclick=\"mxPickMatIdx(" + i + ")\">" +
-escapeHtml(s) + " <em>" + covered + "/" + required + "</em></button>";
-}
-chipsEl.innerHTML = html;
-var list = [];
-for(var p=0;p<profs.length;p++){
-if(mxState.spec && !mxIsSpecialist(profs[p], m)) continue;
-list.push(profs[p]);
-}
-if(!mxState.spec){
-list.sort(function(a,b){ return (mxIsSpecialist(b,m)?1:0) - (mxIsSpecialist(a,m)?1:0); });
-}
-var totals = mxTotals();
-var t = "<thead><tr><th class=\"mx-corner\">Professeur ↓ / Classe →</th>";
-for(var c2=0;c2<classes.length;c2++){
-var done = mxIsAssigned(classes[c2].name, m, null);
-t += "<th>" + escapeHtml(classes[c2].name) + "<span class=\"mx-dot" + (done ? " on" : "") + "\"></span></th>";
-}
-t += "</tr></thead><tbody>";
-if(list.length === 0){
-t += "<tr><th class=\"mx-rowh\">Aucun professeur spécialisé</th><td colspan=\"" + Math.max(classes.length,1) +
-"\" style=\"text-align:left;font-size:.8rem;color:#777\">Décochez « Spécialistes uniquement » pour afficher tous les professeurs.</td></tr>";
-}
-for(var p2=0;p2<list.length;p2++){
-var pr = list[p2];
-var spec = mxIsSpecialist(pr, m);
-var tot = totals[pr.nom] || 0;
-t += "<tr><th class=\"mx-rowh\"><span class=\"mx-name\">" + escapeHtml(pr.nom) +
-(spec ? "" : " <span class=\"mx-dot ko\" title=\"Hors spécialité déclarée\"></span>") + "</span>";
-var subs = [];
-if(pr.mat) subs.push(escapeHtml(pr.mat));
-if(pr.autres) subs.push(escapeHtml(pr.autres));
-if(subs.length) t += "<span class=\"mx-sub\">" + subs.join(" · ") + "</span>";
-if(tot > 0) t += "<span class=\"mx-total\" style=\"background:" + colorForHours(tot) + "\">" + formatHours(tot) + "</span>";
-t += "</th>";
-for(var c3=0;c3<classes.length;c3++){
-var on = mxIsAssigned(classes[c3].name, m, pr.nom);
-var title = pr.nom + " — " + m + " — " + classes[c3].name + (on ? " (affecté, cliquer pour retirer)" : " (cliquer pour affecter)");
-t += mxCellHtml(classes[c3].name, m, pr.nom, on, "", title);
-}
-t += "</tr>";
-}
-t += "</tbody>";
-tableEl.innerHTML = t;
-var missReq = [], noProfil = [];
-for(var c4=0;c4<classes.length;c4++){
-if(!classes[c4].niveau || !classes[c4].profil){
-if(!mxIsAssigned(classes[c4].name, m, null)) noProfil.push(classes[c4].name);
-continue;
-}
-var off2 = mxOfficialSubjects(classes[c4].niveau, classes[c4].profil);
-var demands2 = false;
-for(var o2=0;o2<off2.length;o2++){
-if(normalizeDiscipline(off2[o2].matiere) === normalizeDiscipline(m)){ demands2 = true; break; }
-}
-if(demands2 && !mxIsAssigned(classes[c4].name, m, null)) missReq.push(classes[c4].name);
-}
-var foot = "";
-if(missReq.length){
-foot += "<b>Classes sans professeur de " + escapeHtml(m) + " (matière officielle) :</b> " +
-missReq.map(function(x){ return "<span class=\"mx-miss-tag\">" + escapeHtml(x) + "</span>"; }).join(" ");
-}else{
-foot += "<span style=\"color:#006b32;font-weight:700\">✔ Toutes les classes qui demandent officiellement " + escapeHtml(m) + " ont un professeur.</span>";
-}
-if(noProfil.length){
-foot += "<br><span class=\"mx-small-note\">Niveau/profil non renseignés (vérification impossible) : " +
-noProfil.map(escapeHtml).join(", ") + "</span>";
-}
-footEl.innerHTML = foot;
-}
-function mxRenderCl(chipsEl, tableEl, footEl, classes, profs){
-var names = [];
-for(var n0=0;n0<classes.length;n0++) names.push(classes[n0].name);
-if(!mxState.classe || names.indexOf(mxState.classe) === -1) mxState.classe = names[0] || "";
-var html = "";
-for(var i=0;i<classes.length;i++){
-var cl = classes[i];
-var off = mxOfficialSubjects(cl.niveau, cl.profil);
-var covered = 0;
-for(var o=0;o<off.length;o++){ if(mxIsAssigned(cl.name, off[o].matiere, null)) covered++; }
-var cls = "mx-chip" + (cl.name === mxState.classe ? " active" : "") + (off.length > 0 && covered === off.length ? " full" : "");
-html += "<button type=\"button\" class=\"" + cls + "\" onclick=\"mxPickClIdx(" + i + ")\">" +
-escapeHtml(cl.name) + " <em>" + covered + "/" + off.length + "</em></button>";
-}
-chipsEl.innerHTML = html;
-var clObj = null;
-for(var f=0;f<classes.length;f++){ if(classes[f].name === mxState.classe){ clObj = classes[f]; break; } }
-var rowSubjects = [];
-var off2 = clObj ? mxOfficialSubjects(clObj.niveau, clObj.profil) : [];
-for(var o2=0;o2<off2.length;o2++) rowSubjects.push({ matiere: off2[o2].matiere, heures: off2[o2].heures, hors: false });
-var rowsA = mxGetAffectRows();
-for(var r=0;r<rowsA.length;r++){
-if(val(rowsA[r], "affect-classe") !== mxState.classe) continue;
-var rm = val(rowsA[r], "affect-matiere");
-if(!rm) continue;
-var found = false;
-for(var s2=0;s2<rowSubjects.length;s2++){
-if(normalizeDiscipline(rowSubjects[s2].matiere) === normalizeDiscipline(rm)){ found = true; break; }
-}
-if(!found) rowSubjects.push({ matiere: rm, heures: null, hors: true });
-}
-var totals = mxTotals();
-var t = "<thead><tr><th class=\"mx-corner\">Matière ↓ / Professeur →</th>";
-for(var p=0;p<profs.length;p++){
-var tot0 = totals[profs[p].nom] || 0;
-t += "<th>" + escapeHtml(profs[p].nom) + (tot0 > 0 ? " (" + formatHours(tot0) + ")" : "") + "</th>";
-}
-t += "</tr></thead><tbody>";
-if(rowSubjects.length === 0){
-t += "<tr><th class=\"mx-rowh\">Aucune matière</th><td colspan=\"" + Math.max(profs.length,1) +
-"\" style=\"text-align:left;font-size:.8rem;color:#777\">Renseignez le niveau et le profil de cette classe (rubrique 2) pour afficher les matières officielles.</td></tr>";
-}
-for(var s3=0;s3<rowSubjects.length;s3++){
-var sub = rowSubjects[s3];
-var assigned = mxIsAssigned(mxState.classe, sub.matiere, null);
-t += "<tr><th class=\"mx-rowh\"><span class=\"mx-name\">" + escapeHtml(sub.matiere) +
-(sub.heures !== null ? " <span class=\"mx-sub\">officiel : " + sub.heures + " h</span>" : "") +
-(sub.hors ? " <span class=\"mx-sub\" style=\"color:#e65100\">hors grille officielle</span>" : "") +
-"<span class=\"mx-dot" + (assigned ? " on" : "") + "\"></span></span></th>";
-for(var p2=0;p2<profs.length;p2++){
-var pr = profs[p2];
-var on = mxIsAssigned(mxState.classe, sub.matiere, pr.nom);
-var spec = mxIsSpecialist(pr, sub.matiere);
-var extra = (!on && mxState.spec) ? (spec ? " rec" : " off") : "";
-var title = pr.nom + " — " + sub.matiere + " — " + mxState.classe +
-(spec ? " (spécialiste)" : " (hors spécialité)") + (on ? " — affecté, cliquer pour retirer" : " — cliquer pour affecter");
-t += mxCellHtml(mxState.classe, sub.matiere, pr.nom, on, extra, title);
-}
-t += "</tr>";
-}
-t += "</tbody>";
-tableEl.innerHTML = t;
-var miss = [];
-for(var o3=0;o3<off2.length;o3++){
-if(!mxIsAssigned(mxState.classe, off2[o3].matiere, null)) miss.push(off2[o3].matiere);
-}
-if(off2.length === 0){
-footEl.innerHTML = "<span class=\"mx-small-note\">Niveau ou profil non renseigné pour cette classe : les matières officielles ne peuvent pas être listées. Complétez la rubrique 2.</span>";
-}else if(miss.length){
-footEl.innerHTML = "<b>Matières officielles sans professeur pour " + escapeHtml(mxState.classe) + " :</b> " +
-miss.map(function(x){ return "<span class=\"mx-miss-tag\">" + escapeHtml(x) + "</span>"; }).join(" ");
-}else{
-footEl.innerHTML = "<span style=\"color:#006b32;font-weight:700\">✔ Classe " + escapeHtml(mxState.classe) + " : toutes les matières officielles ont un professeur.</span>";
-}
-}
-function mxRenderVerif(chipsEl, tableEl, footEl, classes, profs){
-var incCount = 0, naCount = 0;
-var states = [];
-for(var i=0;i<classes.length;i++){
-var cl = classes[i];
-var off = mxOfficialSubjects(cl.niveau, cl.profil);
-if(!cl.niveau || !cl.profil){
-states.push({ cl: cl, off: off, missing: [], na: true });
-naCount++;
-continue;
-}
-var missing = [];
-for(var o=0;o<off.length;o++){
-if(!mxIsAssigned(cl.name, off[o].matiere, null)) missing.push(off[o].matiere);
-}
-states.push({ cl: cl, off: off, missing: missing, na: false });
-if(missing.length > 0) incCount++;
-}
-chipsEl.innerHTML =
-"<button type=\"button\" class=\"mx-chip" + (!mxState.onlyInc ? " active" : "") + "\" onclick=\"mxSetOnlyInc(false)\">Toutes les classes <em>" + classes.length + "</em></button>" +
-"<button type=\"button\" class=\"mx-chip" + (mxState.onlyInc ? " active" : "") + "\" onclick=\"mxSetOnlyInc(true)\">⚠ Incomplètes seulement <em>" + incCount + "</em></button>";
-var t = "<thead><tr><th>Classe</th><th>Niveau / Profil</th><th>Matières couvertes</th><th>Matières manquantes</th><th>État</th><th></th></tr></thead><tbody>";
-var shown = 0;
-for(var j=0;j<states.length;j++){
-var st = states[j];
-if(mxState.onlyInc && (st.na || st.missing.length === 0)) continue;
-shown++;
-var covered = st.off.length - st.missing.length;
-t += "<tr><td style=\"text-align:left;font-weight:700\">" + escapeHtml(st.cl.name) + "</td>";
-t += "<td style=\"text-align:left\">" + escapeHtml(st.cl.niveau || "—") + " / " + escapeHtml(st.cl.profil || "—") + "</td>";
-if(st.na){
-t += "<td>—</td><td>—</td><td><span class=\"mx-badge na\">Profil à renseigner</span></td><td></td></tr>";
-continue;
-}
-t += "<td>" + covered + " / " + st.off.length + "</td>";
-t += "<td style=\"text-align:left\">" + (st.missing.length
-? st.missing.map(function(x){ return "<span class=\"mx-miss-tag\">" + escapeHtml(x) + "</span>"; }).join(" ")
-: "<span style=\"color:#006b32;font-weight:700\">aucune</span>") + "</td>";
-t += "<td>" + (st.missing.length
-? "<span class=\"mx-badge ko\">⚠ " + st.missing.length + " manquante" + (st.missing.length > 1 ? "s" : "") + "</span>"
-: "<span class=\"mx-badge ok\">✔ complète</span>") + "</td>";
-t += "<td>" + (st.missing.length ? "<button type=\"button\" class=\"mx-btn\" style=\"padding:4px 10px;font-size:.75rem\" onclick=\"mxGoClIdx(" + j + ")\">Pourvoir →</button>" : "") + "</td></tr>";
-}
-if(shown === 0){
-t += "<tr><td colspan=\"6\" style=\"text-align:left;color:#777;font-size:.85rem\">Aucune classe incomplète : tout est pourvu. ✔</td></tr>";
-}
-t += "</tbody>";
-tableEl.innerHTML = t;
-var completeCount = classes.length - incCount - naCount;
-var totalMissing = 0;
-for(var k2=0;k2<states.length;k2++) totalMissing += states[k2].missing.length;
-var foot = "<b>" + completeCount + " / " + classes.length + " classes complètes</b> — " + totalMissing + " matière(s) manquante(s) au total.";
-if(naCount > 0){
-var naNames = [];
-for(var n1=0;n1<states.length;n1++){ if(states[n1].na) naNames.push(states[n1].cl.name); }
-foot += "<br><span class=\"mx-small-note\">Vérification impossible (niveau/profil non renseignés) : " + naNames.map(escapeHtml).join(", ") + "</span>";
-}
-footEl.innerHTML = foot;
-}
-function refreshMatrix(){
-if(!document.getElementById("mx-zone")) return;
-mxToggleCls(document.getElementById("mx-mode-mat"), "active", mxState.mode === "mat");
-mxToggleCls(document.getElementById("mx-mode-cl"), "active", mxState.mode === "cl");
-mxToggleCls(document.getElementById("mx-mode-verif"), "active", mxState.mode === "verif");
-var specEl = document.getElementById("mx-spec");
-if(specEl) specEl.checked = mxState.spec;
-var chipsEl = document.getElementById("mx-chips");
-var tableEl = document.getElementById("mx-table");
-var wrapEl = document.getElementById("mx-wrap");
-var footEl = document.getElementById("mx-foot");
-var hintEl = document.getElementById("mx-hint");
-if(!chipsEl || !tableEl || !wrapEl || !footEl || !hintEl) return;
-var classes = mxGetClassesFull();
-var profs = mxGetProfsFull();
-if(classes.length === 0 || profs.length === 0){
-chipsEl.innerHTML = "";
-footEl.innerHTML = "";
-wrapEl.style.display = "none";
-hintEl.style.display = "block";
-hintEl.innerHTML = "La matrice se construira automatiquement dès que vous aurez saisi <b>au moins une classe</b> (rubrique 2) et <b>au moins un professeur</b> (rubrique 3).";
-return;
-}
-hintEl.style.display = "none";
-wrapEl.style.display = "";
-if(mxState.mode === "cl") mxRenderCl(chipsEl, tableEl, footEl, classes, profs);
-else if(mxState.mode === "verif") mxRenderVerif(chipsEl, tableEl, footEl, classes, profs);
-else mxRenderMat(chipsEl, tableEl, footEl, classes, profs);
-}
-/* ================= LIGNES ================= */
-function appendBlankRow(bodyId, tplId){
-var body = document.getElementById(bodyId);
-var tpl = document.getElementById(tplId);
-if(!body || !tpl) return null;
-var clone = tpl.content.cloneNode(true);
-body.appendChild(clone);
-return body.lastElementChild;
-}
-function addRow(bodyId, tplId, num){
-var body = document.getElementById(bodyId);
-var tpl = document.getElementById(tplId);
-if(!body || !tpl) return;
-var clone = tpl.content.cloneNode(true);
-body.appendChild(clone);
-var newRow = body.lastElementChild;
-var n = newRow.querySelector('.num');
-if(n) n.value = num || body.rows.length;
-if(bodyId === 'tb-classes') updateSalleState(newRow);
-if(bodyId === 'tb-affectations'){
-refreshClassSelects();
-refreshProfSelects();
-updateAffectRowHeures(newRow);
-updateProfTotals();
-}
-}
-function initTable(bodyId, tplId, nb){
-for(var i=1;i<=nb;i++) addRow(bodyId, tplId, i);
-}
-function removeRow(btn){
-var tr = getRow(btn);
-if(!tr) return;
-var body = tr.parentElement;
-tr.remove();
-if(body && body.id) renumber(body.id);
-refreshClassSelects();
-refreshProfSelects();
-updateAllAffectHeures();
-updateProfTotals();
-}
-/* ================= VALIDATION ================= */
-function validateForm(){
-var rows = document.querySelectorAll('#tb-classes tr');
-for(var i=0;i<rows.length;i++){
-var row = rows[i];
-var type = row.querySelector('.classe-type');
-var salle = row.querySelector('.classe-salle');
-var name = row.querySelector('.classe-name');
-if(!type || !salle) continue;
-salle.classList.remove('invalid');
-if(type.value === 'Oui' && salle.value.trim() === ''){
-salle.classList.add('invalid');
-var className = name && name.value.trim() ? name.value.trim() : 'N°' + (i + 1);
-alert('La salle attribuée est obligatoire pour la classe "' + className + '" car elle est fixe.');
-showTab('tab-classes');
-salle.focus();
-return false;
-}
-}
-return true;
-}
-/* ================= COLLECTE DES DONNÉES ================= */
-function collectAllData(){
-var data = {
-version: 1,
-date: new Date().toISOString(),
-fields: {},
-constraints: [],
-constraintsLabels: [],
-documents: [],
-classes: [],
-profs: [],
-affects: [],
-totals: {}
-};
-for(var f=0; f<FIELD_IDS.length; f++){
-data.fields[FIELD_IDS[f]] = getField(FIELD_IDS[f]);
-}
-var constraintInputs = document.querySelectorAll('#tab-contraintes .check input');
-for(var c=0; c<constraintInputs.length; c++){
-data.constraints.push(constraintInputs[c].checked);
-if(constraintInputs[c].checked){
-var label = constraintInputs[c].parentElement ? constraintInputs[c].parentElement.textContent.trim() : '';
-if(label) data.constraintsLabels.push(label);
-}
-}
-var documentInputs = document.querySelectorAll('#tab-validation .check input');
-for(var d=0; d<documentInputs.length; d++){
-data.documents.push(documentInputs[d].checked);
-}
-var classRows = document.querySelectorAll('#tb-classes tr');
-for(var i=0;i<classRows.length;i++){
-data.classes.push({
-name: val(classRows[i], 'classe-name'),
-niveau: val(classRows[i], 'classe-niveau'),
-profil: val(classRows[i], 'classe-profil'),
-type: val(classRows[i], 'classe-type'),
-salle: val(classRows[i], 'classe-salle'),
-obs: val(classRows[i], 'classe-obs')
-});
-}
-var profRows = document.querySelectorAll('#tb-professeurs tr');
-for(var p=0;p<profRows.length;p++){
-data.profs.push({
-nom: val(profRows[p], 'prof-nom'),
-mat: val(profRows[p], 'prof-mat'),
-autres: val(profRows[p], 'prof-autres'),
-dispo: val(profRows[p], 'prof-dispo'),
-obs: val(profRows[p], 'prof-obs')
-});
-}
-var affectRows = document.querySelectorAll('#tb-affectations tr');
-for(var a=0;a<affectRows.length;a++){
-var heuresEl = affectRows[a].querySelector('.affect-heures');
-var heuresValue = heuresEl ? heuresEl.value : '';
-var prof = val(affectRows[a], 'affect-prof');
-var h = parseFloat(heuresValue);
-if(isNaN(h)) h = 0;
-if(prof) data.totals[prof] = (data.totals[prof] || 0) + h;
-data.affects.push({
-classe: val(affectRows[a], 'affect-classe'),
-matiere: val(affectRows[a], 'affect-matiere'),
-prof: prof,
-heures: heuresValue,
-obs: val(affectRows[a], 'affect-obs'),
-manual: heuresEl ? (heuresEl.dataset.manual === '1') : false
-});
-}
-return data;
-}
-/* ================= PDF ================= */
-function pdfFallback(){
-alert('La génération PDF nécessite une connexion internet.\nUtilisez "Imprimer / PDF navigateur".');
-window.print();
-}
-function loadScript(src, onSuccess, onError){
-var script = document.createElement('script');
-script.src = src;
-script.onload = onSuccess;
-script.onerror = onError;
-document.body.appendChild(script);
-}
-function ensureJsPdf(onSuccess){
-if(window.jspdf && window.jspdf.jsPDF){
-try{
-var testDoc = new window.jspdf.jsPDF();
-if(typeof testDoc.autoTable === 'function'){ onSuccess(); return; }
-}catch(e){}
-}
-loadScript(
-'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js',
-function(){
-loadScript(
-'https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js',
-function(){ setTimeout(onSuccess, 50); },
-pdfFallback
-);
-},
-pdfFallback
-);
-}
-function generatePDF(){
-if(!validateForm()) return;
-refreshClassSelects();
-refreshProfSelects();
-updateAllAffectHeures();
-updateProfTotals();
-ensureJsPdf(function(){
-try{
-var JsPDF = window.jspdf.jsPDF;
-var doc = new JsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
-if(typeof doc.autoTable !== 'function'){ pdfFallback(); return; }
-var data = collectAllData();
-var pageWidth = doc.internal.pageSize.getWidth();
-var pageHeight = doc.internal.pageSize.getHeight();
-var margin = 8;
-var y = 12;
-function ensureSpace(height){ if(y + height > pageHeight - 10){ doc.addPage(); y = 12; } }
-function normalFont(){ doc.setFont('helvetica', 'normal'); doc.setFontSize(8); doc.setTextColor(0,0,0); }
-function sectionTitle(title){
-ensureSpace(12);
-doc.setFont('helvetica', 'bold'); doc.setFontSize(11); doc.setTextColor(0,133,63);
-doc.text(title, margin, y); y += 1.8;
-doc.setDrawColor(0,133,63); doc.setLineWidth(0.3);
-doc.line(margin, y, pageWidth - margin, y); y += 5;
-}
-function addEmpty(text){
-ensureSpace(6); doc.setFont('helvetica', 'normal'); doc.setFontSize(8); doc.setTextColor(120,120,120);
-doc.text(text, margin, y); y += 5;
-}
-function addTable(head, body, columnStyles){
-if(!body || body.length === 0) return;
-ensureSpace(10);
-doc.autoTable({
-head: head ? [head] : [], body: body, startY: y,
-margin: { left: margin, right: margin, top: 12, bottom: 10 },
-styles: { font: 'helvetica', fontSize: 7, cellPadding: 1.5, overflow: 'linebreak', valign: 'top' },
-headStyles: { fillColor: [0,133,63], textColor: [255,255,255], fontStyle: 'bold', fontSize: 7 },
-columnStyles: columnStyles || {}, theme: 'grid'
-});
-y = doc.lastAutoTable.finalY + 4;
-if(y > pageHeight - 12){ doc.addPage(); y = 12; }
-}
-function addWrappedLine(text, indent){
-indent = indent || 0;
-var width = pageWidth - margin * 2 - indent;
-var lines = doc.splitTextToSize(text, width);
-ensureSpace(lines.length * 3.2 + 1);
-doc.text(lines, margin + indent, y); y += lines.length * 3.2 + 1;
-}
-function addObs(items){
-if(!items || items.length === 0) return;
-ensureSpace(6); doc.setFont('helvetica', 'bold'); doc.setFontSize(8); doc.setTextColor(0,0,0);
-doc.text('Observations :', margin, y); y += 3.5; doc.setFont('helvetica', 'normal');
-for(var i=0;i<items.length;i++) addWrappedLine('- ' + items[i], 3);
-y += 2;
-}
-doc.setFont('helvetica', 'bold'); doc.setFontSize(14); doc.setTextColor(0,133,63);
-doc.text('FICHE DE COLLECTE DES INFORMATIONS', pageWidth / 2, y, { align: 'center' }); y += 5;
-doc.setFont('helvetica', 'normal'); doc.setFontSize(9); doc.setTextColor(70,70,70);
-doc.text('Confection des emplois du temps — CEM & Lycées (Sénégal)', pageWidth / 2, y, { align: 'center' }); y += 8;
-sectionTitle("1. Identification de l'établissement");
-var et = data.fields;
-var etFields = [
-["Type d'établissement", et['et-type']], ["Année scolaire", et['et-annee']],
-["Nom de l'établissement", et['et-nom']], ["Adresse", et['et-adresse']],
-["Ville / Commune", et['et-ville']], ["Téléphone", et['et-tel']],
-["Email", et['et-email']], ["Chef d'établissement", et['et-chef']],
-["Contact EDT", et['et-contact']], ["Date limite de retour", et['et-delai']]
-];
-var etBody = [];
-for(var ei=0; ei<etFields.length; ei+=2){
-var row = [];
-row.push(etFields[ei][0]); row.push(etFields[ei][1] || '');
-if(ei + 1 < etFields.length){ row.push(etFields[ei + 1][0]); row.push(etFields[ei + 1][1] || ''); }
-else{ row.push(''); row.push(''); }
-etBody.push(row);
-}
-addTable(null, etBody, { 0: {cellWidth: 32, fontStyle: 'bold', fillColor: [245,245,245]}, 2: {cellWidth: 32, fontStyle: 'bold', fillColor: [245,245,245]} });
-sectionTitle('2. Classes');
-var classes = data.classes.filter(function(c){ return c.name || c.niveau || c.profil || c.type || c.salle || c.obs; });
-if(classes.length === 0){ addEmpty('Aucune classe renseignée.'); }
-else{
-var classBody = [];
-for(var ci2=0; ci2<classes.length; ci2++){
-classBody.push([ ci2 + 1, classes[ci2].name, classes[ci2].niveau, classes[ci2].profil, classes[ci2].type, classes[ci2].salle ]);
-}
-addTable(['N°', 'Classe', 'Niveau', 'Profil', 'Classe fixe ?', 'Salle attribuée'], classBody, { 0: {cellWidth: 8}, 2: {cellWidth: 18}, 4: {cellWidth: 22, halign: 'center'} });
-var classObs = [];
-for(var co=0; co<classes.length; co++){
-if(classes[co].obs) classObs.push((classes[co].name || ('Classe ' + (co + 1))) + ' : ' + classes[co].obs);
-}
-addObs(classObs);
-}
-sectionTitle('3. Professeurs');
-var profs = data.profs.filter(function(p){ return p.nom || p.mat || p.autres || p.dispo || p.obs; });
-if(profs.length === 0){ addEmpty('Aucun professeur renseigné.'); }
-else{
-var profBody = [];
-for(var pi2=0; pi2<profs.length; pi2++){
-profBody.push([ pi2 + 1, profs[pi2].nom, profs[pi2].mat, profs[pi2].autres, profs[pi2].dispo ]);
-}
-addTable(['N°', 'Nom & prénom', 'Matière principale', 'Autres matières', 'Disponibilité / contraintes'], profBody, { 0: {cellWidth: 8} });
-var profObs = [];
-for(var po=0; po<profs.length; po++){
-if(profs[po].obs) profObs.push((profs[po].nom || ('Professeur ' + (po + 1))) + ' : ' + profs[po].obs);
-}
-addObs(profObs);
-}
-sectionTitle('4. Affectations');
-var affects = data.affects.filter(function(a){ return a.classe || a.matiere || a.prof || a.heures || a.obs; });
-if(affects.length === 0){ addEmpty('Aucune affectation renseignée.'); }
-else{
-var pdfTotals = {};
-for(var t=0; t<affects.length; t++){
-if(affects[t].prof){
-var hh = parseFloat(affects[t].heures);
-if(isNaN(hh)) hh = 0;
-pdfTotals[affects[t].prof] = (pdfTotals[affects[t].prof] || 0) + hh;
-}
-}
-var affectBody = [];
-for(var ai=0; ai<affects.length; ai++){
-var cumul = 0; var cumulText = '';
-if(affects[ai].prof){ cumul = pdfTotals[affects[ai].prof] || 0; cumulText = formatHours(cumul); }
-affectBody.push([
-affects[ai].classe, affects[ai].matiere, affects[ai].prof, affects[ai].heures,
-{ content: cumulText, styles: { textColor: hexToRgb(colorForHours(cumul)), fontStyle: 'bold' } }
-]);
-}
-addTable(['Classe', 'Matière', 'Professeur', 'Heures', 'Cumul prof'], affectBody, { 3: {cellWidth: 18, halign: 'center'}, 4: {cellWidth: 25, halign: 'center'} });
-var affObs = [];
-for(var ao=0; ao<affects.length; ao++){
-if(affects[ao].obs) affObs.push((affects[ao].classe || ('Affectation ' + (ao + 1))) + ' : ' + affects[ao].obs);
-}
-addObs(affObs);
-var totalKeys = Object.keys(pdfTotals).sort();
-if(totalKeys.length > 0){
-ensureSpace(8); doc.setFont('helvetica', 'bold'); doc.setFontSize(8); doc.setTextColor(0,0,0);
-doc.text('Charge cumulée :', margin, y); y += 4;
-var totalBody = [];
-for(var tk=0; tk<totalKeys.length; tk++){
-var profName = totalKeys[tk]; var totalH = pdfTotals[profName];
-totalBody.push([
-profName,
-{ content: formatHours(totalH), styles: { textColor: hexToRgb(colorForHours(totalH)), fontStyle: 'bold' } }
-]);
-}
-addTable(['Professeur', 'Total'], totalBody, { 1: {cellWidth: 30, halign: 'center'} });
-}
-}
-sectionTitle('5. Contraintes particulières');
-if(data.constraintsLabels.length === 0 && !data.fields['contrainte-details']){ addEmpty('Aucune contrainte renseignée.'); }
-else{
-for(var cc=0; cc<data.constraintsLabels.length; cc++) addWrappedLine('- ' + data.constraintsLabels[cc], 3);
-if(data.fields['contrainte-details']){
-y += 2; doc.setFont('helvetica', 'bold'); doc.setFontSize(8); doc.setTextColor(0,0,0);
-doc.text('Détails :', margin, y); y += 3.5; doc.setFont('helvetica', 'normal');
-var detailLines = data.fields['contrainte-details'].split(/\r?\n/);
-for(var dl=0; dl<detailLines.length; dl++){
-if(detailLines[dl].trim() !== '') addWrappedLine(detailLines[dl], 3);
-}
-}
-}
-sectionTitle("6. Validation du Chef d'établissement");
-addTable(null, [
-['Nom et prénom', data.fields['val-nom'], 'Fonction', data.fields['val-fonction']],
-['Fait à', data.fields['val-lieu'], 'Le', data.fields['val-date']]
-], { 0: {cellWidth: 32, fontStyle: 'bold', fillColor: [245,245,245]}, 2: {cellWidth: 32, fontStyle: 'bold', fillColor: [245,245,245]} });
-ensureSpace(30); doc.setFont('helvetica', 'bold'); doc.setFontSize(8); doc.setTextColor(0,0,0);
-doc.text('Signature et cachet :', margin, y); y += 5;
-doc.setDrawColor(150,150,150); doc.setLineWidth(0.3);
-doc.rect(margin, y, pageWidth - margin * 2, 22); y += 26;
-normalFont();
-addWrappedLine("Je soussigné(e), Chef d'établissement, certifie que les informations transmises sont exactes et à jour.");
-var nom = data.fields['et-nom'] ? data.fields['et-nom'].replace(/[^a-zA-Z0-9_\-]/g, '_') : '';
-var filename = 'fiche_collecte_EDT' + (nom ? '_' + nom : '') + '.pdf';
-doc.save(filename);
-}catch(e){ pdfFallback(); }
-});
-}
-/* ================= INITIALISATION ================= */
-function initForm(){
-initTable('tb-classes','tpl-classes',5);
-initTable('tb-professeurs','tpl-professeurs',5);
-initTable('tb-affectations','tpl-affectations',5);
-updateAllSalleStates();
-refreshClassSelects();
-refreshProfSelects();
-updateAllAffectHeures();
-updateProfTotals();
-}
-function init(){
-var code = getCodeFromUrl();
-if (code) {
-document.getElementById('loginCode').value = code;
-loadFromCloud(code);
-}
-}
-if(document.readyState === 'loading'){
-document.addEventListener('DOMContentLoaded', init);
-}else{
-init();
-}
+  var GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyTSacme_pxl8G85xzxta4UiQL5h-BBU5431SFIw5HYDTg0S-3l6QDFPbAtlcsNvomwVA/exec";
+  var currentCode = '';
+  var FIELD_IDS = [
+    'et-type','et-annee','et-nom','et-adresse','et-ville','et-tel','et-email',
+    'et-chef','et-contact','et-delai','contrainte-details',
+    'val-nom','val-fonction','val-lieu','val-date'
+  ];
+
+  /* ================= CONNEXION ================= */
+
+  function getCodeFromUrl() {
+    var params = new URLSearchParams(window.location.search);
+    return params.get('code') || '';
+  }
+
+  function loginWithCode() {
+    var code = document.getElementById('loginCode').value.trim();
+    if (!code) {
+      showLoginStatus('Veuillez entrer un code.', 'error');
+      return;
+    }
+    loadFromCloud(code);
+  }
+
+  function showLoginStatus(msg, type) {
+    var div = document.getElementById('loginStatus');
+    div.innerHTML = '<div class="save-status ' + type + '">' + msg + '</div>';
+  }
+
+  function loadFromCloud(code) {
+    showLoginStatus('Chargement...', 'info');
+    
+    fetch(GOOGLE_SCRIPT_URL + '?action=load&code=' + encodeURIComponent(code))
+      .then(function(res) { return res.json(); })
+      .then(function(data) {
+        if (data.ok) {
+          currentCode = code;
+          document.getElementById('displayCode').textContent = code;
+          document.getElementById('loginScreen').style.display = 'none';
+          document.getElementById('mainApp').style.display = 'block';
+          
+          if (data.data) {
+            loadFormData(data.data);
+            showLoginStatus('Fiche chargée avec succès.', 'success');
+          } else {
+            initForm();
+            showLoginStatus('Nouvelle fiche créée.', 'success');
+          }
+        } else {
+          showLoginStatus('Code non trouvé ou erreur: ' + (data.error || 'Inconnu'), 'error');
+        }
+      })
+      .catch(function(err) {
+        showLoginStatus('Erreur réseau: ' + err.message, 'error');
+      });
+  }
+
+  function loadFormData(data) {
+    var form = document.getElementById('ficheForm');
+    if (form) form.reset();
+
+    for (var f = 0; f < FIELD_IDS.length; f++) {
+      var fieldValue = data.fields && data.fields[FIELD_IDS[f]] ? data.fields[FIELD_IDS[f]] : '';
+      if (fieldValue === '— Choisir —') fieldValue = '';
+      setField(FIELD_IDS[f], fieldValue);
+    }
+
+    var constraintInputs = document.querySelectorAll('#tab-contraintes .check input');
+    for (var c = 0; c < constraintInputs.length; c++) {
+      if (data.constraints && c < data.constraints.length) {
+        constraintInputs[c].checked = !!data.constraints[c];
+      }
+    }
+
+    var documentInputs = document.querySelectorAll('#tab-validation .check input');
+    for (var d = 0; d < documentInputs.length; d++) {
+      if (data.documents && d < data.documents.length) {
+        documentInputs[d].checked = !!data.documents[d];
+      }
+    }
+
+    document.getElementById('tb-classes').innerHTML = '';
+    document.getElementById('tb-professeurs').innerHTML = '';
+    document.getElementById('tb-affectations').innerHTML = '';
+
+    if (Array.isArray(data.classes)) {
+      for (var ci = 0; ci < data.classes.length; ci++) {
+        var cRow = appendBlankRow('tb-classes', 'tpl-classes');
+        if (!cRow) continue;
+        setVal(cRow, 'classe-name', data.classes[ci].name);
+        setSelectValue(cRow.querySelector('.classe-niveau'), data.classes[ci].niveau);
+        setSelectValue(cRow.querySelector('.classe-profil'), data.classes[ci].profil);
+        setSelectValue(cRow.querySelector('.classe-type'), data.classes[ci].type);
+        setVal(cRow, 'classe-salle', data.classes[ci].salle);
+        setVal(cRow, 'classe-obs', data.classes[ci].obs);
+      }
+      renumber('tb-classes');
+    }
+
+    if (Array.isArray(data.profs)) {
+      for (var pi = 0; pi < data.profs.length; pi++) {
+        var pRow = appendBlankRow('tb-professeurs', 'tpl-professeurs');
+        if (!pRow) continue;
+        setVal(pRow, 'prof-nom', data.profs[pi].nom);
+        setVal(pRow, 'prof-mat', data.profs[pi].mat);
+        setVal(pRow, 'prof-autres', data.profs[pi].autres);
+        setVal(pRow, 'prof-dispo', data.profs[pi].dispo);
+        setVal(pRow, 'prof-obs', data.profs[pi].obs);
+      }
+      renumber('tb-professeurs');
+    }
+
+    updateAllSalleStates();
+    refreshClassSelects();
+    refreshProfSelects();
+
+    if (Array.isArray(data.affects)) {
+      for (var ai = 0; ai < data.affects.length; ai++) {
+        var aRow = appendBlankRow('tb-affectations', 'tpl-affectations');
+        if (!aRow) continue;
+        setSelectValue(aRow.querySelector('.affect-classe'), data.affects[ai].classe);
+        setVal(aRow, 'affect-matiere', data.affects[ai].matiere);
+        setSelectValue(aRow.querySelector('.affect-prof'), data.affects[ai].prof);
+        var heuresEl = aRow.querySelector('.affect-heures');
+        if (heuresEl) {
+          heuresEl.value = data.affects[ai].heures || '';
+          if (data.affects[ai].manual || (data.affects[ai].heures && String(data.affects[ai].heures).trim() !== '')) {
+            heuresEl.dataset.manual = '1';
+          }
+        }
+        setVal(aRow, 'affect-obs', data.affects[ai].obs);
+        if (!data.affects[ai].manual && (!data.affects[ai].heures || String(data.affects[ai].heures).trim() === '')) {
+          updateAffectRowHeures(aRow);
+        }
+      }
+    }
+
+    updateProfTotals();
+  }
+
+  /* ================= SAUVEGARDE CLOUD ================= */
+
+  function saveDraft() {
+    if (!currentCode) {
+      alert('Aucun code établissement. Veuillez vous connecter.');
+      return;
+    }
+    saveToCloud('draft');
+  }
+
+  function submitFinal() {
+    if (!currentCode) {
+      alert('Aucun code établissement. Veuillez vous connecter.');
+      return;
+    }
+    if (!validateForm()) return;
+    if (!confirm('Soumettre la fiche finale ? Cette action est irréversible.')) return;
+    saveToCloud('final');
+  }
+
+  function saveToCloud(status) {
+    var btn = event ? event.target : null;
+    var originalText = btn ? btn.textContent : '';
+    if (btn) {
+      btn.disabled = true;
+      btn.textContent = 'Enregistrement...';
+    }
+
+    var data = collectAllData();
+    var payload = {
+      action: 'save',
+      code: currentCode,
+      status: status,
+      data: data
+    };
+
+    fetch(GOOGLE_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(payload)
+    })
+    .then(function() {
+      showSaveStatus('Sauvegarde réussie (' + status + ')', 'success');
+    })
+    .catch(function(err) {
+      showSaveStatus('Erreur: ' + err.message, 'error');
+    })
+    .then(function() {
+      if (btn) {
+        btn.disabled = false;
+        btn.textContent = originalText;
+      }
+    });
+  }
+
+  function showSaveStatus(msg, type) {
+    var div = document.getElementById('saveStatus');
+    if (!div) return;
+    div.innerHTML = '<div class="save-status ' + type + '">' + msg + '</div>';
+    setTimeout(function() { div.innerHTML = ''; }, 5000);
+  }
+
+  /* ================= NORMALISATION ET REFERENTIEL ================= */
+
+  function normalizeText(s){
+    if(s === null || s === undefined) return '';
+    s = String(s);
+    var accentMap = {
+      'é':'e','è':'e','ê':'e','ë':'e',
+      'à':'a','â':'a',
+      'î':'i','ï':'i',
+      'ô':'o','ö':'o',
+      'ù':'u','û':'u','ü':'u',
+      'ç':'c'
+    };
+    s = s.toLowerCase();
+    s = s.replace(/[éèêëàâîïôöùûüç]/g, function(c){
+      return accentMap[c] || '';
+    });
+    try{ s = s.normalize('NFD'); }catch(e){}
+    s = s.replace(/[\u0300-\u036f]/g, '');
+    s = s.replace(/[^a-z0-9]/gi, '');
+    return s;
+  }
+
+  var DISCIPLINE_ALIASES = {
+    'mathematiques':'math','mathematique':'math','maths':'math',
+    'histoiregeographie':'hg','histoiregeo':'hg',
+    'physiquechimie':'pc',
+    'educationphysiqueetsportive':'eps',
+    'educationreligieuse':'edrelig','edrelig':'edrelig'
+  };
+
+  function normalizeDiscipline(s){
+    var n = normalizeText(s);
+    return DISCIPLINE_ALIASES[n] || n;
+  }
+
+  var REF_MAP = {};
+
+  function addRefs(niveau, profil, list){
+    for(var i=0;i<list.length;i++){
+      var key = normalizeText(niveau) + '|' + normalizeText(profil) + '|' + normalizeDiscipline(list[i][0]);
+      REF_MAP[key] = list[i][1];
+    }
+  }
+
+  var MOD_6_5 = [
+    ['Français',6],['Math',6],['Anglais',4],['SVT',3],['H.G.',4],
+    ['Éducation civique',1],['Économie familiale et sociale',1],
+    ['Éducation artistique ou musicale',1],['E.P.S.',2],['F.P.I.',2]
+  ];
+
+  var MOD_4_3 = [
+    ['Français',6],['Math',6],['Anglais',3],['SVT',3],['PC',3],
+    ['Éducation technologique',2],['H.G.',4],['Éducation civique',1],
+    ['E.P.S.',2],['F.P.I.',2]
+  ];
+
+  var FA_6_5 = [
+    ['Arabe',6],['Ed. relig.',4],['Français',6],['Math',6],['Anglais',3],
+    ['SVT',3],['H.G.',4],['Éducation civique',1],['E.P.S.',2],['F.P.I.',2]
+  ];
+
+  var FA_4_3 = [
+    ['Arabe',6],['Ed. relig.',4],['Français',6],['Math',6],['Anglais',2],
+    ['SVT',3],['PC',3],['H.G.',4],['Éducation civique',1],['E.P.S.',2],['F.P.I.',2]
+  ];
+
+  var MIXTE_6_5 = [
+    ['Français',0],['Math',0],['SVT',0],['H.G.',0],
+    ['Éducation civique',0],['E.P.S.',0],['F.P.I.',2]
+  ];
+
+  var MIXTE_4_3 = [
+    ['Français',0],['Math',0],['SVT',0],['PC',0],['H.G.',0],
+    ['Éducation civique',0],['Éducation technologique',0],['E.P.S.',0],['F.P.I.',2]
+  ];
+
+  addRefs('6e','Moderne',MOD_6_5);
+  addRefs('5e','Moderne',MOD_6_5);
+  addRefs('4e','Moderne',MOD_4_3);
+  addRefs('3e','Moderne',MOD_4_3);
+  addRefs('4e','LV2 Espagnol',[['Espagnol',3]]);
+  addRefs('3e','LV2 Espagnol',[['Espagnol',3]]);
+  addRefs('4e','LV2 Arabe',[['Arabe',3]]);
+  addRefs('3e','LV2 Arabe',[['Arabe',3]]);
+  addRefs('4e','LV2 Portugais',[['Portugais',3]]);
+  addRefs('3e','LV2 Portugais',[['Portugais',3]]);
+  addRefs('6e','Franco-Arabe',FA_6_5);
+  addRefs('5e','Franco-Arabe',FA_6_5);
+  addRefs('4e','Franco-Arabe',FA_4_3);
+  addRefs('3e','Franco-Arabe',FA_4_3);
+  addRefs('6e','Mixte Mod/FA',MIXTE_6_5);
+  addRefs('5e','Mixte Mod/FA',MIXTE_6_5);
+  addRefs('4e','Mixte Mod/FA',MIXTE_4_3);
+  addRefs('3e','Mixte Mod/FA',MIXTE_4_3);
+
+  function getOfficialHours(niveau, profil, discipline){
+    if(!niveau || !profil || !discipline) return null;
+    var key = normalizeText(niveau) + '|' + normalizeText(profil) + '|' + normalizeDiscipline(discipline);
+    return REF_MAP.hasOwnProperty(key) ? REF_MAP[key] : null;
+  }
+
+  /* ================= UTILITAIRES ================= */
+
+  function val(row, className){
+    var el = row.querySelector('.' + className);
+    return el ? el.value.trim() : '';
+  }
+
+  function getField(id){
+    var el = document.getElementById(id);
+    return el ? el.value.trim() : '';
+  }
+
+  function setField(id, value){
+    var el = document.getElementById(id);
+    if(el) el.value = value || '';
+  }
+
+  function setVal(row, className, value){
+    var el = row.querySelector('.' + className);
+    if(el) el.value = value || '';
+  }
+
+  function getRow(el){
+    if(el.closest) return el.closest('tr');
+    var parent = el.parentElement;
+    while(parent && parent.tagName !== 'TR') parent = parent.parentElement;
+    return parent;
+  }
+
+  function setSelectValue(sel, value){
+    if(!sel) return;
+    if(value === '— Choisir —') value = '';
+    value = value || '';
+    var found = false;
+    for(var i=0;i<sel.options.length;i++){
+      if(sel.options[i].value === value){ found = true; break; }
+    }
+    if(!found && value !== ''){
+      var opt = document.createElement('option');
+      opt.value = value;
+      opt.textContent = value;
+      sel.appendChild(opt);
+    }
+    sel.value = value;
+  }
+
+  function escapeHtml(s){
+    return String(s || '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  function formatHours(h){
+    h = Number(h) || 0;
+    if(h % 1 === 0) return h + ' h';
+    return h.toFixed(1) + ' h';
+  }
+
+  function colorForHours(h){
+    h = Number(h) || 0;
+    if(h <= 0) return '#9e9e9e';
+    if(h <= 15) return '#1565c0';
+    if(h <= 24) return '#00853f';
+    if(h <= 30) return '#e65100';
+    return '#e31b23';
+  }
+
+  function hexToRgb(hex){
+    hex = String(hex || '').replace('#', '');
+    if(hex.length === 3){
+      hex = hex.charAt(0) + hex.charAt(0) + hex.charAt(1) + hex.charAt(1) + hex.charAt(2) + hex.charAt(2);
+    }
+    var num = parseInt(hex, 16);
+    if(isNaN(num)) return [0,0,0];
+    return [(num >> 16) & 255, (num >> 8) & 255, num & 255];
+  }
+
+  /* ================= ONGLETS ================= */
+
+  function showTab(id, btn){
+    var sections = document.getElementsByClassName('tab-content');
+    for(var i=0;i<sections.length;i++){
+      sections[i].classList.remove('active');
+      sections[i].style.display = 'none';
+    }
+    var buttons = document.getElementsByClassName('tab-btn');
+    for(var j=0;j<buttons.length;j++){
+      buttons[j].classList.remove('active');
+    }
+    var sec = document.getElementById(id);
+    if(sec){
+      sec.classList.add('active');
+      sec.style.display = 'block';
+    }
+    if(btn){
+      btn.classList.add('active');
+    }else{
+      var b = document.querySelector('.tab-btn[data-tab="' + id + '"]');
+      if(b) b.classList.add('active');
+    }
+    window.scrollTo(0,0);
+  }
+
+  /* ================= CLASSES ================= */
+
+  function renumber(bodyId){
+    var body = document.getElementById(bodyId);
+    if(!body) return;
+    for(var i=0;i<body.rows.length;i++){
+      var num = body.rows[i].querySelector('.num');
+      if(num) num.value = i + 1;
+    }
+  }
+
+  function getClasses(){
+    var rows = document.querySelectorAll('#tb-classes tr');
+    var classes = [];
+    var names = [];
+    for(var i=0;i<rows.length;i++){
+      var name = val(rows[i], 'classe-name');
+      if(name && names.indexOf(name) === -1){
+        names.push(name);
+        classes.push({
+          name: name,
+          niveau: val(rows[i], 'classe-niveau'),
+          profil: val(rows[i], 'classe-profil')
+        });
+      }
+    }
+    return classes;
+  }
+
+  function findClassRowByName(name){
+    var rows = document.querySelectorAll('#tb-classes tr');
+    for(var i=0;i<rows.length;i++){
+      if(val(rows[i], 'classe-name') === name) return rows[i];
+    }
+    return null;
+  }
+
+  function onClassMetaChanged(){
+    refreshClassSelects();
+    updateAllAffectHeures();
+    updateProfTotals();
+  }
+
+  function onClassTypeChange(el){
+    var row = getRow(el);
+    updateSalleState(row);
+  }
+
+  function updateSalleState(row){
+    var type = row.querySelector('.classe-type');
+    var salle = row.querySelector('.classe-salle');
+    if(!type || !salle) return;
+    if(type.value === 'Oui'){
+      salle.disabled = false;
+      salle.required = true;
+      salle.style.backgroundColor = '';
+    }else if(type.value === 'Non'){
+      salle.disabled = true;
+      salle.required = false;
+      salle.value = '';
+      salle.style.backgroundColor = '#eee';
+    }else{
+      salle.disabled = false;
+      salle.required = false;
+      salle.style.backgroundColor = '';
+    }
+  }
+
+  function updateAllSalleStates(){
+    var rows = document.querySelectorAll('#tb-classes tr');
+    for(var i=0;i<rows.length;i++) updateSalleState(rows[i]);
+  }
+
+  /* ================= PROFESSEURS ================= */
+
+  function getProfs(){
+    var rows = document.querySelectorAll('#tb-professeurs tr');
+    var profs = [];
+    for(var i=0;i<rows.length;i++){
+      var nom = val(rows[i], 'prof-nom');
+      var mat = val(rows[i], 'prof-mat');
+      if(nom) profs.push({nom: nom, mat: mat});
+    }
+    return profs;
+  }
+
+  function refreshProfSelects(){
+    var profs = getProfs();
+    var selects = document.querySelectorAll('#tb-affectations .affect-prof');
+    for(var i=0;i<selects.length;i++){
+      var sel = selects[i];
+      var current = sel.value;
+      sel.innerHTML = '<option value="">— Choisir professeur —</option>';
+      for(var j=0;j<profs.length;j++){
+        var opt = document.createElement('option');
+        opt.value = profs[j].nom;
+        opt.textContent = profs[j].mat ? profs[j].nom + ' (' + profs[j].mat + ')' : profs[j].nom;
+        sel.appendChild(opt);
+      }
+      if(current){
+        var exists = false;
+        for(var k=0;k<profs.length;k++){
+          if(profs[k].nom === current){ exists = true; break; }
+        }
+        if(exists){
+          sel.value = current;
+        }else{
+          var oldOpt = document.createElement('option');
+          oldOpt.value = current;
+          oldOpt.textContent = current + ' (ancien)';
+          sel.appendChild(oldOpt);
+          sel.value = current;
+        }
+      }
+    }
+  }
+
+  /* ================= AFFECTATIONS ================= */
+
+  function refreshClassSelects(){
+    var classes = getClasses();
+    var selects = document.querySelectorAll('#tb-affectations .affect-classe');
+    for(var i=0;i<selects.length;i++){
+      var sel = selects[i];
+      var current = sel.value;
+      sel.innerHTML = '<option value="">— Choisir classe —</option>';
+      for(var j=0;j<classes.length;j++){
+        var opt = document.createElement('option');
+        opt.value = classes[j].name;
+        var suffix = '';
+        if(classes[j].niveau || classes[j].profil){
+          suffix = ' (' + [classes[j].niveau, classes[j].profil].filter(Boolean).join(' / ') + ')';
+        }
+        opt.textContent = classes[j].name + suffix;
+        sel.appendChild(opt);
+      }
+      if(current){
+        var exists = false;
+        for(var k=0;k<classes.length;k++){
+          if(classes[k].name === current){ exists = true; break; }
+        }
+        if(exists){
+          sel.value = current;
+        }else{
+          var oldOpt = document.createElement('option');
+          oldOpt.value = current;
+          oldOpt.textContent = current + ' (ancien)';
+          sel.appendChild(oldOpt);
+          sel.value = current;
+        }
+      }
+    }
+  }
+
+  function getOfficialHoursForClassAndMatiere(className, matiere){
+    var row = findClassRowByName(className);
+    if(!row) return null;
+    var niveau = val(row, 'classe-niveau');
+    var profil = val(row, 'classe-profil');
+    return getOfficialHours(niveau, profil, matiere);
+  }
+
+  function updateAffectRowHeures(row){
+    var classeSel = row.querySelector('.affect-classe');
+    var matiere = row.querySelector('.affect-matiere');
+    var heuresInput = row.querySelector('.affect-heures');
+    if(!classeSel || !matiere || !heuresInput) return;
+    if(heuresInput.dataset.manual === '1') return;
+    var h = getOfficialHoursForClassAndMatiere(classeSel.value, matiere.value);
+    if(h === null){
+      heuresInput.value = '';
+    }else{
+      heuresInput.value = h;
+    }
+  }
+
+  function onAffectClassMatiereChanged(el){
+    var row = getRow(el);
+    if(!row) return;
+    var heuresInput = row.querySelector('.affect-heures');
+    if(heuresInput) heuresInput.dataset.manual = '';
+    updateAffectRowHeures(row);
+    updateProfTotals();
+  }
+
+  function onHeuresManual(el){
+    el.dataset.manual = '1';
+    updateProfTotals();
+  }
+
+  function updateAllAffectHeures(){
+    var rows = document.querySelectorAll('#tb-affectations tr');
+    for(var i=0;i<rows.length;i++) updateAffectRowHeures(rows[i]);
+    updateProfTotals();
+  }
+
+  function updateProfTotals(){
+    var rows = document.querySelectorAll('#tb-affectations tr');
+    var totals = {};
+    for(var i=0;i<rows.length;i++){
+      var profSel = rows[i].querySelector('.affect-prof');
+      var heuresInput = rows[i].querySelector('.affect-heures');
+      var prof = profSel ? profSel.value : '';
+      var h = heuresInput ? parseFloat(heuresInput.value) : 0;
+      if(isNaN(h)) h = 0;
+      if(prof) totals[prof] = (totals[prof] || 0) + h;
+    }
+    for(var j=0;j<rows.length;j++){
+      var badge = rows[j].querySelector('.prof-total-badge');
+      var profSel2 = rows[j].querySelector('.affect-prof');
+      if(!badge || !profSel2) continue;
+      var prof2 = profSel2.value;
+      if(prof2 && totals[prof2] !== undefined){
+        badge.textContent = formatHours(totals[prof2]);
+        badge.style.display = 'inline-block';
+        badge.style.backgroundColor = colorForHours(totals[prof2]);
+      }else{
+        badge.textContent = '';
+        badge.style.display = 'none';
+        badge.style.backgroundColor = '#9e9e9e';
+      }
+    }
+    updateProfSummary(totals);
+  }
+
+  function updateProfSummary(totals){
+    var box = document.getElementById('prof-summary');
+    var list = document.getElementById('prof-summary-list');
+    if(!box || !list) return;
+    var keys = Object.keys(totals);
+    if(keys.length === 0){
+      box.style.display = 'none';
+      list.innerHTML = '';
+      return;
+    }
+    keys.sort();
+    var html = '';
+    for(var i=0;i<keys.length;i++){
+      var prof = keys[i];
+      var h = totals[prof];
+      var bg = colorForHours(h);
+      html += '<span class="prof-summary-badge" style="background:' + bg + '">' +
+              escapeHtml(prof) + ' : ' + formatHours(h) + '</span>';
+    }
+    box.style.display = 'block';
+    list.innerHTML = html;
+  }
+
+  /* ================= LIGNES ================= */
+
+  function appendBlankRow(bodyId, tplId){
+    var body = document.getElementById(bodyId);
+    var tpl = document.getElementById(tplId);
+    if(!body || !tpl) return null;
+    var clone = tpl.content.cloneNode(true);
+    body.appendChild(clone);
+    return body.lastElementChild;
+  }
+
+  function addRow(bodyId, tplId, num){
+    var body = document.getElementById(bodyId);
+    var tpl = document.getElementById(tplId);
+    if(!body || !tpl) return;
+    var clone = tpl.content.cloneNode(true);
+    body.appendChild(clone);
+    var newRow = body.lastElementChild;
+    var n = newRow.querySelector('.num');
+    if(n) n.value = num || body.rows.length;
+    if(bodyId === 'tb-classes') updateSalleState(newRow);
+    if(bodyId === 'tb-affectations'){
+      refreshClassSelects();
+      refreshProfSelects();
+      updateAffectRowHeures(newRow);
+      updateProfTotals();
+    }
+  }
+
+  function initTable(bodyId, tplId, nb){
+    for(var i=1;i<=nb;i++) addRow(bodyId, tplId, i);
+  }
+
+  function removeRow(btn){
+    var tr = getRow(btn);
+    if(!tr) return;
+    var body = tr.parentElement;
+    tr.remove();
+    if(body && body.id) renumber(body.id);
+    refreshClassSelects();
+    refreshProfSelects();
+    updateAllAffectHeures();
+    updateProfTotals();
+  }
+
+  /* ================= VALIDATION ================= */
+
+  function validateForm(){
+    var rows = document.querySelectorAll('#tb-classes tr');
+    for(var i=0;i<rows.length;i++){
+      var row = rows[i];
+      var type = row.querySelector('.classe-type');
+      var salle = row.querySelector('.classe-salle');
+      var name = row.querySelector('.classe-name');
+      if(!type || !salle) continue;
+      salle.classList.remove('invalid');
+      if(type.value === 'Oui' && salle.value.trim() === ''){
+        salle.classList.add('invalid');
+        var className = name && name.value.trim() ? name.value.trim() : 'N°' + (i + 1);
+        alert('La salle attribuée est obligatoire pour la classe "' + className + '" car elle est fixe.');
+        showTab('tab-classes');
+        salle.focus();
+        return false;
+      }
+    }
+    return true;
+  }
+
+  /* ================= COLLECTE DES DONNÉES ================= */
+
+  function collectAllData(){
+    var data = {
+      version: 1,
+      date: new Date().toISOString(),
+      fields: {},
+      constraints: [],
+      constraintsLabels: [],
+      documents: [],
+      classes: [],
+      profs: [],
+      affects: [],
+      totals: {}
+    };
+    for(var f=0; f<FIELD_IDS.length; f++){
+      data.fields[FIELD_IDS[f]] = getField(FIELD_IDS[f]);
+    }
+    var constraintInputs = document.querySelectorAll('#tab-contraintes .check input');
+    for(var c=0; c<constraintInputs.length; c++){
+      data.constraints.push(constraintInputs[c].checked);
+      if(constraintInputs[c].checked){
+        var label = constraintInputs[c].parentElement ? constraintInputs[c].parentElement.textContent.trim() : '';
+        if(label) data.constraintsLabels.push(label);
+      }
+    }
+    var documentInputs = document.querySelectorAll('#tab-validation .check input');
+    for(var d=0; d<documentInputs.length; d++){
+      data.documents.push(documentInputs[d].checked);
+    }
+    var classRows = document.querySelectorAll('#tb-classes tr');
+    for(var i=0;i<classRows.length;i++){
+      data.classes.push({
+        name: val(classRows[i], 'classe-name'),
+        niveau: val(classRows[i], 'classe-niveau'),
+        profil: val(classRows[i], 'classe-profil'),
+        type: val(classRows[i], 'classe-type'),
+        salle: val(classRows[i], 'classe-salle'),
+        obs: val(classRows[i], 'classe-obs')
+      });
+    }
+    var profRows = document.querySelectorAll('#tb-professeurs tr');
+    for(var p=0;p<profRows.length;p++){
+      data.profs.push({
+        nom: val(profRows[p], 'prof-nom'),
+        mat: val(profRows[p], 'prof-mat'),
+        autres: val(profRows[p], 'prof-autres'),
+        dispo: val(profRows[p], 'prof-dispo'),
+        obs: val(profRows[p], 'prof-obs')
+      });
+    }
+    var affectRows = document.querySelectorAll('#tb-affectations tr');
+    for(var a=0;a<affectRows.length;a++){
+      var heuresEl = affectRows[a].querySelector('.affect-heures');
+      var heuresValue = heuresEl ? heuresEl.value : '';
+      var prof = val(affectRows[a], 'affect-prof');
+      var h = parseFloat(heuresValue);
+      if(isNaN(h)) h = 0;
+      if(prof) data.totals[prof] = (data.totals[prof] || 0) + h;
+      data.affects.push({
+        classe: val(affectRows[a], 'affect-classe'),
+        matiere: val(affectRows[a], 'affect-matiere'),
+        prof: prof,
+        heures: heuresValue,
+        obs: val(affectRows[a], 'affect-obs'),
+        manual: heuresEl ? (heuresEl.dataset.manual === '1') : false
+      });
+    }
+    return data;
+  }
+
+  /* ================= PDF ================= */
+
+  function pdfFallback(){
+    alert('La génération PDF nécessite une connexion internet.\n\nUtilisez "Imprimer / PDF navigateur".');
+    window.print();
+  }
+
+  function loadScript(src, onSuccess, onError){
+    var script = document.createElement('script');
+    script.src = src;
+    script.onload = onSuccess;
+    script.onerror = onError;
+    document.body.appendChild(script);
+  }
+
+  function ensureJsPdf(onSuccess){
+    if(window.jspdf && window.jspdf.jsPDF){
+      try{
+        var testDoc = new window.jspdf.jsPDF();
+        if(typeof testDoc.autoTable === 'function'){ onSuccess(); return; }
+      }catch(e){}
+    }
+    loadScript(
+      'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js',
+      function(){
+        loadScript(
+          'https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js',
+          function(){ setTimeout(onSuccess, 50); },
+          pdfFallback
+        );
+      },
+      pdfFallback
+    );
+  }
+
+  function generatePDF(){
+    if(!validateForm()) return;
+    refreshClassSelects();
+    refreshProfSelects();
+    updateAllAffectHeures();
+    updateProfTotals();
+    ensureJsPdf(function(){
+      try{
+        var JsPDF = window.jspdf.jsPDF;
+        var doc = new JsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+        if(typeof doc.autoTable !== 'function'){ pdfFallback(); return; }
+        var data = collectAllData();
+        var pageWidth = doc.internal.pageSize.getWidth();
+        var pageHeight = doc.internal.pageSize.getHeight();
+        var margin = 8;
+        var y = 12;
+        function ensureSpace(height){ if(y + height > pageHeight - 10){ doc.addPage(); y = 12; } }
+        function normalFont(){ doc.setFont('helvetica', 'normal'); doc.setFontSize(8); doc.setTextColor(0,0,0); }
+        function sectionTitle(title){
+          ensureSpace(12);
+          doc.setFont('helvetica', 'bold'); doc.setFontSize(11); doc.setTextColor(0,133,63);
+          doc.text(title, margin, y); y += 1.8;
+          doc.setDrawColor(0,133,63); doc.setLineWidth(0.3);
+          doc.line(margin, y, pageWidth - margin, y); y += 5;
+        }
+        function addEmpty(text){
+          ensureSpace(6); doc.setFont('helvetica', 'normal'); doc.setFontSize(8); doc.setTextColor(120,120,120);
+          doc.text(text, margin, y); y += 5;
+        }
+        function addTable(head, body, columnStyles){
+          if(!body || body.length === 0) return;
+          ensureSpace(10);
+          doc.autoTable({
+            head: head ? [head] : [], body: body, startY: y,
+            margin: { left: margin, right: margin, top: 12, bottom: 10 },
+            styles: { font: 'helvetica', fontSize: 7, cellPadding: 1.5, overflow: 'linebreak', valign: 'top' },
+            headStyles: { fillColor: [0,133,63], textColor: [255,255,255], fontStyle: 'bold', fontSize: 7 },
+            columnStyles: columnStyles || {}, theme: 'grid'
+          });
+          y = doc.lastAutoTable.finalY + 4;
+          if(y > pageHeight - 12){ doc.addPage(); y = 12; }
+        }
+        function addWrappedLine(text, indent){
+          indent = indent || 0;
+          var width = pageWidth - margin * 2 - indent;
+          var lines = doc.splitTextToSize(text, width);
+          ensureSpace(lines.length * 3.2 + 1);
+          doc.text(lines, margin + indent, y); y += lines.length * 3.2 + 1;
+        }
+        function addObs(items){
+          if(!items || items.length === 0) return;
+          ensureSpace(6); doc.setFont('helvetica', 'bold'); doc.setFontSize(8); doc.setTextColor(0,0,0);
+          doc.text('Observations :', margin, y); y += 3.5; doc.setFont('helvetica', 'normal');
+          for(var i=0;i<items.length;i++) addWrappedLine('- ' + items[i], 3);
+          y += 2;
+        }
+        doc.setFont('helvetica', 'bold'); doc.setFontSize(14); doc.setTextColor(0,133,63);
+        doc.text('FICHE DE COLLECTE DES INFORMATIONS', pageWidth / 2, y, { align: 'center' }); y += 5;
+        doc.setFont('helvetica', 'normal'); doc.setFontSize(9); doc.setTextColor(70,70,70);
+        doc.text('Confection des emplois du temps — CEM & Lycées (Sénégal)', pageWidth / 2, y, { align: 'center' }); y += 8;
+        sectionTitle("1. Identification de l'établissement");
+        var et = data.fields;
+        var etFields = [
+          ["Type d'établissement", et['et-type']], ["Année scolaire", et['et-annee']],
+          ["Nom de l'établissement", et['et-nom']], ["Adresse", et['et-adresse']],
+          ["Ville / Commune", et['et-ville']], ["Téléphone", et['et-tel']],
+          ["Email", et['et-email']], ["Chef d'établissement", et['et-chef']],
+          ["Contact EDT", et['et-contact']], ["Date limite de retour", et['et-delai']]
+        ];
+        var etBody = [];
+        for(var ei=0; ei<etFields.length; ei+=2){
+          var row = [];
+          row.push(etFields[ei][0]); row.push(etFields[ei][1] || '');
+          if(ei + 1 < etFields.length){ row.push(etFields[ei + 1][0]); row.push(etFields[ei + 1][1] || ''); }
+          else{ row.push(''); row.push(''); }
+          etBody.push(row);
+        }
+        addTable(null, etBody, { 0: {cellWidth: 32, fontStyle: 'bold', fillColor: [245,245,245]}, 2: {cellWidth: 32, fontStyle: 'bold', fillColor: [245,245,245]} });
+        sectionTitle('2. Classes');
+        var classes = data.classes.filter(function(c){ return c.name || c.niveau || c.profil || c.type || c.salle || c.obs; });
+        if(classes.length === 0){ addEmpty('Aucune classe renseignée.'); }
+        else{
+          var classBody = [];
+          for(var ci2=0; ci2<classes.length; ci2++){
+            classBody.push([ ci2 + 1, classes[ci2].name, classes[ci2].niveau, classes[ci2].profil, classes[ci2].type, classes[ci2].salle ]);
+          }
+          addTable(['N°', 'Classe', 'Niveau', 'Profil', 'Classe fixe ?', 'Salle attribuée'], classBody, { 0: {cellWidth: 8}, 2: {cellWidth: 18}, 4: {cellWidth: 22, halign: 'center'} });
+          var classObs = [];
+          for(var co=0; co<classes.length; co++){
+            if(classes[co].obs) classObs.push((classes[co].name || ('Classe ' + (co + 1))) + ' : ' + classes[co].obs);
+          }
+          addObs(classObs);
+        }
+        sectionTitle('3. Professeurs');
+        var profs = data.profs.filter(function(p){ return p.nom || p.mat || p.autres || p.dispo || p.obs; });
+        if(profs.length === 0){ addEmpty('Aucun professeur renseigné.'); }
+        else{
+          var profBody = [];
+          for(var pi2=0; pi2<profs.length; pi2++){
+            profBody.push([ pi2 + 1, profs[pi2].nom, profs[pi2].mat, profs[pi2].autres, profs[pi2].dispo ]);
+          }
+          addTable(['N°', 'Nom & prénom', 'Matière principale', 'Autres matières', 'Disponibilité / contraintes'], profBody, { 0: {cellWidth: 8} });
+          var profObs = [];
+          for(var po=0; po<profs.length; po++){
+            if(profs[po].obs) profObs.push((profs[po].nom || ('Professeur ' + (po + 1))) + ' : ' + profs[po].obs);
+          }
+          addObs(profObs);
+        }
+        sectionTitle('4. Affectations');
+        var affects = data.affects.filter(function(a){ return a.classe || a.matiere || a.prof || a.heures || a.obs; });
+        if(affects.length === 0){ addEmpty('Aucune affectation renseignée.'); }
+        else{
+          var pdfTotals = {};
+          for(var t=0; t<affects.length; t++){
+            if(affects[t].prof){
+              var hh = parseFloat(affects[t].heures);
+              if(isNaN(hh)) hh = 0;
+              pdfTotals[affects[t].prof] = (pdfTotals[affects[t].prof] || 0) + hh;
+            }
+          }
+          var affectBody = [];
+          for(var ai=0; ai<affects.length; ai++){
+            var cumul = 0; var cumulText = '';
+            if(affects[ai].prof){ cumul = pdfTotals[affects[ai].prof] || 0; cumulText = formatHours(cumul); }
+            affectBody.push([
+              affects[ai].classe, affects[ai].matiere, affects[ai].prof, affects[ai].heures,
+              { content: cumulText, styles: { textColor: hexToRgb(colorForHours(cumul)), fontStyle: 'bold' } }
+            ]);
+          }
+          addTable(['Classe', 'Matière', 'Professeur', 'Heures', 'Cumul prof'], affectBody, { 3: {cellWidth: 18, halign: 'center'}, 4: {cellWidth: 25, halign: 'center'} });
+          var affObs = [];
+          for(var ao=0; ao<affects.length; ao++){
+            if(affects[ao].obs) affObs.push((affects[ao].classe || ('Affectation ' + (ao + 1))) + ' : ' + affects[ao].obs);
+          }
+          addObs(affObs);
+          var totalKeys = Object.keys(pdfTotals).sort();
+          if(totalKeys.length > 0){
+            ensureSpace(8); doc.setFont('helvetica', 'bold'); doc.setFontSize(8); doc.setTextColor(0,0,0);
+            doc.text('Charge cumulée :', margin, y); y += 4;
+            var totalBody = [];
+            for(var tk=0; tk<totalKeys.length; tk++){
+              var profName = totalKeys[tk]; var totalH = pdfTotals[profName];
+              totalBody.push([
+                profName,
+                { content: formatHours(totalH), styles: { textColor: hexToRgb(colorForHours(totalH)), fontStyle: 'bold' } }
+              ]);
+            }
+            addTable(['Professeur', 'Total'], totalBody, { 1: {cellWidth: 30, halign: 'center'} });
+          }
+        }
+        sectionTitle('5. Contraintes particulières');
+        if(data.constraintsLabels.length === 0 && !data.fields['contrainte-details']){ addEmpty('Aucune contrainte renseignée.'); }
+        else{
+          for(var cc=0; cc<data.constraintsLabels.length; cc++) addWrappedLine('- ' + data.constraintsLabels[cc], 3);
+          if(data.fields['contrainte-details']){
+            y += 2; doc.setFont('helvetica', 'bold'); doc.setFontSize(8); doc.setTextColor(0,0,0);
+            doc.text('Détails :', margin, y); y += 3.5; doc.setFont('helvetica', 'normal');
+            var detailLines = data.fields['contrainte-details'].split(/\r?\n/);
+            for(var dl=0; dl<detailLines.length; dl++){
+              if(detailLines[dl].trim() !== '') addWrappedLine(detailLines[dl], 3);
+            }
+          }
+        }
+        sectionTitle("6. Validation du Chef d'établissement");
+        addTable(null, [
+          ['Nom et prénom', data.fields['val-nom'], 'Fonction', data.fields['val-fonction']],
+          ['Fait à', data.fields['val-lieu'], 'Le', data.fields['val-date']]
+        ], { 0: {cellWidth: 32, fontStyle: 'bold', fillColor: [245,245,245]}, 2: {cellWidth: 32, fontStyle: 'bold', fillColor: [245,245,245]} });
+        ensureSpace(30); doc.setFont('helvetica', 'bold'); doc.setFontSize(8); doc.setTextColor(0,0,0);
+        doc.text('Signature et cachet :', margin, y); y += 5;
+        doc.setDrawColor(150,150,150); doc.setLineWidth(0.3);
+        doc.rect(margin, y, pageWidth - margin * 2, 22); y += 26;
+        normalFont();
+        addWrappedLine("Je soussigné(e), Chef d'établissement, certifie que les informations transmises sont exactes et à jour.");
+        var nom = data.fields['et-nom'] ? data.fields['et-nom'].replace(/[^a-zA-Z0-9_\-]/g, '_') : '';
+        var filename = 'fiche_collecte_EDT' + (nom ? '_' + nom : '') + '.pdf';
+        doc.save(filename);
+      }catch(e){ pdfFallback(); }
+    });
+  }
+
+  /* ================= INITIALISATION ================= */
+
+  function initForm(){
+    initTable('tb-classes','tpl-classes',5);
+    initTable('tb-professeurs','tpl-professeurs',5);
+    initTable('tb-affectations','tpl-affectations',5);
+    updateAllSalleStates();
+    refreshClassSelects();
+    refreshProfSelects();
+    updateAllAffectHeures();
+    updateProfTotals();
+  }
+
+  function init(){
+    var code = getCodeFromUrl();
+    if (code) {
+      document.getElementById('loginCode').value = code;
+      loadFromCloud(code);
+    }
+  }
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', init);
+  }else{
+    init();
+  }
 </script>
+
 </body>
 </html>
